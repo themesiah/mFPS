@@ -1,7 +1,7 @@
 #include "mGL/Renderer.h"
 
 int main() {
-    Renderer r;
+    mGL::Renderer r;
     int result = r.Init();
     if (result != 0) {
         return result;
