@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include <vector>
 #include "Mesh.h"
+#include "Shader.h"
 
 namespace mGL {
 	class Renderer
@@ -20,6 +21,7 @@ namespace mGL {
 		unsigned int _vbo;
 		unsigned int _shaderProgram;
 		std::vector<Mesh> _meshes;
+		Shader _shader;
 	};
 }
 #endif

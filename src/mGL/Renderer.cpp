@@ -112,34 +112,7 @@ namespace mGL {
         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
         glEnableVertexAttribArray(0);
 
-
-        const char* vertex_shader =
-            "#version 400\n"
-            "layout (location = 0) in vec3 vp;" // Location 0 references the first parameter of glVertexAttribPointer
-            "void main() {"
-            "  gl_Position = vec4(vp, 1.0);"
-            "}";
-
-        const char* fragment_shader =
-            "#version 400\n"
-            "out vec4 frag_colour;"
-            "void main() {"
-            "  frag_colour = vec4(0.5, 0.0, 0.0, 1.0);"
-            "}";
-
-        unsigned int vs = glCreateShader(GL_VERTEX_SHADER);
-        glShaderSource(vs, 1, &vertex_shader, NULL);
-        glCompileShader(vs);
-        unsigned int fs = glCreateShader(GL_FRAGMENT_SHADER);
-        glShaderSource(fs, 1, &fragment_shader, NULL);
-        glCompileShader(fs);
-
-        _shaderProgram = glCreateProgram();
-        glAttachShader(_shaderProgram, fs);
-        glAttachShader(_shaderProgram, vs);
-        glLinkProgram(_shaderProgram);
-
-        glUseProgram(_shaderProgram);
+        _shader.Init("Data/Shader/vertexTest.gls", "Data/Shader/pixelTest.gls");
         return 0;
     }
 
@@ -150,7 +123,7 @@ namespace mGL {
             // wipe the drawing surface clear
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-            glUseProgram(_shaderProgram);
+            _shader.Use();
             glBindVertexArray(_vao);
 
             for (int i = 0; i < _meshes.size(); ++i)

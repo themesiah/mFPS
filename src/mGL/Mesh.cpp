@@ -18,4 +18,4 @@ namespace mGL {
 		// draw points 0-3 from the currently bound VAO with current in-use shader
 		glDrawArrays(GL_TRIANGLES, 0, _vertices.size());
 	}
-};
+}

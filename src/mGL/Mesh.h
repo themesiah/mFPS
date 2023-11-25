@@ -11,9 +11,9 @@ namespace mGL
 	{
 	public:
 		Mesh(std::vector<float> vertices);
-		void SetVertices(std::vector<float> vertices);
 		void Render();
 	private:
+		void SetVertices(std::vector<float> vertices);
 		std::vector<float> _vertices;
 	};
 }
