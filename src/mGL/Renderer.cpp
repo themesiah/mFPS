@@ -47,8 +47,8 @@ namespace mGL {
             0.0f, -0.5f, 0.0f // Bottom
         };
 
-        _meshes.push_back(Mesh(points));
-        _meshes.push_back(Mesh(points2));
+        //_meshes.push_back(Mesh(points));
+        //_meshes.push_back(Mesh(points2));
 
         std::vector<float> points3 = {
             // FRONT
@@ -101,13 +101,25 @@ namespace mGL {
         };
         //_meshes.push_back(Mesh(points3));
 
+        std::vector<float> points4 = {
+            0.5f,  0.5f, 0.0f,  // top right
+            0.5f, -0.5f, 0.0f,  // bottom right
+            -0.5f, -0.5f, 0.0f,  // bottom left
+            -0.5f,  0.5f, 0.0f   // top left 
+        };
+        std::vector<int> points4indices = { 0, 1, 3, 1, 2, 3 };
+        _meshes.push_back(Mesh(points4, points4indices));
+
         _vao = 0;
         unsigned int vbo = 0;
+        unsigned int ebo = 0;
         glGenVertexArrays(1, &_vao);
         glGenBuffers(1, &vbo);
+        glGenBuffers(1, &ebo);
 
         glBindVertexArray(_vao);
         glBindBuffer(GL_ARRAY_BUFFER, vbo);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
 
         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
         glEnableVertexAttribArray(0);
