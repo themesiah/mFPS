@@ -1,5 +1,8 @@
 #include "Renderer.h"
 #include <vector>
+#include <glm/glm.hpp>
+#include <glm/gtc/type_ptr.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 
 namespace mGL {
     int Renderer::InitializeRenderer()
@@ -134,6 +137,12 @@ namespace mGL {
             
             // wipe the drawing surface clear
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+            glm::mat4 trans = glm::mat4(1.0f);
+            //trans = glm::translate(trans, glm::vec3(1.0f, 0.0f, 0.0f));
+            trans = glm::rotate(trans, glm::radians(45.0f), glm::vec3(0.0, 0.0, 1.0));
+            unsigned int transformLoc = glGetUniformLocation(mShader.GetProgram(), "transform");
+            glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(trans));
 
             mShader.UseShader();
             glBindVertexArray(mVao);
