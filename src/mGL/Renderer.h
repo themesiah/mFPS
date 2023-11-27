@@ -12,16 +12,14 @@ namespace mGL {
 	class Renderer
 	{
 	public:
-		int Init();
+		int InitializeRenderer();
 		void DoTriangle();
 		void Terminate();
 	private:
 		GLFWwindow* _window;
-		unsigned int _vao;
-		unsigned int _vbo;
-		unsigned int _shaderProgram;
-		std::vector<Mesh> _meshes;
-		Shader _shader;
+		unsigned int mVao;
+		std::vector<Mesh> mMeshes;
+		Shader mShader;
 	};
 }
 #endif

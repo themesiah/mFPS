@@ -10,12 +10,13 @@ namespace mGL
 	public:
 		Shader();
 		Shader(std::string vertexShaderFilePath, std::string pixelShaderFilePath);
-		void Use();
+		void UseShader();
 		void Init(std::string vertexShaderFilePath, std::string pixelShaderFilePath);
+		void Reload();
 	private:
-		std::string _vertexShaderFilePath;
-		std::string _pixelShaderFilePath;
-		unsigned int _shaderProgram;
+		std::string mVertexShaderFilePath;
+		std::string mPixelShaderFilePath;
+		unsigned int mShaderProgram;
 	};	
 }
 

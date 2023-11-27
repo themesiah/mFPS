@@ -2,7 +2,7 @@
 #include <vector>
 
 namespace mGL {
-    int Renderer::Init()
+    int Renderer::InitializeRenderer()
     {
         // start GL context and O/S window using the GLFW helper library
         if (!glfwInit()) {
@@ -108,23 +108,23 @@ namespace mGL {
             -0.5f,  0.5f, 0.0f   // top left 
         };
         std::vector<int> points4indices = { 0, 1, 3, 1, 2, 3 };
-        _meshes.push_back(Mesh(points4, points4indices));
+        mMeshes.push_back(Mesh(points4, points4indices));
 
-        _vao = 0;
+        mVao = 0;
         unsigned int vbo = 0;
         unsigned int ebo = 0;
-        glGenVertexArrays(1, &_vao);
+        glGenVertexArrays(1, &mVao);
         glGenBuffers(1, &vbo);
         glGenBuffers(1, &ebo);
 
-        glBindVertexArray(_vao);
+        glBindVertexArray(mVao);
         glBindBuffer(GL_ARRAY_BUFFER, vbo);
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
 
         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
         glEnableVertexAttribArray(0);
 
-        _shader.Init("Data/Shader/vertexTest.gls", "Data/Shader/pixelTest.gls");
+        mShader.Init("vertexTest.gls", "pixelTest.gls");
         return 0;
     }
 
@@ -135,12 +135,12 @@ namespace mGL {
             // wipe the drawing surface clear
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-            _shader.Use();
-            glBindVertexArray(_vao);
+            mShader.UseShader();
+            glBindVertexArray(mVao);
 
-            for (int i = 0; i < _meshes.size(); ++i)
+            for (int i = 0; i < mMeshes.size(); ++i)
             {
-                _meshes[i].Render();
+                mMeshes[i].Render();
             }
             
             // update other events like input handling 

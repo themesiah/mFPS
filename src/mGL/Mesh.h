@@ -16,9 +16,9 @@ namespace mGL
 	private:
 		void SetVertices(std::vector<float> vertices);
 		void SetIndices(std::vector<int> indices);
-		bool _usingIndices;
-		std::vector<float> _vertices;
-		std::vector<int> _indices;
+		bool mUsingIndices;
+		std::vector<float> mVertices;
+		std::vector<int> mIndices;
 	};
 }
 

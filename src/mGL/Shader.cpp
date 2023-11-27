@@ -9,8 +9,6 @@
 
 namespace mGL
 {
-
-
 	const char* DEFAULT_VERTEX_SHADER =
 		"#version 400\n"
 		"layout (location = 0) in vec3 vp;" // Location 0 references the first parameter of glVertexAttribPointer
@@ -25,7 +23,7 @@ namespace mGL
 		"  frag_colour = vec4(1.0, 0.0, 1.0, 1.0);"
 		"}";
 
-	Shader::Shader()
+	Shader::Shader() : mVertexShaderFilePath(""), mPixelShaderFilePath(""), mShaderProgram(0)
 	{
 
 	}
@@ -37,11 +35,11 @@ namespace mGL
 
 	void Shader::Init(std::string vertexShaderFilePath, std::string pixelShaderFilePath)
 	{
-		_vertexShaderFilePath = vertexShaderFilePath;
-		_pixelShaderFilePath = pixelShaderFilePath;
+		mVertexShaderFilePath = vertexShaderFilePath;
+		mPixelShaderFilePath = pixelShaderFilePath;
 
-		std::ifstream vertexFile(_vertexShaderFilePath);
-		std::ifstream pixelFile(_pixelShaderFilePath);
+		std::ifstream vertexFile("Data/Shader/"+ mVertexShaderFilePath);
+		std::ifstream pixelFile("Data/Shader/"+ mPixelShaderFilePath);
 
 		std::string vertexShader;
 		std::string pixelShader;
@@ -52,7 +50,7 @@ namespace mGL
 		}
 		else
 		{
-			std::cout << "Vertex shader file with path " << _vertexShaderFilePath << " not found. Loading default";
+			std::cout << "Vertex shader file with name " << mVertexShaderFilePath << " not found. Loading default";
 			vertexShader = DEFAULT_VERTEX_SHADER;
 		}
 
@@ -61,7 +59,7 @@ namespace mGL
 			pixelShader = std::string((std::istreambuf_iterator<char>(pixelFile)), std::istreambuf_iterator<char>());
 		}
 		else {
-			std::cout << "Pixel shader file with path " << _pixelShaderFilePath << " not found. Loading default";
+			std::cout << "Pixel shader file with name " << mPixelShaderFilePath << " not found. Loading default";
 			pixelShader = DEFAULT_PIXEL_SHADER;
 		}
 
@@ -75,17 +73,22 @@ namespace mGL
 		glShaderSource(fs, 1, &c_pixelShader, NULL);
 		glCompileShader(fs);
 
-		_shaderProgram = glCreateProgram();
-		glAttachShader(_shaderProgram, fs);
-		glAttachShader(_shaderProgram, vs);
-		glLinkProgram(_shaderProgram);
+		mShaderProgram = glCreateProgram();
+		glAttachShader(mShaderProgram, fs);
+		glAttachShader(mShaderProgram, vs);
+		glLinkProgram(mShaderProgram);
 
 		vertexFile.close();
 		pixelFile.close();
 	}
 
-	void Shader::Use()
+	void Shader::UseShader()
 	{
-		glUseProgram(_shaderProgram);
+		glUseProgram(mShaderProgram);
+	}
+
+	void Shader::Reload()
+	{
+		Init(mVertexShaderFilePath, mPixelShaderFilePath);
 	}
 }

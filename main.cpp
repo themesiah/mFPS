@@ -2,7 +2,7 @@
 
 int main() {
     mGL::Renderer r;
-    int result = r.Init();
+    int result = r.InitializeRenderer();
     if (result != 0) {
         return result;
     }
