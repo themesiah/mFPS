@@ -7,7 +7,7 @@ int main() {
         return result;
     }
 
-    r.DoTriangle();
+    r.Render();
 
     r.Terminate();
     return 0;

@@ -1,7 +1,5 @@
 #include "Renderer.h"
 #include <vector>
-#include <glm/glm.hpp>
-#include <glm/gtc/type_ptr.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
 namespace mGL {
@@ -111,7 +109,8 @@ namespace mGL {
             -0.5f,  0.5f, 0.0f   // top left 
         };
         std::vector<int> points4indices = { 0, 1, 3, 1, 2, 3 };
-        mMeshes.push_back(Mesh(points4, points4indices));
+        std::vector<Mesh> meshes;
+        meshes.push_back(Mesh(points4, points4indices));
 
         mVao = 0;
         unsigned int vbo = 0;
@@ -127,30 +126,26 @@ namespace mGL {
         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
         glEnableVertexAttribArray(0);
 
-        mShader.Init("vertexTest.gls", "pixelTest.gls");
+        Shader shader;
+        shader.Init("vertexTest.gls", "pixelTest.gls");
+
+        mRenderableObject = RenderableObject(meshes);
+        mRenderableObject.SetShader(shader);
+        std::shared_ptr<glm::mat4> matrix = mRenderableObject.GetMatrix();
+        *matrix = glm::rotate(*matrix, glm::radians(45.0f), glm::vec3(0.0, 0.0, 1.0));
         return 0;
     }
 
-    void Renderer::DoTriangle()
+    void Renderer::Render()
     {
         while (!glfwWindowShouldClose(_window)) {
             
             // wipe the drawing surface clear
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-            glm::mat4 trans = glm::mat4(1.0f);
-            //trans = glm::translate(trans, glm::vec3(1.0f, 0.0f, 0.0f));
-            trans = glm::rotate(trans, glm::radians(45.0f), glm::vec3(0.0, 0.0, 1.0));
-            unsigned int transformLoc = glGetUniformLocation(mShader.GetProgram(), "transform");
-            glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(trans));
-
-            mShader.UseShader();
             glBindVertexArray(mVao);
 
-            for (int i = 0; i < mMeshes.size(); ++i)
-            {
-                mMeshes[i].Render();
-            }
+            mRenderableObject.Render();
             
             // update other events like input handling 
             glfwPollEvents();

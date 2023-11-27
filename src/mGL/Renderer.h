@@ -7,19 +7,19 @@
 #include <vector>
 #include "Mesh.h"
 #include "Shader.h"
+#include "RenderableObject.h"
 
 namespace mGL {
 	class Renderer
 	{
 	public:
 		int InitializeRenderer();
-		void DoTriangle();
+		void Render();
 		void Terminate();
 	private:
 		GLFWwindow* _window;
 		unsigned int mVao;
-		std::vector<Mesh> mMeshes;
-		Shader mShader;
+		RenderableObject mRenderableObject;
 	};
 }
 #endif

@@ -13,6 +13,7 @@ namespace mGL
 	class RenderableObject
 	{
 	public:
+		RenderableObject();
 		RenderableObject(std::vector<Mesh> meshes);
 		std::shared_ptr<glm::mat4> GetMatrix();
 		void Render();
