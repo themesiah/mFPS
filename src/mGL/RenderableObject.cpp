@@ -1,20 +1,21 @@
 #include "RenderableObject.h"
-
+#include "Mesh.h"
+#include "Material.h"
 #include <glm/gtc/type_ptr.hpp>
 
 namespace mGL
 {
-	RenderableObject::RenderableObject() : mMeshes(std::vector<Mesh>()), mMatrix(new glm::mat4(1.0f))
+	RenderableObject::RenderableObject() : mMeshes(std::vector<Mesh>()), mMatrix(new glm::mat4(1.0f)), mMaterial(nullptr)
 	{
 	}
 
-	RenderableObject::RenderableObject(std::vector<Mesh> meshes) : mMeshes(meshes), mMatrix(new glm::mat4(1.0f))
+	RenderableObject::RenderableObject(std::vector<Mesh> meshes) : mMeshes(meshes), mMatrix(new glm::mat4(1.0f)), mMaterial(nullptr)
 	{
 	}
 
-	void RenderableObject::SetShader(Shader shader)
+	void RenderableObject::SetMaterial(Material* material)
 	{
-		mShader = shader;
+		mMaterial = std::shared_ptr<Material>(material);
 	}
 
 	std::shared_ptr<glm::mat4> RenderableObject::GetMatrix()
@@ -24,9 +25,8 @@ namespace mGL
 
 	void RenderableObject::Render()
 	{
-		unsigned int transformLoc = glGetUniformLocation(mShader.GetProgram(), "transform");
-		glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(*mMatrix));
-		mShader.UseShader();
+		mMaterial.get()->GetShader()->SetUniformMatrix4fv("transform", *mMatrix.get());
+		mMaterial.get()->Use();
 		for (int i = 0; i < mMeshes.size(); ++i)
 		{
 			mMeshes[i].Render();

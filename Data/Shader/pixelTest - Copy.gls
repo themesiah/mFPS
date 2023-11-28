@@ -1,8 +1,5 @@
 #version 400
 out vec4 frag_colour;
-
-uniform vec4 tint;
-
 void main() {
-	frag_colour = tint;
+	frag_colour = vec4(0.5, 0.0, 0.0, 1.0);
 }

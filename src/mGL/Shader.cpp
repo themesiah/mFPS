@@ -6,6 +6,7 @@
 #include <fstream>
 #include <iostream>
 #include <streambuf>
+#include <glm/gtc/type_ptr.hpp>
 
 namespace mGL
 {
@@ -101,6 +102,18 @@ namespace mGL
 	unsigned int Shader::GetProgram()
 	{
 		return mShaderProgram;
+	}
+
+	void Shader::SetUniform4f(const std::string &locationString, glm::vec4 value) const
+	{
+		int location = glGetUniformLocation(mShaderProgram, locationString.c_str());
+		glUniform4f(location, value[0], value[1], value[2], value[3]);
+	}
+
+	void Shader::SetUniformMatrix4fv(const std::string &locationString, glm::mat4 value) const
+	{
+		int location = glGetUniformLocation(mShaderProgram, locationString.c_str());
+		glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(value));
 	}
 
 	void Shader::CheckCompileErrors(unsigned int shader, std::string type)

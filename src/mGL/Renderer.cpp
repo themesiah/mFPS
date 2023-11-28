@@ -1,6 +1,8 @@
 #include "Renderer.h"
 #include <vector>
 #include <glm/gtc/matrix_transform.hpp>
+#include "Material.h"
+#include "IMaterialParameter.h"
 
 namespace mGL {
     int Renderer::InitializeRenderer()
@@ -126,11 +128,13 @@ namespace mGL {
         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
         glEnableVertexAttribArray(0);
 
-        Shader shader;
-        shader.Init("vertexTest.gls", "pixelTest.gls");
+        Shader* shader = new Shader();
+        shader->Init("vertexTest.gls", "pixelTest.gls");
 
         mRenderableObject = RenderableObject(meshes);
-        mRenderableObject.SetShader(shader);
+        Material* material = new Material(shader);
+        material->AddParameter(new MaterialColorParameter(0.0f, 0.0f, 1.0f, 1.0f));
+        mRenderableObject.SetMaterial(material);
         std::shared_ptr<glm::mat4> matrix = mRenderableObject.GetMatrix();
         *matrix = glm::rotate(*matrix, glm::radians(45.0f), glm::vec3(0.0, 0.0, 1.0));
         return 0;
