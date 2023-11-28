@@ -25,7 +25,7 @@ namespace mGL
 		mUsingIndices = true;
 	}
 
-	void Mesh::Render()
+	void Mesh::Render() const
 	{
 		glBufferData(GL_ARRAY_BUFFER, mVertices.size() * sizeof(float), &mVertices[0], GL_STATIC_DRAW);
 		// draw points 0-3 from the currently bound VAO with current in-use shader

@@ -15,7 +15,7 @@ namespace mGL
 		}
 	}
 
-	void Material::Use()
+	void Material::Use() const
 	{
 		for (int i = 0; i < mParameters.size(); ++i)
 		{
@@ -29,7 +29,7 @@ namespace mGL
 		mParameters.push_back(parameter);
 	}
 
-	Shader* Material::GetShader()
+	Shader* Material::GetShader() const
 	{
 		return mShader.get();
 	}

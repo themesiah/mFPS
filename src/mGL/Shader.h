@@ -12,9 +12,9 @@ namespace mGL
 		Shader();
 		Shader(std::string vertexShaderFilePath, std::string pixelShaderFilePath);
 		void UseShader();
-		void Init(std::string vertexShaderFilePath, std::string pixelShaderFilePath);
+		void Init(const std::string &vertexShaderFilePath, const std::string &pixelShaderFilePath);
 		void Reload();
-		unsigned int GetProgram();
+		unsigned int GetProgram() const;
 		void SetUniform4f(const std::string &locationString, glm::vec4 value) const;
 		void SetUniformMatrix4fv(const std::string &locationString, glm::mat4 value) const;
 	private:

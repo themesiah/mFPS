@@ -12,7 +12,7 @@ namespace mGL
 	public:
 		Mesh(std::vector<float> vertices);
 		Mesh(std::vector<float> vertices, std::vector<int> indices);
-		void Render();
+		void Render() const;
 	private:
 		void SetVertices(std::vector<float> vertices);
 		void SetIndices(std::vector<int> indices);

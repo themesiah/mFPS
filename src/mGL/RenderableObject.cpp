@@ -18,7 +18,7 @@ namespace mGL
 		mMaterial = std::shared_ptr<Material>(material);
 	}
 
-	std::shared_ptr<glm::mat4> RenderableObject::GetMatrix()
+	std::shared_ptr<glm::mat4> RenderableObject::GetMatrix() const
 	{
 		return mMatrix;
 	}

@@ -34,7 +34,7 @@ namespace mGL
 		Init(vertexShaderFilePath, pixelShaderFilePath);
 	}
 
-	void Shader::Init(std::string vertexShaderFilePath, std::string pixelShaderFilePath)
+	void Shader::Init(const std::string &vertexShaderFilePath, const std::string &pixelShaderFilePath)
 	{
 		mVertexShaderFilePath = vertexShaderFilePath;
 		mPixelShaderFilePath = pixelShaderFilePath;
@@ -99,7 +99,7 @@ namespace mGL
 		Init(mVertexShaderFilePath, mPixelShaderFilePath);
 	}
 
-	unsigned int Shader::GetProgram()
+	unsigned int Shader::GetProgram() const
 	{
 		return mShaderProgram;
 	}

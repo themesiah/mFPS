@@ -16,7 +16,7 @@ namespace mGL
 	public:
 		RenderableObject();
 		RenderableObject(std::vector<Mesh> meshes);
-		std::shared_ptr<glm::mat4> GetMatrix();
+		std::shared_ptr<glm::mat4> GetMatrix() const;
 		void Render();
 		void SetMaterial(Material* material);
 	private:

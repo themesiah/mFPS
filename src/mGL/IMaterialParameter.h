@@ -9,7 +9,7 @@ namespace mGL
 	class IMaterialParameter
 	{
 	public:
-		virtual void Bind(Shader* shader) = 0;
+		virtual void Bind(Shader* shader) const = 0;
 	};
 
 	class MaterialColorParameter : public IMaterialParameter
@@ -18,7 +18,7 @@ namespace mGL
 		MaterialColorParameter();
 		MaterialColorParameter(glm::vec4 color);
 		MaterialColorParameter(float r, float g, float b, float a);
-		void Bind(Shader* shader);
+		void Bind(Shader* shader) const;
 	private:
 		glm::vec4 mColor;
 	};

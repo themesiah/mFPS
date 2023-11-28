@@ -15,9 +15,9 @@ namespace mGL
 		Material();
 		Material(Shader* shader);
 		~Material();
-		void Use();
+		void Use() const;
 		void AddParameter(IMaterialParameter* parameter);
-		Shader* GetShader();
+		Shader* GetShader() const;
 	private:
 		std::shared_ptr<Shader> mShader;
 		std::vector<IMaterialParameter*> mParameters;
