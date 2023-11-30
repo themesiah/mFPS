@@ -89,7 +89,7 @@ namespace mGL
 		pixelFile.close();
 	}
 
-	void Shader::UseShader()
+	void Shader::UseShader() const
 	{
 		glUseProgram(mShaderProgram);
 	}
@@ -106,14 +106,23 @@ namespace mGL
 
 	void Shader::SetUniform4f(const std::string &locationString, glm::vec4 value) const
 	{
+		UseShader();
 		int location = glGetUniformLocation(mShaderProgram, locationString.c_str());
 		glUniform4f(location, value[0], value[1], value[2], value[3]);
 	}
 
 	void Shader::SetUniformMatrix4fv(const std::string &locationString, glm::mat4 value) const
 	{
+		UseShader();
 		int location = glGetUniformLocation(mShaderProgram, locationString.c_str());
 		glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(value));
+	}
+
+	void Shader::SetUniform1i(const std::string& locationString, int value) const
+	{
+		UseShader();
+		int location = glGetUniformLocation(mShaderProgram, locationString.c_str());
+		glUniform1i(location, value);
 	}
 
 	void Shader::CheckCompileErrors(unsigned int shader, std::string type)

@@ -8,6 +8,7 @@
 #include "Mesh.h"
 #include "Shader.h"
 #include "RenderableObject.h"
+#include "Texture.h"
 
 namespace mGL {
 	class Renderer
@@ -20,6 +21,7 @@ namespace mGL {
 		GLFWwindow* _window;
 		unsigned int mVao;
 		RenderableObject mRenderableObject;
+		Texture tex;
 	};
 }
 #endif

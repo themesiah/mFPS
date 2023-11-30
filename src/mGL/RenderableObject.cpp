@@ -25,8 +25,9 @@ namespace mGL
 
 	void RenderableObject::Render()
 	{
-		mMaterial.get()->GetShader()->SetUniformMatrix4fv("transform", *mMatrix.get());
 		mMaterial.get()->Use();
+		mMaterial.get()->GetShader()->SetUniform1i("albedo", 0);
+		mMaterial.get()->GetShader()->SetUniformMatrix4fv("transform", *mMatrix.get());
 		for (int i = 0; i < mMeshes.size(); ++i)
 		{
 			mMeshes[i].Render();
