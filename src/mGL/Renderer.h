@@ -21,7 +21,6 @@ namespace mGL {
 		GLFWwindow* _window;
 		unsigned int mVao;
 		RenderableObject mRenderableObject;
-		Texture tex;
 	};
 }
 #endif
