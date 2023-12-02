@@ -19,7 +19,6 @@ namespace mGL {
 		void Terminate();
 	private:
 		GLFWwindow* _window;
-		unsigned int mVao;
 		RenderableObject mRenderableObject;
 	};
 }

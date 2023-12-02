@@ -7,18 +7,18 @@
 
 namespace mGL
 {
+	struct Vertex;
 	class Mesh
 	{
 	public:
-		Mesh(std::vector<float> vertices);
-		Mesh(std::vector<float> vertices, std::vector<int> indices);
+		Mesh(std::vector<Vertex> vertices, std::vector<unsigned short> indices);
 		void Render() const;
+		void SetupMesh(std::vector<Vertex> vertices, std::vector<unsigned short> indices);
 	private:
-		void SetVertices(std::vector<float> vertices);
-		void SetIndices(std::vector<int> indices);
-		bool mUsingIndices;
-		std::vector<float> mVertices;
-		std::vector<int> mIndices;
+		unsigned int mVAO;
+		unsigned int mVBO;
+		unsigned int mEBO;
+		unsigned int mIndicesSize;
 	};
 }
 

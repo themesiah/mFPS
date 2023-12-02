@@ -1,40 +1,39 @@
 #include "Mesh.h"
+#include "Vertex.h"
 
 namespace mGL
-{
-
-	Mesh::Mesh(std::vector<float> vertices)
+{	
+	Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned short> indices)
 	{
-		mUsingIndices = false;
-		SetVertices(vertices);
+		mIndicesSize = indices.size();
+		SetupMesh(vertices, indices);
 	}
 
-	Mesh::Mesh(std::vector<float> vertices, std::vector<int> indices) : Mesh(vertices)
+	void Mesh::SetupMesh(std::vector<Vertex> vertices, std::vector<unsigned short> indices)
 	{
-		SetIndices(indices);
-	}
+		glGenVertexArrays(1, &mVAO);
+		glGenBuffers(1, &mVBO);
+		glGenBuffers(1, &mEBO);
 
-	void Mesh::SetVertices(std::vector<float> vertices)
-	{
-		mVertices = vertices;
-	}
+		glBindVertexArray(mVAO);
+		glBindBuffer(GL_ARRAY_BUFFER, mVBO); // position vertex buffer object
+		glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), &vertices[0], GL_STATIC_DRAW);
 
-	void Mesh::SetIndices(std::vector<int> indices)
-	{
-		mIndices = indices;
-		mUsingIndices = true;
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mEBO); // position element buffer object
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned short), &indices[0], GL_STATIC_DRAW);
+
+		glEnableVertexAttribArray(0);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0); // Vertex position
+		glEnableVertexAttribArray(1);
+		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)(3 * sizeof(float))); // UVs
+
+		glBindVertexArray(0);
 	}
 
 	void Mesh::Render() const
 	{
-		glBufferData(GL_ARRAY_BUFFER, mVertices.size() * sizeof(float), &mVertices[0], GL_STATIC_DRAW);
-		// draw points 0-3 from the currently bound VAO with current in-use shader
-		if (mUsingIndices) {
-			glBufferData(GL_ELEMENT_ARRAY_BUFFER, mIndices.size() * sizeof(int), &mIndices[0], GL_STATIC_DRAW);
-			glDrawElements(GL_TRIANGLES, mIndices.size(), GL_UNSIGNED_INT, 0);
-		}
-		else {
-			glDrawArrays(GL_TRIANGLES, 0, mVertices.size());
-		}
+		glBindVertexArray(mVAO);
+		glDrawElements(GL_TRIANGLES, mIndicesSize, GL_UNSIGNED_SHORT, 0);
+		glBindVertexArray(0);
 	}
 }
