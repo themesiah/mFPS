@@ -15,6 +15,7 @@ namespace mGL
 
 	Texture::~Texture()
 	{
+		glDeleteTextures(1, &mTextureId);
 	}
 
 	void Texture::Load(const std::string& path)
