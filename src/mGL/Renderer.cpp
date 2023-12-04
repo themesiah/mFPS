@@ -5,6 +5,7 @@
 #include "MaterialColorParameter.h"
 #include "MaterialTextureParameter.h"
 #include "Vertex.h"
+#include "MeshFactory.h"
 
 namespace mGL {
     int Renderer::InitializeRenderer()
@@ -77,7 +78,10 @@ namespace mGL {
             Vertex{glm::vec3(0.5f, -0.5f, 0.5f),          glm::vec2(0.0f, 0.0f)},    // BOTTOM LEFT
         };
         std::vector<unsigned short> cubeIndices = { 0,1,2,2,3,0,4,5,6,6,7,4,8,9,10,10,11,8,12,13,14,14,15,12,16,17,18,18,19,16,20,21,22,22,23,20 };
-        meshes.push_back(Mesh(cube, cubeIndices));
+        //meshes.push_back(Mesh(cube, cubeIndices));
+
+        Mesh mesh = MeshFactory::LoadMesh("Square.obj");
+        meshes.push_back(mesh);
 
         Shader* shader = new Shader();
         shader->Init("vertexTest.gls", "pixelTest.gls");

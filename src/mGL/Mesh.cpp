@@ -3,6 +3,8 @@
 
 namespace mGL
 {	
+	Mesh::Mesh() : mIndicesSize(0), mVAO(0){}
+
 	Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned short> indices)
 	{
 		mIndicesSize = indices.size();
@@ -32,8 +34,10 @@ namespace mGL
 
 	void Mesh::Render() const
 	{
-		glBindVertexArray(mVAO);
-		glDrawElements(GL_TRIANGLES, mIndicesSize, GL_UNSIGNED_SHORT, 0);
-		glBindVertexArray(0);
+		if (mVAO != 0) {
+			glBindVertexArray(mVAO);
+			glDrawElements(GL_TRIANGLES, mIndicesSize, GL_UNSIGNED_SHORT, 0);
+			glBindVertexArray(0);
+		}
 	}
 }

@@ -45,6 +45,9 @@
     <ClCompile Include="MaterialTextureParameter.cpp">
       <Filter>Source Files\MaterialParameters</Filter>
     </ClCompile>
+    <ClCompile Include="MeshFactory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Renderer.h">
@@ -78,6 +81,9 @@
       <Filter>Header Files\MaterialParameters</Filter>
     </ClInclude>
     <ClInclude Include="Vertex.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshFactory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

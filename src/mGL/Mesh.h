@@ -11,6 +11,7 @@ namespace mGL
 	class Mesh
 	{
 	public:
+		Mesh();
 		Mesh(std::vector<Vertex> vertices, std::vector<unsigned short> indices);
 		void Render() const;
 		void SetupMesh(std::vector<Vertex> vertices, std::vector<unsigned short> indices);

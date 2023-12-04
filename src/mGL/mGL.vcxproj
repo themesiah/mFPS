@@ -23,6 +23,7 @@
     <ClCompile Include="MaterialColorParameter.cpp" />
     <ClCompile Include="MaterialTextureParameter.cpp" />
     <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="MeshFactory.cpp" />
     <ClCompile Include="RenderableObject.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Shader.cpp" />
@@ -34,6 +35,7 @@
     <ClInclude Include="MaterialColorParameter.h" />
     <ClInclude Include="MaterialTextureParameter.h" />
     <ClInclude Include="Mesh.h" />
+    <ClInclude Include="MeshFactory.h" />
     <ClInclude Include="RenderableObject.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Shader.h" />
@@ -143,7 +145,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>C:\Proyectos\mFPS\Dependencies\glfw-3.3.8.bin.WIN64\include;C:\Proyectos\mFPS\Dependencies\glew-2.2.0\include;C:\Proyectos\mFPS\Dependencies\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Proyectos\mFPS\src;C:\Proyectos\mFPS\Dependencies\glfw-3.3.8.bin.WIN64\include;C:\Proyectos\mFPS\Dependencies\glew-2.2.0\include;C:\Proyectos\mFPS\Dependencies\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -167,7 +169,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>C:\Proyectos\mFPS\Dependencies\glfw-3.3.8.bin.WIN64\include;C:\Proyectos\mFPS\Dependencies\glew-2.2.0\include;C:\Proyectos\mFPS\Dependencies\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Proyectos\mFPS\src;C:\Proyectos\mFPS\Dependencies\glfw-3.3.8.bin.WIN64\include;C:\Proyectos\mFPS\Dependencies\glew-2.2.0\include;C:\Proyectos\mFPS\Dependencies\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>
