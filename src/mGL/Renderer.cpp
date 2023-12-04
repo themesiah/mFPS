@@ -83,14 +83,7 @@ namespace mGL {
         Mesh mesh = MeshFactory::LoadMesh("Square.obj");
         meshes.push_back(mesh);
 
-        Shader* shader = new Shader();
-        shader->Init("vertexTest.gls", "pixelTest.gls");
-
         mRenderableObject = RenderableObject(meshes);
-        Material* material = new Material(shader);
-        material->AddParameter(new MaterialColorParameter(1.0f, 1.0f, 1.0f, 1.0f));
-        material->AddParameter(new MaterialTextureParameter(TextureType::Albedo, new Texture("wall.jpg")));
-        mRenderableObject.SetMaterial(material);
         std::shared_ptr<glm::mat4> matrix = mRenderableObject.GetMatrix();
         *matrix = glm::rotate(*matrix, glm::radians(45.0f), glm::vec3(0.0, 0.0, 1.0));
         *matrix = glm::rotate(*matrix, glm::radians(45.0f), glm::vec3(0.0, 1.0, 0.0));

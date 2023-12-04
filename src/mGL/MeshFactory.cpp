@@ -8,6 +8,10 @@
 #include "MeshFactory.h"
 #include "mBase/StringUtils.h"
 #include "Vertex.h"
+#include "Material.h"
+#include "MaterialColorParameter.h"
+#include "MaterialTextureParameter.h"
+#include "Texture.h"
 
 namespace mGL
 {
@@ -90,8 +94,21 @@ namespace mGL
 			}
 		}
 
+		Material* m = LoadMaterial("");
+
 		Mesh mesh = Mesh(vertexs, indices);
+		mesh.SetMaterial(m);
 		return mesh;
+	}
+
+	Material* MeshFactory::LoadMaterial(const std::string& path)
+	{
+		Shader* shader = new Shader();
+		shader->Init("vertexTest.gls", "pixelTest.gls");
+		Material* m = new Material(shader);
+		m->AddParameter(new MaterialColorParameter(1.0f, 1.0f, 1.0f, 1.0f));
+		m->AddParameter(new MaterialTextureParameter(TextureType::Albedo, new Texture("wall.jpg")));
+		return m;
 	}
 
 	void MeshFactory::Log(const std::string& logMessage)

@@ -10,7 +10,6 @@
 namespace mGL
 {
 	class Mesh;
-	class Material;
 	class RenderableObject
 	{
 	public:
@@ -18,11 +17,9 @@ namespace mGL
 		RenderableObject(std::vector<Mesh> meshes);
 		std::shared_ptr<glm::mat4> GetMatrix() const;
 		void Render();
-		void SetMaterial(Material* material);
 	private:
 		std::vector<Mesh> mMeshes;
 		std::shared_ptr<glm::mat4> mMatrix;
-		std::shared_ptr<Material> mMaterial;
 	};
 };
 

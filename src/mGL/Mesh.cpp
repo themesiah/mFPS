@@ -1,11 +1,12 @@
 #include "Mesh.h"
 #include "Vertex.h"
+#include "Material.h"
 
 namespace mGL
 {	
-	Mesh::Mesh() : mIndicesSize(0), mVAO(0){}
+	Mesh::Mesh() : mIndicesSize(0), mVAO(0), mEBO(0), mVBO(0), mMaterial(nullptr) {}
 
-	Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned short> indices)
+	Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned short> indices) : mMaterial(nullptr)
 	{
 		mIndicesSize = indices.size();
 		SetupMesh(vertices, indices);
@@ -32,9 +33,16 @@ namespace mGL
 		glBindVertexArray(0);
 	}
 
-	void Mesh::Render() const
+	void Mesh::SetMaterial(Material* material)
+	{
+		mMaterial = std::shared_ptr<Material>(material);
+	}
+
+	void Mesh::Render(glm::mat4 *matrix) const
 	{
 		if (mVAO != 0) {
+			mMaterial.get()->Use();
+			mMaterial.get()->GetShader()->SetUniformMatrix4fv("transform", *matrix);
 			glBindVertexArray(mVAO);
 			glDrawElements(GL_TRIANGLES, mIndicesSize, GL_UNSIGNED_SHORT, 0);
 			glBindVertexArray(0);
