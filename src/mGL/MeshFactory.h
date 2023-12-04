@@ -2,16 +2,18 @@
 #define MGL_MESH_FACTORY
 
 #include <string>
+#include <unordered_map>
 
 namespace mGL
 {
-	class Mesh;
+	class RenderableObject;
 	class Material;
 	static class MeshFactory
 	{
 	public:
-		static Mesh LoadMesh(const std::string& path);
-		static Material* LoadMaterial(const std::string& path);
+		static RenderableObject* LoadObj(const std::string& path);
+	private:
+		static std::unordered_map<std::string, Material*> LoadMaterials(const std::string& path);
 		static void Log(const std::string& path);
 	};
 }

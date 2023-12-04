@@ -5,6 +5,7 @@
 #include <GLFW/glfw3.h> // GLFW helper library
 #include <stdio.h>
 #include <vector>
+#include <memory>
 #include "Mesh.h"
 #include "Shader.h"
 #include "RenderableObject.h"
@@ -19,7 +20,7 @@ namespace mGL {
 		void Terminate();
 	private:
 		GLFWwindow* _window;
-		RenderableObject mRenderableObject;
+		std::shared_ptr<RenderableObject> mRenderableObject;
 	};
 }
 #endif

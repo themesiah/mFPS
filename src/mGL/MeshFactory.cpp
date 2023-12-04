@@ -4,6 +4,7 @@
 #include <unordered_map>
 
 #include "glm/glm.hpp"
+#include "RenderableObject.h"
 #include "Mesh.h"
 #include "MeshFactory.h"
 #include "mBase/StringUtils.h"
@@ -15,19 +16,19 @@
 
 namespace mGL
 {
-	Mesh MeshFactory::LoadMesh(const std::string& path)
+	RenderableObject* MeshFactory::LoadObj(const std::string& path)
 	{
 		if (path.substr(path.size() - 4, 4) != ".obj")
-			return Mesh();
+			return nullptr;
 
 
 		std::string fullPath = "Data/Meshes/" + path;
-		Log("Trying to open file on path " + fullPath);
+		Log("Trying to open obj file on path " + fullPath);
 		std::ifstream file = std::ifstream(fullPath);
 		if (!file.is_open())
 		{
 			Log("File not found");
-			return Mesh();
+			return nullptr;
 		}
 		Log("File opened");
 
@@ -38,12 +39,19 @@ namespace mGL
 		std::vector<Vertex> vertexs;
 		std::vector<unsigned short> indices;
 		std::unordered_map<Vertex, unsigned short> indicesMap = std::unordered_map<Vertex, unsigned short>();
+		std::unordered_map<std::string, Material*> materialMap;
+		Material* currentMaterial = nullptr;
+		std::vector<Mesh> meshes = std::vector<Mesh>();
 		unsigned short indexCount = 0;
 		while (std::getline(file, line))
 		{
-			//Log(line);
+			if (line.substr(0,1) == "#") continue;
 			std::string firstToken = mBase::Strings::FirstToken(line);
-			if (firstToken == "v")
+			if (firstToken == "mtllib")
+			{
+				materialMap = LoadMaterials(mBase::Strings::Tail(line));
+			}
+			else if (firstToken == "v")
 			{
 				std::vector<std::string> splitted;
 				mBase::Strings::Split(mBase::Strings::Tail(line), splitted, " ");
@@ -63,6 +71,26 @@ namespace mGL
 				mBase::Strings::Split(mBase::Strings::Tail(line), splitted, " ");
 				glm::vec2 uv = glm::vec2(std::stof(splitted[0]), std::stof(splitted[1]));
 				uvs.push_back(uv);
+			}
+			else if (firstToken == "usemtl")
+			{
+				if (currentMaterial != nullptr) {
+					Mesh mesh = Mesh(vertexs, indices);
+					mesh.SetMaterial(currentMaterial);
+					meshes.push_back(mesh);
+				}
+
+				indicesMap.clear();
+				indices.clear();
+				vertexs.clear();
+				indexCount = 0;
+				currentMaterial = nullptr;
+
+				std::string matName = mBase::Strings::Tail(line);
+				if (materialMap.find(matName) != materialMap.end())
+				{
+					currentMaterial = materialMap[matName];
+				}
 			}
 			else if (firstToken == "f")
 			{
@@ -93,22 +121,58 @@ namespace mGL
 				}
 			}
 		}
+		if (currentMaterial != nullptr) { // There is no indicator of EOF, so on the end we use all data for the last material configured
+			Mesh mesh = Mesh(vertexs, indices);
+			mesh.SetMaterial(currentMaterial);
+			meshes.push_back(mesh);
+		}
 
-		Material* m = LoadMaterial("");
-
-		Mesh mesh = Mesh(vertexs, indices);
-		mesh.SetMaterial(m);
-		return mesh;
+		RenderableObject* ro = new RenderableObject(meshes);
+		return ro;
 	}
 
-	Material* MeshFactory::LoadMaterial(const std::string& path)
+	std::unordered_map<std::string, Material*> MeshFactory::LoadMaterials(const std::string& path)
 	{
-		Shader* shader = new Shader();
-		shader->Init("vertexTest.gls", "pixelTest.gls");
-		Material* m = new Material(shader);
-		m->AddParameter(new MaterialColorParameter(1.0f, 1.0f, 1.0f, 1.0f));
-		m->AddParameter(new MaterialTextureParameter(TextureType::Albedo, new Texture("wall.jpg")));
-		return m;
+		std::unordered_map<std::string, Material*> map = std::unordered_map<std::string, Material*>();
+		std::string fullPath = "Data/Material/" + path;
+		Log("Trying to open material file on path " + fullPath);
+		std::ifstream file = std::ifstream(fullPath);
+		if (!file.is_open())
+		{
+			Log("File not found");
+			return map;
+		}
+		Log("File opened");
+		std::string line;
+		Material* currentMaterial = nullptr;
+		while (std::getline(file, line))
+		{
+			std::string firstToken = mBase::Strings::FirstToken(line);
+			if (firstToken == "newmtl") // Create new material
+			{
+				Shader* shader = new Shader();
+				shader->Init("vertexTest.gls", "pixelTest.gls");
+				currentMaterial = new Material(shader);
+				std::string matName = mBase::Strings::Tail(line);
+				map[matName] = currentMaterial;
+			}
+			else if (firstToken == "Kd") // Diffuse color
+			{
+				if (currentMaterial == nullptr) continue;
+				std::vector<std::string> splitted;
+				mBase::Strings::Split(mBase::Strings::Tail(line), splitted, " ");
+				float r = std::stof(splitted[0]);
+				float g = std::stof(splitted[1]);
+				float b = std::stof(splitted[2]);
+				currentMaterial->AddParameter(new MaterialColorParameter(r, g, b, 1.0f));
+			}
+			else if (firstToken == "map_Kd") // Diffuse texture
+			{
+				if (currentMaterial == nullptr) continue;
+				currentMaterial->AddParameter(new MaterialTextureParameter(TextureType::Albedo, new Texture(mBase::Strings::Tail(line))));
+			}
+		}
+		return map;
 	}
 
 	void MeshFactory::Log(const std::string& logMessage)

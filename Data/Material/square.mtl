@@ -1,0 +1,8 @@
+newmtl square1
+Kd 0 1 0
+map_Kd wall.jpg
+
+newmtl square2
+Kd 1 0 0
+map_Kd wall.jpg
+
