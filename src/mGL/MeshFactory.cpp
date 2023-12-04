@@ -1,6 +1,7 @@
 #include <vector>
 #include <iostream>
 #include <fstream>
+#include <unordered_map>
 
 #include "glm/glm.hpp"
 #include "Mesh.h"
@@ -32,6 +33,7 @@ namespace mGL
 		std::vector<glm::vec3> normals;
 		std::vector<Vertex> vertexs;
 		std::vector<unsigned short> indices;
+		std::unordered_map<Vertex, unsigned short> indicesMap = std::unordered_map<Vertex, unsigned short>();
 		unsigned short indexCount = 0;
 		while (std::getline(file, line))
 		{
@@ -72,9 +74,18 @@ namespace mGL
 					Vertex v = Vertex();
 					v.Position = positions[positionIndex - 1];
 					v.Uvs = uvs[uvIndex - 1];
-					vertexs.push_back(v);
-					indices.push_back(indexCount); // TODO
-					indexCount++;
+					if (indicesMap.find(v) != indicesMap.end())
+					{
+						// Exists!
+						indices.push_back(indicesMap[v]);
+					}
+					else {
+						// Not exists. Create new one
+						vertexs.push_back(v);
+						indicesMap[v] = indexCount;
+						indices.push_back(indexCount);
+						indexCount++;
+					}
 				}
 			}
 		}
