@@ -126,7 +126,7 @@ namespace mGL
 			mesh.SetMaterial(currentMaterial);
 			meshes.push_back(mesh);
 		}
-
+		file.close();
 		RenderableObject* ro = new RenderableObject(meshes);
 		return ro;
 	}
@@ -147,6 +147,7 @@ namespace mGL
 		Material* currentMaterial = nullptr;
 		while (std::getline(file, line))
 		{
+			if (line.substr(0, 1) == "#") continue;
 			std::string firstToken = mBase::Strings::FirstToken(line);
 			if (firstToken == "newmtl") // Create new material
 			{
@@ -172,6 +173,7 @@ namespace mGL
 				currentMaterial->AddParameter(new MaterialTextureParameter(TextureType::Albedo, new Texture(mBase::Strings::Tail(line))));
 			}
 		}
+		file.close();
 		return map;
 	}
 
