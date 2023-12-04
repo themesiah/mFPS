@@ -6,10 +6,7 @@
 #include <stdio.h>
 #include <vector>
 #include <memory>
-#include "Mesh.h"
-#include "Shader.h"
 #include "RenderableObject.h"
-#include "Texture.h"
 
 namespace mGL {
 	class Renderer

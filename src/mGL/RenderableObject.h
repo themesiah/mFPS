@@ -6,10 +6,11 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <memory>
 
+#include "Mesh.h"
+
 
 namespace mGL
 {
-	class Mesh;
 	class RenderableObject
 	{
 	public:

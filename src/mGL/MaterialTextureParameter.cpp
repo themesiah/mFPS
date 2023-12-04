@@ -25,7 +25,7 @@ namespace mGL
 			glActiveTexture(GL_TEXTURE1);
 			break;
 		}
-
+		shader->SetUniform1i("use_albedo_texture", true);
 		mTexture->Use();
 	}
 }

@@ -1,0 +1,22 @@
+#version 400
+out vec4 frag_color;
+
+uniform bool use_albedo_texture;
+uniform bool use_tint;
+
+in vec2 TexCoord;
+
+uniform vec4 tint;
+uniform sampler2D albedo;
+
+void main() {
+	frag_color = vec4(1.0, 1.0, 1.0, 1.0);
+	if (use_tint == true)
+	{
+		frag_color = frag_color * tint;
+	}
+	if (use_albedo_texture == true)
+	{
+		frag_color = frag_color * texture(albedo, TexCoord);
+	}
+}

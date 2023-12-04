@@ -151,7 +151,7 @@ namespace mGL
 			if (firstToken == "newmtl") // Create new material
 			{
 				Shader* shader = new Shader();
-				shader->Init("vertexTest.gls", "pixelTest.gls");
+				shader->Init("VertexUberShader.gls", "PixelUberShader.gls");
 				currentMaterial = new Material(shader);
 				std::string matName = mBase::Strings::Tail(line);
 				map[matName] = currentMaterial;

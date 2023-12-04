@@ -10,5 +10,6 @@ namespace mGL
 	void MaterialColorParameter::Bind(Shader* shader) const
 	{
 		shader->SetUniform4f("tint", mColor);
+		shader->SetUniform1i("use_tint", true);
 	}
 }
