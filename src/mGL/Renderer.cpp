@@ -2,17 +2,21 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include "Vertex.h"
 #include "MeshFactory.h"
+#include "CameraBase.h"
 
 namespace mGL {
     int Renderer::InitializeRenderer()
     {
+        int width = 640;
+        int height = 480;
+
         // start GL context and O/S window using the GLFW helper library
         if (!glfwInit()) {
             fprintf(stderr, "ERROR: could not start GLFW3\n");
             return 1;
         }
 
-        _window = glfwCreateWindow(640, 480, "KLK", NULL, NULL);
+        _window = glfwCreateWindow(width, height, "mFPS", NULL, NULL);
         if (!_window) {
             fprintf(stderr, "ERROR: could not open window with GLFW3\n");
             glfwTerminate();
@@ -82,8 +86,13 @@ namespace mGL {
         //*matrix = glm::rotate(*matrix, glm::radians(45.0f), glm::vec3(0.0, 0.0, 1.0));
         //*matrix = glm::rotate(*matrix, glm::radians(45.0f), glm::vec3(0.0, 1.0, 0.0));
         //*matrix = glm::rotate(*matrix, glm::radians(15.0f), glm::vec3(1.0, 1.0, 0.0));
-        *matrix = glm::rotate(*matrix, glm::radians(-45.0f), glm::vec3(1.0, 0.0, 0.0));
+        //*matrix = glm::rotate(*matrix, glm::radians(-45.0f), glm::vec3(1.0, 0.0, 0.0));
         *matrix = glm::translate(*matrix, glm::vec3(0.0f, -1.0f, 0.0f));
+
+        mCamera = std::shared_ptr<CameraBase>(new CameraBase());
+        mCamera->SetProjection(glm::perspective(glm::radians(75.0f), (float)width/(float)height, 0.1f, 100.0f));
+        //mCamera->SetPosition(glm::vec3(0.0f, 10.0f, 0.0f));
+
         return 0;
     }
 
@@ -94,10 +103,22 @@ namespace mGL {
             // wipe the drawing surface clear
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-            std::shared_ptr<glm::mat4> matrix = mRenderableObject->GetMatrix();
-            *matrix = glm::rotate(*matrix, 0.05f, glm::vec3(0.0f, 1.0f, 0.0f));
+            // TEMP: Move camera around
+            const float radius = 2.0f;
+            float camX = sin(glfwGetTime()) * radius;
+            float camZ = cos(glfwGetTime()) * radius;
+            mCamera->SetPosition(glm::vec3(camX, 0.0f, camZ));
 
-            mRenderableObject->Render();
+            // Camera management
+            // Camera update changes the view, we get the view
+            mCamera->Update(0.1666f);
+            glm::mat4 view = mCamera->GetView();
+            glm::mat4 proj = mCamera->GetProjection();
+
+            //std::shared_ptr<glm::mat4> matrix = mRenderableObject->GetMatrix();
+            //*matrix = glm::rotate(*matrix, 0.05f, glm::vec3(0.0f, 1.0f, 0.0f));
+            mRenderableObject->Render(proj, view);
+
             
             // update other events like input handling 
             glfwPollEvents();

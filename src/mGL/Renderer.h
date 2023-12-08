@@ -9,6 +9,7 @@
 #include "RenderableObject.h"
 
 namespace mGL {
+	class CameraBase;
 	class Renderer
 	{
 	public:
@@ -18,6 +19,7 @@ namespace mGL {
 	private:
 		GLFWwindow* _window;
 		std::shared_ptr<RenderableObject> mRenderableObject;
+		std::shared_ptr<CameraBase> mCamera;
 	};
 }
 #endif

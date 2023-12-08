@@ -18,11 +18,11 @@ namespace mGL
 		return mMatrix;
 	}
 
-	void RenderableObject::Render()
+	void RenderableObject::Render(const glm::mat4& projection, const glm::mat4& view)
 	{
 		for (int i = 0; i < mMeshes.size(); ++i)
 		{
-			mMeshes[i].Render(mMatrix.get());
+			mMeshes[i].Render(mMatrix.get(), projection, view);
 		}
 	}
 }

@@ -38,11 +38,13 @@ namespace mGL
 		mMaterial = std::shared_ptr<Material>(material);
 	}
 
-	void Mesh::Render(glm::mat4 *matrix) const
+	void Mesh::Render(glm::mat4 *matrix, const glm::mat4& projection, const glm::mat4& view) const
 	{
 		if (mVAO != 0) {
 			mMaterial.get()->Use();
 			mMaterial.get()->GetShader()->SetUniformMatrix4fv("transform", *matrix);
+			mMaterial.get()->GetShader()->SetUniformMatrix4fv("projection", projection);
+			mMaterial.get()->GetShader()->SetUniformMatrix4fv("view", view);
 			glBindVertexArray(mVAO);
 			glDrawElements(GL_TRIANGLES, mIndicesSize, GL_UNSIGNED_SHORT, 0);
 			glBindVertexArray(0);

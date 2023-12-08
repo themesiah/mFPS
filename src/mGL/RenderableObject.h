@@ -17,7 +17,7 @@ namespace mGL
 		RenderableObject();
 		RenderableObject(std::vector<Mesh> meshes);
 		std::shared_ptr<glm::mat4> GetMatrix() const;
-		void Render();
+		void Render(const glm::mat4 &projection, const glm::mat4 &view);
 	private:
 		std::vector<Mesh> mMeshes;
 		std::shared_ptr<glm::mat4> mMatrix;

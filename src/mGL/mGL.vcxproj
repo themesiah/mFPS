@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CameraBase.cpp" />
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="MaterialColorParameter.cpp" />
     <ClCompile Include="MaterialTextureParameter.cpp" />
@@ -30,6 +31,7 @@
     <ClCompile Include="Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CameraBase.h" />
     <ClInclude Include="IMaterialParameter.h" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="MaterialColorParameter.h" />
