@@ -25,7 +25,15 @@ namespace mGL
 		if (mData) {
 			glGenTextures(1, &mTextureId);
 			glBindTexture(GL_TEXTURE_2D, mTextureId);
-			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, mWidth, mHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, mData);
+			GLint format = GL_R;
+			if (mChannels == 3) {
+				format = GL_RGB;
+			}
+			else if (mChannels == 4)
+			{
+				format = GL_RGBA;
+			}
+			glTexImage2D(GL_TEXTURE_2D, 0, format, mWidth, mHeight, 0, format, GL_UNSIGNED_BYTE, mData);
 			glGenerateMipmap(GL_TEXTURE_2D);
 		}
 		stbi_image_free(mData);
