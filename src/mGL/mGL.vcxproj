@@ -20,6 +20,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CameraBase.cpp" />
+    <ClCompile Include="FPSCamera.cpp" />
+    <ClCompile Include="LookAtCamera.cpp" />
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="MaterialColorParameter.cpp" />
     <ClCompile Include="MaterialTextureParameter.cpp" />
@@ -32,7 +34,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CameraBase.h" />
+    <ClInclude Include="FPSCamera.h" />
     <ClInclude Include="IMaterialParameter.h" />
+    <ClInclude Include="LookAtCamera.h" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="MaterialColorParameter.h" />
     <ClInclude Include="MaterialTextureParameter.h" />

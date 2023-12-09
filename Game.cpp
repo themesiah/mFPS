@@ -1,11 +1,14 @@
 #include "Game.h"
+#include "mGL/FPSCamera.h"
+#include "InputManager.h"
 
 namespace mFPS
 {
 	Game::Game() : mDeltaTime(0.0f), mLastFrame(0.0f)
 	{
 		mRenderer = std::shared_ptr<mGL::Renderer>(new mGL::Renderer());
-		mCamera = std::shared_ptr<mGL::CameraBase>(new mGL::CameraBase());
+		mCamera = std::shared_ptr<mGL::FPSCamera>(new mGL::FPSCamera());
+		mInputManager = std::shared_ptr<InputManager>(new InputManager());
 	}
 
 	Game::~Game()
@@ -23,6 +26,7 @@ namespace mFPS
 		}
 
 		mCamera.get()->SetProjection(glm::perspective(glm::radians(75.0f), (float)width / (float)height, 0.1f, 100.0f));
+		mCamera->SetPosition(glm::vec3(0.0f, 0.0f, -10.0f));
 		return 0;
 	}
 
@@ -32,11 +36,16 @@ namespace mFPS
 		mDeltaTime = currentFrame - mLastFrame;
 		mLastFrame = currentFrame;
 
-		// TEMP: Move camera around
-		const float radius = 2.0f;
-		float camX = sin(glfwGetTime()) * radius;
-		float camZ = cos(glfwGetTime()) * radius;
-		mCamera.get()->SetPosition(glm::vec3(camX, 0.0f, camZ));
+		mInputManager->ProcessInput(mWindow);
+
+		if (mInputManager->IsKeyDown(GLFW_KEY_A))
+		{
+			mCamera->Rotate(-100.0f * mDeltaTime, 0.0f);
+		}
+		if (mInputManager->IsKeyDown(GLFW_KEY_D))
+		{
+			mCamera->Rotate(100.0f * mDeltaTime, 0.0f);
+		}
 
 		mCamera.get()->Update(mDeltaTime);
 

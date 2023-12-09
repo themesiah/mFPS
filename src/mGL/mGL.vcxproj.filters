@@ -19,6 +19,12 @@
     <Filter Include="Header Files\MaterialParameters">
       <UniqueIdentifier>{ed733026-b943-4660-92a2-cdb585603544}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Cameras">
+      <UniqueIdentifier>{51deedb5-39a1-4890-b01f-2d4d908f0c54}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Cameras">
+      <UniqueIdentifier>{8b515c22-125e-40e6-b6b8-1816eefa08f2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Renderer.cpp">
@@ -49,7 +55,13 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="CameraBase.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Cameras</Filter>
+    </ClCompile>
+    <ClCompile Include="LookAtCamera.cpp">
+      <Filter>Source Files\Cameras</Filter>
+    </ClCompile>
+    <ClCompile Include="FPSCamera.cpp">
+      <Filter>Source Files\Cameras</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -90,7 +102,13 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CameraBase.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Cameras</Filter>
+    </ClInclude>
+    <ClInclude Include="LookAtCamera.h">
+      <Filter>Header Files\Cameras</Filter>
+    </ClInclude>
+    <ClInclude Include="FPSCamera.h">
+      <Filter>Header Files\Cameras</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

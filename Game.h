@@ -5,10 +5,11 @@
 #include <GL/glew.h> // include GLEW and new version of GL on Windows
 
 #include "mGL/Renderer.h"
-#include "mGL/CameraBase.h"
+#include "mGL/FPSCamera.h"
 
 namespace mFPS
 {
+	class InputManager;
 	class Game
 	{
 	public:
@@ -17,8 +18,9 @@ namespace mFPS
 		int Initialize(const int &width, const int &height);
 		bool Update();
 	private:
-		std::shared_ptr<mGL::CameraBase> mCamera;
+		std::shared_ptr<mGL::FPSCamera> mCamera;
 		std::shared_ptr<mGL::Renderer> mRenderer;
+		std::shared_ptr<InputManager> mInputManager;
 		GLFWwindow* mWindow;
 
 		float mDeltaTime;
