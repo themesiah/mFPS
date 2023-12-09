@@ -13,13 +13,13 @@ namespace mGL {
 	class Renderer
 	{
 	public:
-		int InitializeRenderer();
-		void Render();
+		Renderer();
+		GLFWwindow* InitializeRenderer(const int& width, const int& height);
+		void Render(CameraBase* camera);
 		void Terminate();
 	private:
-		GLFWwindow* _window;
+		GLFWwindow* mWindow;
 		std::shared_ptr<RenderableObject> mRenderableObject;
-		std::shared_ptr<CameraBase> mCamera;
 	};
 }
 #endif

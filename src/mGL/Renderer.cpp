@@ -1,28 +1,27 @@
 #include "Renderer.h"
 #include <glm/gtc/matrix_transform.hpp>
-#include "Vertex.h"
+//#include "Vertex.h"
 #include "MeshFactory.h"
 #include "CameraBase.h"
 
 namespace mGL {
-    int Renderer::InitializeRenderer()
-    {
-        int width = 640;
-        int height = 480;
+    Renderer::Renderer(){}
 
+    GLFWwindow* Renderer::InitializeRenderer(const int& width, const int& height)
+    {
         // start GL context and O/S window using the GLFW helper library
         if (!glfwInit()) {
             fprintf(stderr, "ERROR: could not start GLFW3\n");
-            return 1;
+            return nullptr;
         }
 
-        _window = glfwCreateWindow(width, height, "mFPS", NULL, NULL);
-        if (!_window) {
+        mWindow = glfwCreateWindow(width, height, "mFPS", NULL, NULL);
+        if (!mWindow) {
             fprintf(stderr, "ERROR: could not open window with GLFW3\n");
             glfwTerminate();
-            return 1;
+            return nullptr;
         }
-        glfwMakeContextCurrent(_window);
+        glfwMakeContextCurrent(mWindow);
 
         // start GLEW extension handler
         glewExperimental = GL_TRUE;
@@ -89,42 +88,26 @@ namespace mGL {
         //*matrix = glm::rotate(*matrix, glm::radians(-45.0f), glm::vec3(1.0, 0.0, 0.0));
         *matrix = glm::translate(*matrix, glm::vec3(0.0f, -1.0f, 0.0f));
 
-        mCamera = std::shared_ptr<CameraBase>(new CameraBase());
-        mCamera->SetProjection(glm::perspective(glm::radians(75.0f), (float)width/(float)height, 0.1f, 100.0f));
-        //mCamera->SetPosition(glm::vec3(0.0f, 10.0f, 0.0f));
-
-        return 0;
+        return mWindow;
     }
 
-    void Renderer::Render()
+    void Renderer::Render(CameraBase* camera)
     {
-        while (!glfwWindowShouldClose(_window)) {
-            
-            // wipe the drawing surface clear
-            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        // wipe the drawing surface clear
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-            // TEMP: Move camera around
-            const float radius = 2.0f;
-            float camX = sin(glfwGetTime()) * radius;
-            float camZ = cos(glfwGetTime()) * radius;
-            mCamera->SetPosition(glm::vec3(camX, 0.0f, camZ));
+        glm::mat4 proj = camera->GetProjection();
+        glm::mat4 view = camera->GetView();
 
-            // Camera management
-            // Camera update changes the view, we get the view
-            mCamera->Update(0.1666f);
-            glm::mat4 view = mCamera->GetView();
-            glm::mat4 proj = mCamera->GetProjection();
-
-            //std::shared_ptr<glm::mat4> matrix = mRenderableObject->GetMatrix();
-            //*matrix = glm::rotate(*matrix, 0.05f, glm::vec3(0.0f, 1.0f, 0.0f));
-            mRenderableObject->Render(proj, view);
+        //std::shared_ptr<glm::mat4> matrix = mRenderableObject->GetMatrix();
+        //*matrix = glm::rotate(*matrix, 0.05f, glm::vec3(0.0f, 1.0f, 0.0f));
+        mRenderableObject->Render(proj, view);
 
             
-            // update other events like input handling 
-            glfwPollEvents();
-            // put the stuff we've been drawing onto the display
-            glfwSwapBuffers(_window);
-        }
+        // update other events like input handling 
+        glfwPollEvents();
+        // put the stuff we've been drawing onto the display
+        glfwSwapBuffers(mWindow);
     }
 
     void Renderer::Terminate()

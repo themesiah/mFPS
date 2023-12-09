@@ -1,15 +1,13 @@
-#include "mGL/Renderer.h"
-#include "mGL/MeshFactory.h"
+#include "Game.h"
+
 
 int main() {
-    mGL::Renderer r;
-    int result = r.InitializeRenderer();
-    if (result != 0) {
-        return result;
+    mFPS::Game game;
+    game.Initialize(640, 480);
+
+    while (game.Update())
+    {
     }
-    
-    r.Render();
-    
-    r.Terminate();
+
     return 0;
 }
