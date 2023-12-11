@@ -27,7 +27,13 @@ namespace mGL
 		return *this;
 	}
 
-	RenderableObject::~RenderableObject(){}
+	RenderableObject::~RenderableObject()
+	{
+		for (int i = 0; i < mMeshes.size(); ++i)
+		{
+			delete mMeshes[i];
+		}
+	}
 
 	std::shared_ptr<glm::mat4> RenderableObject::GetMatrix() const
 	{
