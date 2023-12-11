@@ -2,6 +2,8 @@
 #include "Vertex.h"
 #include "Material.h"
 
+#include <iostream>
+
 namespace mGL
 {	
 	Mesh::Mesh() : mIndicesSize(0), mVAO(0), mEBO(0), mVBO(0), mMaterial(nullptr) {}
@@ -34,9 +36,10 @@ namespace mGL
 
 	Mesh::~Mesh()
 	{
-		//glDeleteVertexArrays(1, &mVAO);
-		//glDeleteBuffers(1, &mVBO);
-		//glDeleteBuffers(1, &mEBO);
+		std::cout << "~Mesh called" << std::endl;
+		glDeleteVertexArrays(1, &mVAO);
+		glDeleteBuffers(1, &mVBO);
+		glDeleteBuffers(1, &mEBO);
 	}
 
 	void Mesh::SetupMesh(std::vector<Vertex> vertices, std::vector<unsigned short> indices)

@@ -15,14 +15,14 @@ namespace mGL
 	{
 	public:
 		RenderableObject();
-		RenderableObject(std::vector<Mesh> meshes);
+		RenderableObject(std::vector<Mesh*> meshes);
 		RenderableObject(RenderableObject& ro);
 		RenderableObject& operator=(RenderableObject& ro);
 		~RenderableObject();
 		std::shared_ptr<glm::mat4> GetMatrix() const;
 		void Render(const glm::mat4 &projection, const glm::mat4 &view);
 	private:
-		std::vector<Mesh> mMeshes;
+		std::vector<Mesh*> mMeshes;
 		std::shared_ptr<glm::mat4> mMatrix;
 	};
 };

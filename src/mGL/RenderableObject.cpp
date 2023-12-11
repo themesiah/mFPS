@@ -5,11 +5,11 @@
 
 namespace mGL
 {
-	RenderableObject::RenderableObject() : mMeshes(std::vector<Mesh>()), mMatrix(new glm::mat4(1.0f))
+	RenderableObject::RenderableObject() : mMeshes(std::vector<Mesh*>()), mMatrix(new glm::mat4(1.0f))
 	{
 	}
 
-	RenderableObject::RenderableObject(std::vector<Mesh> meshes) : mMeshes(meshes), mMatrix(new glm::mat4(1.0f))
+	RenderableObject::RenderableObject(std::vector<Mesh*> meshes) : mMeshes(meshes), mMatrix(new glm::mat4(1.0f))
 	{
 	}
 
@@ -38,7 +38,7 @@ namespace mGL
 	{
 		for (int i = 0; i < mMeshes.size(); ++i)
 		{
-			mMeshes[i].Render(mMatrix.get(), projection, view);
+			mMeshes[i]->Render(mMatrix.get(), projection, view);
 		}
 	}
 }

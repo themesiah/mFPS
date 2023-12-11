@@ -41,7 +41,7 @@ namespace mGL
 		std::unordered_map<Vertex, unsigned short> indicesMap = std::unordered_map<Vertex, unsigned short>();
 		std::unordered_map<std::string, std::shared_ptr<Material>> materialMap;
 		std::shared_ptr<Material> currentMaterial = nullptr;
-		std::vector<Mesh> meshes = std::vector<Mesh>();
+		std::vector<Mesh*> meshes = std::vector<Mesh*>();
 		unsigned short indexCount = 0;
 		while (std::getline(file, line))
 		{
@@ -75,8 +75,8 @@ namespace mGL
 			else if (firstToken == "usemtl")
 			{
 				if (currentMaterial != nullptr) {
-					Mesh mesh = Mesh(vertexs, indices);
-					mesh.SetMaterial(currentMaterial);
+					Mesh* mesh = new Mesh(vertexs, indices);
+					mesh->SetMaterial(currentMaterial);
 					meshes.push_back(mesh);
 				}
 
@@ -122,8 +122,8 @@ namespace mGL
 			}
 		}
 		if (currentMaterial != nullptr) { // There is no indicator of EOF, so on the end we use all data for the last material configured
-			Mesh mesh = Mesh(vertexs, indices);
-			mesh.SetMaterial(currentMaterial);
+			Mesh* mesh = new Mesh(vertexs, indices);
+			mesh->SetMaterial(currentMaterial);
 			meshes.push_back(mesh);
 		}
 		file.close();
