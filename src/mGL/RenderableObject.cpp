@@ -13,6 +13,22 @@ namespace mGL
 	{
 	}
 
+	RenderableObject::RenderableObject(RenderableObject& ro)
+	{
+		mMeshes = ro.mMeshes;
+		mMatrix = ro.mMatrix;
+	}
+
+	RenderableObject& RenderableObject::operator=(RenderableObject& ro)
+	{
+		mMeshes = ro.mMeshes;
+		mMatrix = ro.mMatrix;
+
+		return *this;
+	}
+
+	RenderableObject::~RenderableObject(){}
+
 	std::shared_ptr<glm::mat4> RenderableObject::GetMatrix() const
 	{
 		return mMatrix;

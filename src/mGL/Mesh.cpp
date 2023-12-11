@@ -12,6 +12,33 @@ namespace mGL
 		SetupMesh(vertices, indices);
 	}
 
+	Mesh::Mesh(const Mesh& m)
+	{
+		mVAO = m.mVAO;
+		mVBO = m.mVBO;
+		mEBO = m.mEBO;
+		mIndicesSize = m.mIndicesSize;
+		mMaterial = m.mMaterial;
+	}
+
+	Mesh& Mesh::operator=(const Mesh& m)
+	{
+		mVAO = m.mVAO;
+		mVBO = m.mVBO;
+		mEBO = m.mEBO;
+		mIndicesSize = m.mIndicesSize;
+		mMaterial = m.mMaterial;
+
+		return *this;
+	}
+
+	Mesh::~Mesh()
+	{
+		//glDeleteVertexArrays(1, &mVAO);
+		//glDeleteBuffers(1, &mVBO);
+		//glDeleteBuffers(1, &mEBO);
+	}
+
 	void Mesh::SetupMesh(std::vector<Vertex> vertices, std::vector<unsigned short> indices)
 	{
 		glGenVertexArrays(1, &mVAO);

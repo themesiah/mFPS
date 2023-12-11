@@ -7,6 +7,20 @@ namespace mGL
 
 	Material::Material(Shader* shader) : mShader(shader), mParameters(){}
 
+	Material::Material(const Material& m)
+	{
+		mParameters = m.mParameters;
+		mShader = m.mShader;
+	}
+
+	Material& Material::operator=(const Material& m)
+	{
+		mParameters = m.mParameters;
+		mShader = m.mShader;
+
+		return *this;
+	}
+
 	Material::~Material()
 	{
 		for (int i = 0; i < mParameters.size(); ++i)

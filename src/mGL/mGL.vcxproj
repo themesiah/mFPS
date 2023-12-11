@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="CameraBase.cpp" />
     <ClCompile Include="FPSCamera.cpp" />
+    <ClCompile Include="IMaterialParameter.cpp" />
     <ClCompile Include="LookAtCamera.cpp" />
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="MaterialColorParameter.cpp" />

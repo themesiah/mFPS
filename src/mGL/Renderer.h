@@ -14,6 +14,7 @@ namespace mGL {
 	{
 	public:
 		Renderer();
+		~Renderer();
 		GLFWwindow* InitializeRenderer(const int& width, const int& height);
 		void Render(CameraBase* camera);
 		void Terminate();

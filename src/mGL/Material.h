@@ -14,6 +14,8 @@ namespace mGL
 	public:
 		Material();
 		Material(Shader* shader);
+		Material(const Material& m);
+		Material& operator=(const Material& m);
 		~Material();
 		void Use() const;
 		void AddParameter(IMaterialParameter* parameter);

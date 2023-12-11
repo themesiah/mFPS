@@ -63,6 +63,9 @@
     <ClCompile Include="FPSCamera.cpp">
       <Filter>Source Files\Cameras</Filter>
     </ClCompile>
+    <ClCompile Include="IMaterialParameter.cpp">
+      <Filter>Source Files\MaterialParameters</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Renderer.h">
@@ -78,9 +81,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Material.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="IMaterialParameter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="stb_image.h">
@@ -109,6 +109,9 @@
     </ClInclude>
     <ClInclude Include="FPSCamera.h">
       <Filter>Header Files\Cameras</Filter>
+    </ClInclude>
+    <ClInclude Include="IMaterialParameter.h">
+      <Filter>Header Files\MaterialParameters</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

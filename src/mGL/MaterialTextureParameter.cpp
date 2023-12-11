@@ -2,13 +2,31 @@
 #include "Texture.h"
 #include "Shader.h"
 
+#include <iostream>
+
 namespace mGL
 {
 	MaterialTextureParameter::MaterialTextureParameter() : mTextureType(TextureType::Albedo), mTexture(nullptr){}
 	MaterialTextureParameter::MaterialTextureParameter(TextureType texType) : mTextureType(texType), mTexture(nullptr){}
 	MaterialTextureParameter::MaterialTextureParameter(TextureType texType, Texture* tex) : mTextureType(texType), mTexture(tex){}
+
+	MaterialTextureParameter::MaterialTextureParameter(const MaterialTextureParameter& mtp)
+	{
+		mTextureType = mtp.mTextureType;
+		mTexture = new Texture(*mtp.mTexture);
+	}
+
+	MaterialTextureParameter& MaterialTextureParameter::operator=(const MaterialTextureParameter& mtp)
+	{
+		mTextureType = mtp.mTextureType;
+		delete mTexture;
+		mTexture = new Texture(*mtp.mTexture);
+		return *this;
+	}
+
 	MaterialTextureParameter::~MaterialTextureParameter()
 	{
+		std::cout << "~MaterialTextureParameter called" << std::endl;
 		delete mTexture;
 	}
 

@@ -2,12 +2,14 @@
 
 
 int main() {
-    mFPS::Game game;
-    game.Initialize(640, 480);
+    mFPS::Game* game = new mFPS::Game();
+    game->Initialize(640, 480);
 
-    while (game.Update())
+    while (game->Update())
     {
     }
+
+    delete game;
 
     return 0;
 }

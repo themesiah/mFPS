@@ -18,7 +18,9 @@ namespace mGL {
 		MaterialTextureParameter();
 		MaterialTextureParameter(TextureType texType);
 		MaterialTextureParameter(TextureType texType, Texture* tex);
-		~MaterialTextureParameter();
+		MaterialTextureParameter(const MaterialTextureParameter& mtp);
+		MaterialTextureParameter& operator=(const MaterialTextureParameter& mtp);
+		virtual ~MaterialTextureParameter();
 		void Bind(Shader* shader) const;
 	private:
 		Texture* mTexture;

@@ -10,6 +10,7 @@ namespace mGL
 	{
 	public:
 		virtual void Bind(Shader* shader) const = 0;
+		virtual ~IMaterialParameter() = 0;
 	};
 }
 

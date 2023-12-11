@@ -7,6 +7,8 @@
 namespace mGL {
     Renderer::Renderer(){}
 
+    Renderer::~Renderer(){}
+
     GLFWwindow* Renderer::InitializeRenderer(const int& width, const int& height)
     {
         // start GL context and O/S window using the GLFW helper library
@@ -79,14 +81,15 @@ namespace mGL {
         //std::vector<unsigned short> cubeIndices = { 0,1,2,2,3,0,4,5,6,6,7,4,8,9,10,10,11,8,12,13,14,14,15,12,16,17,18,18,19,16,20,21,22,22,23,20 };
         //meshes.push_back(Mesh(cube, cubeIndices));
 
-        mRenderableObject = std::auto_ptr<RenderableObject>(MeshFactory::LoadObj("tree_thin_dark.obj"));
+        //mRenderableObject = std::auto_ptr<RenderableObject>(MeshFactory::LoadObj("tree_thin_dark.obj"));
+        mRenderableObject = std::auto_ptr<RenderableObject>(MeshFactory::LoadObj("test_alex.obj"));
 
         std::shared_ptr<glm::mat4> matrix = mRenderableObject->GetMatrix();
         //*matrix = glm::rotate(*matrix, glm::radians(45.0f), glm::vec3(0.0, 0.0, 1.0));
         //*matrix = glm::rotate(*matrix, glm::radians(45.0f), glm::vec3(0.0, 1.0, 0.0));
         //*matrix = glm::rotate(*matrix, glm::radians(15.0f), glm::vec3(1.0, 1.0, 0.0));
         //*matrix = glm::rotate(*matrix, glm::radians(-45.0f), glm::vec3(1.0, 0.0, 0.0));
-        *matrix = glm::translate(*matrix, glm::vec3(0.0f, -1.0f, 0.0f));
+        *matrix = glm::translate(*matrix, glm::vec3(0.0f, -13.0f, 0.0f));
 
         return mWindow;
     }
