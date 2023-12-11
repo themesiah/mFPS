@@ -39,8 +39,8 @@ namespace mGL
 		std::vector<Vertex> vertexs;
 		std::vector<unsigned short> indices;
 		std::unordered_map<Vertex, unsigned short> indicesMap = std::unordered_map<Vertex, unsigned short>();
-		std::unordered_map<std::string, Material*> materialMap;
-		Material* currentMaterial = nullptr;
+		std::unordered_map<std::string, std::shared_ptr<Material>> materialMap;
+		std::shared_ptr<Material> currentMaterial = nullptr;
 		std::vector<Mesh> meshes = std::vector<Mesh>();
 		unsigned short indexCount = 0;
 		while (std::getline(file, line))
@@ -131,9 +131,9 @@ namespace mGL
 		return ro;
 	}
 
-	std::unordered_map<std::string, Material*> MeshFactory::LoadMaterials(const std::string& path)
+	std::unordered_map<std::string, std::shared_ptr<Material>> MeshFactory::LoadMaterials(const std::string& path)
 	{
-		std::unordered_map<std::string, Material*> map = std::unordered_map<std::string, Material*>();
+		std::unordered_map<std::string, std::shared_ptr<Material>> map = std::unordered_map<std::string, std::shared_ptr<Material>>();
 		std::string fullPath = "Data/Material/" + path;
 		Log("Trying to open material file on path " + fullPath);
 		std::ifstream file = std::ifstream(fullPath);
@@ -144,7 +144,7 @@ namespace mGL
 		}
 		Log("File opened");
 		std::string line;
-		Material* currentMaterial = nullptr;
+		std::shared_ptr<Material> currentMaterial = nullptr;
 		while (std::getline(file, line))
 		{
 			if (line.substr(0, 1) == "#") continue;
@@ -153,7 +153,7 @@ namespace mGL
 			{
 				Shader* shader = new Shader();
 				shader->Init("VertexUberShader.gls", "PixelUberShader.gls");
-				currentMaterial = new Material(shader);
+				currentMaterial = std::shared_ptr<Material>(new Material(shader));
 				std::string matName = mBase::Strings::Tail(line);
 				map[matName] = currentMaterial;
 			}

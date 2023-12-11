@@ -60,9 +60,9 @@ namespace mGL
 		glBindVertexArray(0);
 	}
 
-	void Mesh::SetMaterial(Material* material)
+	void Mesh::SetMaterial(std::shared_ptr<Material> material)
 	{
-		mMaterial = std::shared_ptr<Material>(material);
+		mMaterial = material;
 	}
 
 	void Mesh::Render(glm::mat4 *matrix, const glm::mat4& projection, const glm::mat4& view) const

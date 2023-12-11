@@ -21,7 +21,7 @@ namespace mGL
 		~Mesh();
 		void Render(glm::mat4 *matrix, const glm::mat4& projection, const glm::mat4& view) const;
 		void SetupMesh(std::vector<Vertex> vertices, std::vector<unsigned short> indices);
-		void SetMaterial(Material* material);
+		void SetMaterial(std::shared_ptr<Material> material);
 	private:
 		unsigned int mVAO;
 		unsigned int mVBO;

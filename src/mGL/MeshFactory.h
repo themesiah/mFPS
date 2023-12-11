@@ -13,7 +13,7 @@ namespace mGL
 	public:
 		static RenderableObject* LoadObj(const std::string& path);
 	private:
-		static std::unordered_map<std::string, Material*> LoadMaterials(const std::string& path);
+		static std::unordered_map<std::string, std::shared_ptr<Material>> LoadMaterials(const std::string& path);
 		static void Log(const std::string& path);
 	};
 }
