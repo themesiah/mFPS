@@ -5,12 +5,14 @@ uniform bool use_albedo_texture;
 uniform bool use_tint;
 
 in vec2 TexCoord;
+in vec3 vertexColor;
 
 uniform vec4 tint;
 uniform sampler2D albedo;
 
 void main() {
 	frag_color = vec4(1.0, 1.0, 1.0, 1.0);
+	frag_color = frag_color * vec4(vertexColor.r, vertexColor.g, vertexColor.b, 1.0);
 	if (use_tint == true)
 	{
 		frag_color = frag_color * tint;

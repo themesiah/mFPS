@@ -25,7 +25,7 @@ namespace mFPS
 			return 1;
 		}
 
-		mCamera.get()->SetProjection(glm::perspective(glm::radians(75.0f), (float)width / (float)height, 0.1f, 100.0f));
+		mCamera.get()->SetProjection(glm::perspective(glm::radians(30.0f), (float)width / (float)height, 0.001f, 1000.0f));
 		mCamera->SetPosition(glm::vec3(0.0f, 0.0f, -10.0f));
 		return 0;
 	}

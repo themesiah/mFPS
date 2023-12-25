@@ -34,6 +34,7 @@ namespace mGL
 
 		std::string line;
 		std::vector<glm::vec3> positions;
+		std::vector<glm::vec3> colors;
 		std::vector<glm::vec2> uvs;
 		std::vector<glm::vec3> normals;
 		std::vector<Vertex> vertexs;
@@ -45,8 +46,8 @@ namespace mGL
 		unsigned short indexCount = 0;
 		while (std::getline(file, line))
 		{
-			if (line.substr(0,1) == "#") continue;
 			std::string firstToken = mBase::Strings::FirstToken(line);
+			if (line.substr(0,1) == "#" && firstToken != "#MRGB") continue;
 			if (firstToken == "mtllib")
 			{
 				materialMap = LoadMaterials(mBase::Strings::Tail(line));
@@ -72,6 +73,27 @@ namespace mGL
 				glm::vec2 uv = glm::vec2(std::stof(splitted[0]), std::stof(splitted[1]));
 				uvs.push_back(uv);
 			}
+			else if (firstToken == "#MRGB")
+			{
+				std::string tail = mBase::Strings::Tail(line);
+				for (int i = 0; i < tail.length(); i += 8)
+				{
+					std::string mask = tail.substr(i, 2); // UNUSED
+					std::string r = tail.substr(i + 2, 2);
+					std::string g = tail.substr(i + 4, 2);
+					std::string b = tail.substr(i + 6, 2);
+					unsigned int rnumber;
+					unsigned int gnumber;
+					unsigned int bnumber;
+					sscanf_s(r.c_str(), "%x", &rnumber);
+					sscanf_s(g.c_str(), "%x", &gnumber);
+					sscanf_s(b.c_str(), "%x", &bnumber);
+					float rf = rnumber / 255.0f;
+					float gf = gnumber / 255.0f;
+					float bf = bnumber / 255.0f;
+					colors.push_back(glm::vec3(rf, gf, bf));
+				}
+			}
 			else if (firstToken == "usemtl")
 			{
 				if (currentMaterial != nullptr) {
@@ -96,27 +118,69 @@ namespace mGL
 			{
 				std::vector<std::string> faces;
 				mBase::Strings::Split(mBase::Strings::Tail(line), faces, " ");
-				for (int i = 0; i < faces.size(); ++i)
-				{
-					std::vector<std::string> splitted;
-					mBase::Strings::Split(faces[i], splitted, "/");
-					unsigned short positionIndex = std::stoi(splitted[0]);
-					unsigned short uvIndex = std::stoi(splitted[1]);
-					unsigned short normalIndex = std::stoi(splitted[2]);
-					Vertex v = Vertex();
-					v.Position = positions[positionIndex - 1];
-					v.Uvs = uvs[uvIndex - 1];
-					if (indicesMap.find(v) != indicesMap.end())
+				if (faces.size() == 3) {
+					for (int i = 0; i < faces.size(); ++i)
 					{
-						// Exists!
-						indices.push_back(indicesMap[v]);
+						std::vector<std::string> splitted;
+						mBase::Strings::Split(faces[i], splitted, "/");
+						unsigned short positionIndex = std::stoi(splitted[0]);
+						unsigned short uvIndex = std::stoi(splitted[1]);
+						//unsigned short normalIndex = std::stoi(splitted[2]);
+						Vertex v = Vertex();
+						v.Position = positions[positionIndex - 1];
+						v.Uvs = uvs[uvIndex - 1];
+						v.Rgb = colors[positionIndex - 1];
+						if (indicesMap.find(v) != indicesMap.end())
+						{
+							// Exists!
+							indices.push_back(indicesMap[v]);
+						}
+						else {
+							// Not exists. Create new one
+							vertexs.push_back(v);
+							indicesMap[v] = indexCount;
+							indices.push_back(indexCount);
+							indexCount++;
+						}
 					}
-					else {
-						// Not exists. Create new one
-						vertexs.push_back(v);
-						indicesMap[v] = indexCount;
-						indices.push_back(indexCount);
-						indexCount++;
+				}
+				else {
+					unsigned short firstIndex = 0;
+					for (int i = 0; i < faces.size(); ++i)
+					{
+						std::vector<std::string> splitted;
+						mBase::Strings::Split(faces[i], splitted, "/");
+						unsigned short positionIndex = std::stoi(splitted[0]);
+						unsigned short uvIndex = std::stoi(splitted[1]);
+						//unsigned short normalIndex = std::stoi(splitted[2]);
+						Vertex v = Vertex();
+						v.Position = positions[positionIndex - 1];
+						v.Uvs = uvs[uvIndex - 1];
+						v.Rgb = colors[positionIndex - 1];
+						if (indicesMap.find(v) != indicesMap.end())
+						{
+							// Exists!
+							indices.push_back(indicesMap[v]);
+							if (i == 0)
+								firstIndex = indicesMap[v];
+							if (i == 2)
+								indices.push_back(indicesMap[v]);
+							if (i == 3)
+								indices.push_back(firstIndex);
+						}
+						else {
+							// Not exists. Create new one
+							vertexs.push_back(v);
+							indicesMap[v] = indexCount;
+							indices.push_back(indexCount);
+							if (i == 0)
+								firstIndex = indexCount;
+							if (i == 2)
+								indices.push_back(indexCount);
+							if (i == 3)
+								indices.push_back(firstIndex);
+							indexCount++;
+						}
 					}
 				}
 			}

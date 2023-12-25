@@ -1,8 +1,9 @@
 #include "Renderer.h"
 #include <glm/gtc/matrix_transform.hpp>
-//#include "Vertex.h"
+#include "Vertex.h"
 #include "MeshFactory.h"
 #include "CameraBase.h"
+#include "Material.h"
 
 namespace mGL {
     Renderer::Renderer(){}
@@ -82,14 +83,31 @@ namespace mGL {
         //meshes.push_back(Mesh(cube, cubeIndices));
 
         //mRenderableObject = std::auto_ptr<RenderableObject>(MeshFactory::LoadObj("tree_thin_dark.obj"));
-        mRenderableObject = std::auto_ptr<RenderableObject>(MeshFactory::LoadObj("test_alex.obj"));
+        //mRenderableObject = std::auto_ptr<RenderableObject>(MeshFactory::LoadObj("test_alex.obj"));
+        mRenderableObject = std::auto_ptr<RenderableObject>(MeshFactory::LoadObj("vertex_color_test.obj"));
+
+        //std::vector<Vertex> vertices = {
+        //    { glm::vec3(-0.5f, 0.5f, 0.0f), glm::vec2(0.0f, 1.0f), glm::vec3(1.0f, 0.0f, 0.0f) },
+        //    { glm::vec3(0.5f, 0.5f, 0.0f), glm::vec2(1.0f, 1.0f), glm::vec3(0.0f, 1.0f, 0.0f) },
+        //    { glm::vec3(0.5f, -0.5f, 0.0f), glm::vec2(1.0f, 0.0f), glm::vec3(0.0f, 0.0f, 1.0f) },
+        //    { glm::vec3(-0.5f, -0.5f, 0.0f), glm::vec2(0.0f, 0.0f), glm::vec3(1.0f, 0.0f, 1.0f) }
+        //};
+        //std::vector<unsigned short> indices {0, 1, 2, 2, 3, 0};
+        //Mesh* mesh = new Mesh(vertices, indices);
+        //Shader* shader = new Shader("VertexUberShader.gls", "PixelUberShader.gls");
+        //std::shared_ptr<Material> mat = std::shared_ptr<Material>(new Material(shader));
+        //mesh->SetMaterial(mat);
+        //std::vector<Mesh*> meshes = {
+        //    mesh
+        //};
+        //mRenderableObject = std::auto_ptr<RenderableObject>(new RenderableObject(meshes));
 
         std::shared_ptr<glm::mat4> matrix = mRenderableObject->GetMatrix();
         //*matrix = glm::rotate(*matrix, glm::radians(45.0f), glm::vec3(0.0, 0.0, 1.0));
         //*matrix = glm::rotate(*matrix, glm::radians(45.0f), glm::vec3(0.0, 1.0, 0.0));
         //*matrix = glm::rotate(*matrix, glm::radians(15.0f), glm::vec3(1.0, 1.0, 0.0));
         //*matrix = glm::rotate(*matrix, glm::radians(-45.0f), glm::vec3(1.0, 0.0, 0.0));
-        *matrix = glm::translate(*matrix, glm::vec3(0.0f, -13.0f, 0.0f));
+        *matrix = glm::translate(*matrix, glm::vec3(0.0f, -1.6f, -8.5f));
 
         return mWindow;
     }
