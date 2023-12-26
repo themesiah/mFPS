@@ -19,4 +19,9 @@ namespace mGL
 	{
 		return mTarget;
 	}
+
+	glm::vec3 LookAtCamera::GetForward()
+	{
+		return glm::normalize(mTarget - mPosition);
+	}
 }

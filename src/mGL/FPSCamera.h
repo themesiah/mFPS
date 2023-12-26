@@ -11,6 +11,7 @@ namespace mGL
 		FPSCamera();
 		void Rotate(const float& yaw, const float& pitch);
 		void Update(const float& deltaTime) override;
+		glm::vec3 GetForward() override;
 	private:
 		float mYaw;
 		float mPitch;

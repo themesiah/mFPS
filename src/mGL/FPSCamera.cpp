@@ -13,12 +13,18 @@ namespace mGL
 
 	void FPSCamera::Update(const float& deltaTime)
 	{
+		glm::vec3 forward = GetForward();
+
+		mView = glm::lookAt(mPosition, mPosition + forward, mUp);
+	}
+
+	glm::vec3 FPSCamera::GetForward()
+	{
 		glm::vec3 direction;
 		direction.x = cos(glm::radians(mYaw)) * cos(glm::radians(mPitch));
 		direction.y = sin(glm::radians(mPitch));
 		direction.z = sin(glm::radians(mYaw)) * cos(glm::radians(mPitch));
-		glm::vec3 mFront = glm::normalize(direction);
-
-		mView = glm::lookAt(mPosition, mPosition + mFront, mUp);
+		glm::vec3 forward = glm::normalize(direction);
+		return forward;
 	}
 }

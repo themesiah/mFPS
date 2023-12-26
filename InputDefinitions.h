@@ -7,6 +7,7 @@ namespace mFPS {
 	struct Input
 	{
 		bool Keyboard[GLFW_KEY_LAST];
+		glm::vec2 MousePosition;
 	};
 }
 

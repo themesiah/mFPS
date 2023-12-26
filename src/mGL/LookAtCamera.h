@@ -12,6 +12,7 @@ namespace mGL
 		void Update (const float& deltaTime) override;
 		void SetTarget(const glm::vec3& target);
 		const glm::vec3 GetTarget() const;
+		glm::vec3 GetForward() override;
 	private:
 		glm::vec3 mTarget;
 	};
