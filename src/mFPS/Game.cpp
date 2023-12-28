@@ -1,5 +1,5 @@
 #include "Game.h"
-#include "mGL/FPSCamera.h"
+#include "Cameras/FPSCamera.h"
 #include "InputManager.h"
 
 namespace mFPS
@@ -7,7 +7,7 @@ namespace mFPS
 	Game::Game() : mDeltaTime(0.0f), mLastFrame(0.0f)
 	{
 		mRenderer = std::shared_ptr<mGL::Renderer>(new mGL::Renderer());
-		mCamera = std::shared_ptr<mGL::FPSCamera>(new mGL::FPSCamera());
+		mCamera = std::shared_ptr<FPSCamera>(new FPSCamera());
 		mInputManager = std::shared_ptr<InputManager>(new InputManager());
 	}
 
@@ -40,32 +40,9 @@ namespace mFPS
 
 		mInputManager->ProcessInput(mWindow);
 
-		// CAMERA INPUT START -- TODO: Move to camera?
-		glm::vec2 lookDelta = mInputManager->GetMouseDelta();
-		mCamera->Rotate(lookDelta.x * 3.0f * mDeltaTime, lookDelta.y * 3.0f * mDeltaTime);
-		glm::vec3 movementDelta = glm::vec3(0.0f,0.0f,0.0f);
-		if (mInputManager->IsKeyDown(GLFW_KEY_A))
-		{
-			movementDelta.x = -100.0f * mDeltaTime;
-		}
-		if (mInputManager->IsKeyDown(GLFW_KEY_D))
-		{
-			movementDelta.x = 100.0f * mDeltaTime;
-		}
-		if (mInputManager->IsKeyDown(GLFW_KEY_W))
-		{
-			movementDelta.z = 100.0f * mDeltaTime;
-		}
-		if (mInputManager->IsKeyDown(GLFW_KEY_S))
-		{
-			movementDelta.z = -100.0f * mDeltaTime;
-		}
-		mCamera->Translate(movementDelta);
-		// CAMERA INPUT END
+		mCamera.get()->Update(mDeltaTime, mInputManager.get());
 
-		mCamera.get()->Update(mDeltaTime);
-
-		mRenderer.get()->Render(mCamera.get());
+		mRenderer.get()->Render(mCamera->GetProjection(), mCamera->GetView());
 
 		return !glfwWindowShouldClose(mWindow) && !mInputManager->IsKeyDown(GLFW_KEY_ESCAPE);
 	}

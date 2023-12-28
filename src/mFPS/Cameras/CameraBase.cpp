@@ -1,7 +1,7 @@
 #include "CameraBase.h"
 #include <glm/gtc/matrix_transform.hpp>
 
-namespace mGL
+namespace mFPS
 {
 	CameraBase::CameraBase() : mPosition(glm::vec3(0.0f,0.0f,-5.0f)), mUp(glm::vec3(0.0f,1.0f,0.0f)), mView(), mProjection()
 	{

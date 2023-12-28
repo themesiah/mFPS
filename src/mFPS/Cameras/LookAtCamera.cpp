@@ -1,11 +1,12 @@
 #include "LookAtCamera.h"
 #include "glm/gtc/matrix_transform.hpp"
+#include "../InputManager.h"
 
-namespace mGL
+namespace mFPS
 {
 	LookAtCamera::LookAtCamera() : mTarget(), CameraBase() {}
 
-	void LookAtCamera::Update(const float& deltaTime)
+	void LookAtCamera::Update(const float& deltaTime, InputManager* inputManager)
 	{
 		mView = glm::lookAt(mPosition, mTarget, mUp);
 	}

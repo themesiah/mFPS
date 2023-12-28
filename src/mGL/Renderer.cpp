@@ -2,7 +2,6 @@
 #include <glm/gtc/matrix_transform.hpp>
 //#include "Vertex.h"
 #include "MeshFactory.h"
-#include "CameraBase.h"
 
 namespace mGL {
     Renderer::Renderer(){}
@@ -94,19 +93,15 @@ namespace mGL {
         return mWindow;
     }
 
-    void Renderer::Render(CameraBase* camera)
+    void Renderer::Render(const glm::mat4 &projection, const glm::mat4 &view)
     {
         // wipe the drawing surface clear
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        glm::mat4 proj = camera->GetProjection();
-        glm::mat4 view = camera->GetView();
-
         //std::shared_ptr<glm::mat4> matrix = mRenderableObject->GetMatrix();
         //*matrix = glm::rotate(*matrix, 0.05f, glm::vec3(0.0f, 1.0f, 0.0f));
-        mRenderableObject->Render(proj, view);
+        mRenderableObject->Render(projection, view);
 
-            
         // update other events like input handling 
         glfwPollEvents();
         // put the stuff we've been drawing onto the display

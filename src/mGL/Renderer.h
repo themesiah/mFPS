@@ -16,7 +16,7 @@ namespace mGL {
 		Renderer();
 		~Renderer();
 		GLFWwindow* InitializeRenderer(const int& width, const int& height);
-		void Render(CameraBase* camera);
+		void Render(const glm::mat4& projection, const glm::mat4& view);
 		void Terminate();
 	private:
 		GLFWwindow* mWindow;

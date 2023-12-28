@@ -3,14 +3,14 @@
 
 #include "CameraBase.h"
 
-namespace mGL
+namespace mFPS
 {
 	class FPSCamera : public CameraBase
 	{
 	public:
 		FPSCamera();
 		void Rotate(const float& yaw, const float& pitch);
-		void Update(const float& deltaTime) override;
+		void Update(const float& deltaTime, InputManager* inputManager) override;
 		glm::vec3 GetForward() override;
 	private:
 		float mYaw;

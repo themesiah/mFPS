@@ -18,6 +18,22 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\mFPS\Cameras\CameraBase.h" />
+    <ClInclude Include="src\mFPS\Cameras\FPSCamera.h" />
+    <ClInclude Include="src\mFPS\Cameras\LookAtCamera.h" />
+    <ClInclude Include="src\mFPS\Game.h" />
+    <ClInclude Include="src\mFPS\InputDefinitions.h" />
+    <ClInclude Include="src\mFPS\InputManager.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\mFPS\Cameras\CameraBase.cpp" />
+    <ClCompile Include="src\mFPS\Cameras\FPSCamera.cpp" />
+    <ClCompile Include="src\mFPS\Cameras\LookAtCamera.cpp" />
+    <ClCompile Include="src\mFPS\Game.cpp" />
+    <ClCompile Include="src\mFPS\InputManager.cpp" />
+    <ClCompile Include="src\mFPS\main.cpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
@@ -148,16 +164,6 @@ xcopy /y /d /e /i "$(SolutionDir)Data" "$(OutDir)Data"</Command>
 xcopy /y /d /e /i "$(SolutionDir)Data" "$(OutDir)Data"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="Game.cpp" />
-    <ClCompile Include="InputManager.cpp" />
-    <ClCompile Include="main.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Game.h" />
-    <ClInclude Include="InputDefinitions.h" />
-    <ClInclude Include="InputManager.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

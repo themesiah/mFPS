@@ -3,8 +3,9 @@
 
 #include "glm/glm.hpp"
 
-namespace mGL
+namespace mFPS
 {
+	class InputManager;
 	class CameraBase
 	{
 	public:
@@ -14,7 +15,7 @@ namespace mGL
 		void SetUp(const glm::vec3 &up);
 		void SetProjection(const glm::mat4 projection);
 		const glm::vec3 GetPosition() const;
-		virtual void Update(const float &deltaTime) = 0;
+		virtual void Update(const float &deltaTime, InputManager* inputManager) = 0;
 		virtual glm::vec3 GetForward() = 0;
 		const glm::mat4 GetView() const;
 		const glm::mat4 GetProjection() const;
