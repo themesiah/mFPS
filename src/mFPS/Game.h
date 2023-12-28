@@ -10,7 +10,7 @@ namespace mFPS
 {
 	class InputManager;
 	class World;
-	class FPSCamera;
+	class CameraBase;
 	class Game
 	{
 	public:
@@ -20,7 +20,7 @@ namespace mFPS
 		bool Update();
 	private:
 		std::shared_ptr<World> mWorld;
-		std::shared_ptr<FPSCamera> mCamera;
+		std::shared_ptr<CameraBase> mCamera;
 		std::shared_ptr<mGL::Renderer> mRenderer;
 		std::shared_ptr<InputManager> mInputManager;
 		GLFWwindow* mWindow;

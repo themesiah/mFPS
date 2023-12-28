@@ -1,6 +1,8 @@
 #include "Texture.h"
 #include "stb_image.h"
 
+#include "mBase/Logger.h"
+
 namespace mGL
 {
 	Texture::Texture() : mData(nullptr), mWidth(0), mHeight(0), mChannels(0)
@@ -21,6 +23,7 @@ namespace mGL
 	void Texture::Load(const std::string& path)
 	{
 		const std::string& fullPath = "Data/Texture/" + path;
+		Logger::Log("Texture", "Loading texture on path " + fullPath);
 		mData = stbi_load(fullPath.c_str(), &mWidth, &mHeight, &mChannels, 0);
 		if (mData) {
 			glGenTextures(1, &mTextureId);
@@ -35,6 +38,7 @@ namespace mGL
 			}
 			glTexImage2D(GL_TEXTURE_2D, 0, format, mWidth, mHeight, 0, format, GL_UNSIGNED_BYTE, mData);
 			glGenerateMipmap(GL_TEXTURE_2D);
+			Logger::Log("Texture", "Texture loaded");
 		}
 		stbi_image_free(mData);
 	}

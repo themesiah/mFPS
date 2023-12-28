@@ -13,6 +13,7 @@
 #include "MaterialColorParameter.h"
 #include "MaterialTextureParameter.h"
 #include "Texture.h"
+#include "mBase/Logger.h"
 
 namespace mGL
 {
@@ -23,14 +24,14 @@ namespace mGL
 
 
 		std::string fullPath = "Data/Meshes/" + path;
-		Log("Trying to open obj file on path " + fullPath);
+		Logger::Log("Mesh Factory", "Trying to open obj file on path " + fullPath);
 		std::ifstream file = std::ifstream(fullPath);
 		if (!file.is_open())
 		{
-			Log("File not found");
+			Logger::Log("Mesh Factory", "File not found");
 			return nullptr;
 		}
-		Log("File opened");
+		Logger::Log("Mesh Factory", "File opened");
 
 		std::string line;
 		std::vector<glm::vec3> positions;
@@ -102,10 +103,14 @@ namespace mGL
 					mBase::Strings::Split(faces[i], splitted, "/");
 					unsigned short positionIndex = std::stoi(splitted[0]);
 					unsigned short uvIndex = std::stoi(splitted[1]);
-					unsigned short normalIndex = std::stoi(splitted[2]);
+					
 					Vertex v = Vertex();
 					v.Position = positions[positionIndex - 1];
 					v.Uvs = uvs[uvIndex - 1];
+					if (splitted.size() > 2) {
+						unsigned short normalIndex = std::stoi(splitted[2]);
+						// TODO: Add normals
+					}
 					if (indicesMap.find(v) != indicesMap.end())
 					{
 						// Exists!
@@ -135,14 +140,14 @@ namespace mGL
 	{
 		std::unordered_map<std::string, std::shared_ptr<Material>> map = std::unordered_map<std::string, std::shared_ptr<Material>>();
 		std::string fullPath = "Data/Material/" + path;
-		Log("Trying to open material file on path " + fullPath);
+		Logger::Log("Mesh Factory", "Trying to open material file on path " + fullPath);
 		std::ifstream file = std::ifstream(fullPath);
 		if (!file.is_open())
 		{
-			Log("File not found");
+			Logger::Log("Mesh Factory", "File not found");
 			return map;
 		}
-		Log("File opened");
+		Logger::Log("Mesh Factory", "File opened");
 		std::string line;
 		std::shared_ptr<Material> currentMaterial = nullptr;
 		while (std::getline(file, line))
@@ -175,10 +180,5 @@ namespace mGL
 		}
 		file.close();
 		return map;
-	}
-
-	void MeshFactory::Log(const std::string& logMessage)
-	{
-		std::cout << logMessage << std::endl;
 	}
 }
