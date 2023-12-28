@@ -2,14 +2,15 @@
 #define MFPS_GAME
 
 #include <memory>
-#include <GL/glew.h> // include GLEW and new version of GL on Windows
+#include <GL/glew.h>
 
 #include "mGL/Renderer.h"
-#include "Cameras/FPSCamera.h"
 
 namespace mFPS
 {
 	class InputManager;
+	class World;
+	class FPSCamera;
 	class Game
 	{
 	public:
@@ -18,6 +19,7 @@ namespace mFPS
 		int Initialize(const int &width, const int &height);
 		bool Update();
 	private:
+		std::shared_ptr<World> mWorld;
 		std::shared_ptr<FPSCamera> mCamera;
 		std::shared_ptr<mGL::Renderer> mRenderer;
 		std::shared_ptr<InputManager> mInputManager;

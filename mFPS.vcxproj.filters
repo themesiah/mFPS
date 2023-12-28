@@ -39,6 +39,9 @@
     <ClInclude Include="src\mFPS\Cameras\LookAtCamera.h">
       <Filter>Header Files\Cameras</Filter>
     </ClInclude>
+    <ClInclude Include="src\mFPS\World.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\mFPS\Game.cpp">
@@ -58,6 +61,9 @@
     </ClCompile>
     <ClCompile Include="src\mFPS\Cameras\LookAtCamera.cpp">
       <Filter>Source Files\Cameras</Filter>
+    </ClCompile>
+    <ClCompile Include="src\mFPS\World.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

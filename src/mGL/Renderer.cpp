@@ -1,10 +1,7 @@
 #include "Renderer.h"
-#include <glm/gtc/matrix_transform.hpp>
-//#include "Vertex.h"
-#include "MeshFactory.h"
 
 namespace mGL {
-    Renderer::Renderer(){}
+    Renderer::Renderer() : mWindow() {}
 
     Renderer::~Renderer(){}
 
@@ -44,63 +41,19 @@ namespace mGL {
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
-        //std::vector<Mesh> meshes;
-        //std::vector<Vertex> cube = {
-        //    // FRONT FACE
-        //    Vertex{glm::vec3(-0.5f, 0.5f, -0.5f),         glm::vec2(0.0f, 1.0f)},     // TOP LEFT
-        //    Vertex{glm::vec3(0.5f, 0.5f, -0.5f),          glm::vec2(1.0f, 1.0f)},      // TOP RIGHT
-        //    Vertex{glm::vec3(0.5f, -0.5f, -0.5f),         glm::vec2(1.0f, 0.0f)},     // BOTTOM RIGHT
-        //    Vertex{glm::vec3(-0.5f, -0.5f, -0.5f),        glm::vec2(0.0f, 0.0f)},    // BOTTOM LEFT
-        //    // RIGHT FACE                                              )
-        //    Vertex{glm::vec3(0.5f, 0.5f, -0.5f),          glm::vec2(0.0f, 1.0f)},
-        //    Vertex{glm::vec3(0.5f, 0.5f, 0.5f),           glm::vec2(1.0f, 1.0f)},
-        //    Vertex{glm::vec3(0.5f, -0.5f, 0.5f),          glm::vec2(1.0f, 0.0f)},
-        //    Vertex{glm::vec3(0.5f, -0.5f, -0.5f),         glm::vec2(0.0f, 0.0f)},
-        //    // LEFT FACE                                               )
-        //    Vertex{glm::vec3(-0.5f, 0.5f, 0.5f),          glm::vec2(0.0f, 1.0f)},
-        //    Vertex{glm::vec3(-0.5f, 0.5f, -0.5f),         glm::vec2(1.0f, 1.0f)},
-        //    Vertex{glm::vec3(-0.5f, -0.5f, -0.5f),        glm::vec2(1.0f, 0.0f)},
-        //    Vertex{glm::vec3(-0.5f, -0.5f, 0.5f),         glm::vec2(0.0f, 0.0f)},
-        //    // BOTTOM FACE                                             )
-        //    Vertex{glm::vec3(-0.5f, -0.5f, -0.5f),        glm::vec2(0.0f, 1.0f)},
-        //    Vertex{glm::vec3(0.5f, -0.5f, -0.5f),         glm::vec2(1.0f, 1.0f)},
-        //    Vertex{glm::vec3(0.5f, -0.5f, 0.5f),          glm::vec2(1.0f, 0.0f)},
-        //    Vertex{glm::vec3(-0.5f, -0.5f, 0.5f),         glm::vec2(0.0f, 0.0f)},
-        //    // TOP FACE                                                )
-        //    Vertex{glm::vec3(-0.5f, 0.5f, 0.5f),          glm::vec2(0.0f, 1.0f)},
-        //    Vertex{glm::vec3(0.5f, 0.5f, 0.5f),           glm::vec2(1.0f, 1.0f)},
-        //    Vertex{glm::vec3(0.5f, 0.5f, -0.5f),          glm::vec2(1.0f, 0.0f)},
-        //    Vertex{glm::vec3(-0.5f, 0.5f, -0.5f),         glm::vec2(0.0f, 0.0f)},
-        //    // BACK FACE
-        //    Vertex{glm::vec3(0.5f, 0.5f, 0.5f),           glm::vec2(0.0f, 1.0f)},     // TOP LEFT
-        //    Vertex{glm::vec3(-0.5f, 0.5f, 0.5f),          glm::vec2(1.0f, 1.0f)},      // TOP RIGHT
-        //    Vertex{glm::vec3(-0.5f, -0.5f, 0.5f),         glm::vec2(1.0f, 0.0f)},     // BOTTOM RIGHT
-        //    Vertex{glm::vec3(0.5f, -0.5f, 0.5f),          glm::vec2(0.0f, 0.0f)},    // BOTTOM LEFT
-        //};
-        //std::vector<unsigned short> cubeIndices = { 0,1,2,2,3,0,4,5,6,6,7,4,8,9,10,10,11,8,12,13,14,14,15,12,16,17,18,18,19,16,20,21,22,22,23,20 };
-        //meshes.push_back(Mesh(cube, cubeIndices));
-
-        //mRenderableObject = std::auto_ptr<RenderableObject>(MeshFactory::LoadObj("tree_thin_dark.obj"));
-        mRenderableObject = std::auto_ptr<RenderableObject>(MeshFactory::LoadObj("test_alex.obj"));
-
-        std::shared_ptr<glm::mat4> matrix = mRenderableObject->GetMatrix();
-        //*matrix = glm::rotate(*matrix, glm::radians(45.0f), glm::vec3(0.0, 0.0, 1.0));
-        //*matrix = glm::rotate(*matrix, glm::radians(45.0f), glm::vec3(0.0, 1.0, 0.0));
-        //*matrix = glm::rotate(*matrix, glm::radians(15.0f), glm::vec3(1.0, 1.0, 0.0));
-        //*matrix = glm::rotate(*matrix, glm::radians(-45.0f), glm::vec3(1.0, 0.0, 0.0));
-        *matrix = glm::translate(*matrix, glm::vec3(0.0f, -13.0f, 0.0f));
-
         return mWindow;
     }
 
-    void Renderer::Render(const glm::mat4 &projection, const glm::mat4 &view)
+    void Renderer::Render(std::vector<RenderableObject*> renderableObjects, const glm::mat4 &projection, const glm::mat4 &view)
     {
         // wipe the drawing surface clear
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        //std::shared_ptr<glm::mat4> matrix = mRenderableObject->GetMatrix();
-        //*matrix = glm::rotate(*matrix, 0.05f, glm::vec3(0.0f, 1.0f, 0.0f));
-        mRenderableObject->Render(projection, view);
+        // Render all objects that need to be rendered
+        for (int i = 0; i < renderableObjects.size(); ++i)
+        {
+            renderableObjects[i]->Render(projection, view);
+        }
 
         // update other events like input handling 
         glfwPollEvents();

@@ -25,6 +25,7 @@
     <ClInclude Include="src\mFPS\Game.h" />
     <ClInclude Include="src\mFPS\InputDefinitions.h" />
     <ClInclude Include="src\mFPS\InputManager.h" />
+    <ClInclude Include="src\mFPS\World.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\mFPS\Cameras\CameraBase.cpp" />
@@ -33,6 +34,7 @@
     <ClCompile Include="src\mFPS\Game.cpp" />
     <ClCompile Include="src\mFPS\InputManager.cpp" />
     <ClCompile Include="src\mFPS\main.cpp" />
+    <ClCompile Include="src\mFPS\World.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
