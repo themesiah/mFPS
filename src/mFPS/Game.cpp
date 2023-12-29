@@ -1,7 +1,8 @@
 #include "Game.h"
 #include "Cameras/CameraBase.h"
 #include "Cameras/FPSCamera.h"
-#include "InputManager.h"
+#include "Input/InputManager.h"
+#include "Input/ActionManager.h"
 #include "World.h"
 #include "glm/gtc/matrix_transform.hpp"
 #include "mGL/MeshFactory.h"
@@ -14,6 +15,7 @@ namespace mFPS
 		mRenderer = std::shared_ptr<mGL::Renderer>(new mGL::Renderer());
 		mCamera = std::shared_ptr<CameraBase>(new FPSCamera());
 		mInputManager = std::shared_ptr<InputManager>(new InputManager());
+		mActionManager = std::shared_ptr<ActionManager>(new ActionManager(mInputManager));
 	}
 
 	Game::~Game()
@@ -34,6 +36,8 @@ namespace mFPS
 		mCamera->SetPosition(glm::vec3(0.0f, 0.0f, -10.0f));
 
 		mInputManager->SetCursorMode(mWindow);
+		mActionManager->LoadActions("Data/InputActions.xml");
+
 		mWorld->FromXML("TestWorld.xml");
 		return 0;
 	}

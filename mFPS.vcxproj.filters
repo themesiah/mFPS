@@ -13,57 +13,69 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Header Files\Cameras">
-      <UniqueIdentifier>{a8d37c85-81a1-421c-8cd0-332d7238784c}</UniqueIdentifier>
+    <Filter Include="Input">
+      <UniqueIdentifier>{2c6c42a6-5dbb-4245-a46b-299de38f64b4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Cameras">
-      <UniqueIdentifier>{1afa8749-b4f4-488f-8ff0-6dd036391112}</UniqueIdentifier>
+    <Filter Include="Cameras">
+      <UniqueIdentifier>{a8d37c85-81a1-421c-8cd0-332d7238784c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\mFPS\Game.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\mFPS\InputDefinitions.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\mFPS\InputManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\mFPS\Cameras\CameraBase.h">
-      <Filter>Header Files\Cameras</Filter>
+      <Filter>Cameras</Filter>
     </ClInclude>
     <ClInclude Include="src\mFPS\Cameras\FPSCamera.h">
-      <Filter>Header Files\Cameras</Filter>
+      <Filter>Cameras</Filter>
     </ClInclude>
     <ClInclude Include="src\mFPS\Cameras\LookAtCamera.h">
-      <Filter>Header Files\Cameras</Filter>
+      <Filter>Cameras</Filter>
     </ClInclude>
     <ClInclude Include="src\mFPS\World.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\mFPS\Input\InputDefinitions.h">
+      <Filter>Input</Filter>
+    </ClInclude>
+    <ClInclude Include="src\mFPS\Input\InputManager.h">
+      <Filter>Input</Filter>
+    </ClInclude>
+    <ClInclude Include="src\mFPS\Input\ActionManager.h">
+      <Filter>Input</Filter>
+    </ClInclude>
+    <ClInclude Include="src\mFPS\Input\InputAction.h">
+      <Filter>Input</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\mFPS\Game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\mFPS\InputManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\mFPS\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\mFPS\Cameras\CameraBase.cpp">
-      <Filter>Source Files\Cameras</Filter>
-    </ClCompile>
-    <ClCompile Include="src\mFPS\Cameras\FPSCamera.cpp">
-      <Filter>Source Files\Cameras</Filter>
-    </ClCompile>
-    <ClCompile Include="src\mFPS\Cameras\LookAtCamera.cpp">
-      <Filter>Source Files\Cameras</Filter>
-    </ClCompile>
     <ClCompile Include="src\mFPS\World.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\mFPS\Cameras\CameraBase.cpp">
+      <Filter>Cameras</Filter>
+    </ClCompile>
+    <ClCompile Include="src\mFPS\Cameras\FPSCamera.cpp">
+      <Filter>Cameras</Filter>
+    </ClCompile>
+    <ClCompile Include="src\mFPS\Cameras\LookAtCamera.cpp">
+      <Filter>Cameras</Filter>
+    </ClCompile>
+    <ClCompile Include="src\mFPS\Input\InputManager.cpp">
+      <Filter>Input</Filter>
+    </ClCompile>
+    <ClCompile Include="src\mFPS\Input\ActionManager.cpp">
+      <Filter>Input</Filter>
+    </ClCompile>
+    <ClCompile Include="src\mFPS\Input\InputAction.cpp">
+      <Filter>Input</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

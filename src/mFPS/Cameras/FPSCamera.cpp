@@ -1,6 +1,6 @@
 #include "FPSCamera.h"
 #include "glm/gtc/matrix_transform.hpp"
-#include "../InputManager.h"
+#include "../Input/InputManager.h"
 
 namespace mFPS
 {

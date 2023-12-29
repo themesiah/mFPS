@@ -1,0 +1,16 @@
+<actions>
+	<action name="MoveX">
+		<trigger type="Keyboard" action_type="Down" key_code="A" value="-1"/>
+		<trigger type="Keyboard" action_type="Down" key_code="D" value="1"/>
+	</action>
+	<action name="MoveY">
+		<trigger type="Keyboard" action_type="Down" key_code="W" value="1"/>
+		<trigger type="Keyboard" action_type="Down" key_code="S" value="-1"/>
+	</action>
+	<action name="Yaw">
+		<trigger type="MouseLook" mouse_axis="DX"/>
+	</action>
+	<action name="Pitch">
+		<trigger type="MouseLook" mouse_axis="DY"/>
+	</action>
+</actions>

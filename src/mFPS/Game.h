@@ -9,6 +9,7 @@
 namespace mFPS
 {
 	class InputManager;
+	class ActionManager;
 	class World;
 	class CameraBase;
 	class Game
@@ -23,6 +24,7 @@ namespace mFPS
 		std::shared_ptr<CameraBase> mCamera;
 		std::shared_ptr<mGL::Renderer> mRenderer;
 		std::shared_ptr<InputManager> mInputManager;
+		std::shared_ptr<ActionManager> mActionManager;
 		GLFWwindow* mWindow;
 
 		float mDeltaTime;
