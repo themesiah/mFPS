@@ -1,7 +1,7 @@
 #include "MaterialColorParameter.h"
-#include "Shader.h"
+#include "../Shader.h"
 
-#include <iostream>
+#include "mBase/Logger.h"
 
 namespace mGL
 {
@@ -22,7 +22,7 @@ namespace mGL
 
 	MaterialColorParameter::~MaterialColorParameter()
 	{
-		std::cout << "~MaterialColorParameter called" << std::endl;
+		Logger::Log("Material Color Parameter", "Destructor called");
 	}
 
 	void MaterialColorParameter::Bind(Shader* shader) const

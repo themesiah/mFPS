@@ -5,15 +5,17 @@
 #include "mBase/Logger.h"
 #include "mGL/MeshFactory.h"
 #include "glm/glm.hpp"
+#include "mBase/CheckedDelete.h"
 
 namespace mFPS
 {
 	World::World() : mRenderableObjects({}) {}
+
 	World::~World()
 	{
 		for (int i = 0; i < mRenderableObjects.size(); ++i)
 		{
-			delete mRenderableObjects[i];
+			mBase::CheckedDelete(mRenderableObjects[i]);
 		}
 	}
 

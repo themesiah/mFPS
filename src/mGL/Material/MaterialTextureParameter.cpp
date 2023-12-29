@@ -1,8 +1,9 @@
 #include "MaterialTextureParameter.h"
-#include "../Texture.h"
+#include "../Texture/Texture.h"
 #include "../Shader.h"
+#include "mBase/CheckedDelete.h"
 
-#include <iostream>
+#include "mBase/Logger.h"
 
 namespace mGL
 {
@@ -26,8 +27,7 @@ namespace mGL
 
 	MaterialTextureParameter::~MaterialTextureParameter()
 	{
-		std::cout << "~MaterialTextureParameter called" << std::endl;
-		delete mTexture;
+		Logger::Log("Material Texture Parameter", "Destructor called");
 	}
 
 	void MaterialTextureParameter::Bind(Shader* shader) const

@@ -2,7 +2,7 @@
 #include "Vertex.h"
 #include "Material/Material.h"
 
-#include <iostream>
+#include "mBase/Logger.h"
 
 namespace mGL
 {	
@@ -36,7 +36,7 @@ namespace mGL
 
 	Mesh::~Mesh()
 	{
-		std::cout << "~Mesh called" << std::endl;
+		Logger::Log("Mesh", "Destructor called");
 		glDeleteVertexArrays(1, &mVAO);
 		glDeleteBuffers(1, &mVBO);
 		glDeleteBuffers(1, &mEBO);

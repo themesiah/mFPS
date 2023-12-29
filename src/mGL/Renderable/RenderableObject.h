@@ -17,7 +17,7 @@ namespace mGL
 		RenderableObject();
 		RenderableObject(RenderableObject& ro);
 		RenderableObject& operator=(RenderableObject& ro);
-		~RenderableObject();
+		virtual ~RenderableObject();
 		std::shared_ptr<glm::mat4> GetMatrix() const;
 		virtual void Render(const glm::mat4& projection, const glm::mat4& view) = 0;
 	protected:

@@ -1,6 +1,8 @@
 #include "Material.h"
 #include "IMaterialParameter.h"
 
+#include "mBase/Logger.h"
+
 namespace mGL
 {
 	Material::Material() : mShader(nullptr), mParameters(){}
@@ -23,6 +25,7 @@ namespace mGL
 
 	Material::~Material()
 	{
+		Logger::Log("Material", "Destructor called");
 		for (int i = 0; i < mParameters.size(); ++i)
 		{
 			delete mParameters[i];

@@ -5,7 +5,8 @@
 #include "Material.h"
 #include "MaterialColorParameter.h"
 #include "MaterialTextureParameter.h"
-#include "../Texture.h"
+#include "../Texture/Texture.h"
+#include "../Texture/TextureManager.h"
 #include "mBase/Logger.h"
 #include "mBase/StringUtils.h"
 
@@ -50,7 +51,16 @@ namespace mGL
 			else if (firstToken == "map_Kd") // Diffuse texture
 			{
 				if (currentMaterial == nullptr) continue;
-				currentMaterial->AddParameter(new MaterialTextureParameter(TextureType::Albedo, new Texture(mBase::Strings::Tail(line))));
+				Texture* tex;
+				std::string texPath = mBase::Strings::Tail(line);
+				if (TextureManager::GetInstance().Exist(texPath)) {
+					tex = TextureManager::GetInstance()(texPath);
+				}
+				else {
+					tex = new Texture(texPath);
+					TextureManager::GetInstance().Add(texPath, tex);
+				}
+				currentMaterial->AddParameter(new MaterialTextureParameter(TextureType::Albedo, tex));
 			}
 		}
 		file.close();
