@@ -10,6 +10,10 @@ namespace mFPS
 	{
 		mYaw += yaw;
 		mPitch += pitch;
+		if (mPitch > 80.0f)
+			mPitch = 80.0f;
+		if (mPitch < -80.0f)
+			mPitch = -80.0f;
 	}
 
 	void FPSCamera::Update(const float& deltaTime, InputManager* inputManager)

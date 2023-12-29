@@ -135,7 +135,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>mGL.lib;glfw3.lib;opengl32.lib;user32.lib;gdi32.lib;shell32.lib;glew32.lib</AdditionalDependencies>
+      <AdditionalDependencies>mGL.lib;mBase.lib;glfw3.lib;opengl32.lib;user32.lib;gdi32.lib;shell32.lib;glew32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>C:\Proyectos\mFPS\lib\Debug;C:\Proyectos\mFPS\Dependencies\glfw-3.3.8.bin.WIN64\lib-vc2022;C:\Proyectos\mFPS\Dependencies\glew-2.2.0\lib\Release\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
@@ -159,7 +159,7 @@ xcopy /y /d /e /i "$(SolutionDir)Data" "$(OutDir)Data"</Command>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>C:\Proyectos\mFPS\lib\Release;C:\Proyectos\mFPS\Dependencies\glfw-3.3.8.bin.WIN64\lib-vc2022;C:\Proyectos\mFPS\Dependencies\glew-2.2.0\lib\Release\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>mGL.lib;glfw3.lib;opengl32.lib;user32.lib;gdi32.lib;shell32.lib;glew32.lib</AdditionalDependencies>
+      <AdditionalDependencies>mGL.lib;mBase.lib;glfw3.lib;opengl32.lib;user32.lib;gdi32.lib;shell32.lib;glew32.lib</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>xcopy /y /d  "$(SolutionDir)Dependencies\glew-2.2.0\bin\Release\x64\glew32.dll" "$(OutDir)"

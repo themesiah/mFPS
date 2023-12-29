@@ -2,7 +2,7 @@
 #define MFPS_WORLD
 
 #include <vector>
-
+#include <string>
 #include "mGL/RenderableObject.h"
 
 namespace mFPS
@@ -14,6 +14,7 @@ namespace mFPS
 		~World();
 		void AddRenderableObject(mGL::RenderableObject* renderableObject);
 		const std::vector<mGL::RenderableObject*> GetRenderableObjects() const;
+		void FromXML(const std::string& path);
 	private:
 		std::vector<mGL::RenderableObject*> mRenderableObjects;
 	};

@@ -60,7 +60,7 @@ namespace mFPS
 
 	const glm::vec2 InputManager::GetMouseDelta() const
 	{
-		return mCurrentInput.MousePosition - mLastInput.MousePosition;
+		return { mCurrentInput.MousePosition.x - mLastInput.MousePosition.x, mLastInput.MousePosition.y - mCurrentInput.MousePosition.y };
 	}
 
 	const glm::vec2 InputManager::GetMousePosition() const
