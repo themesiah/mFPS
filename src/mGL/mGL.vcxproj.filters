@@ -54,6 +54,9 @@
     <ClCompile Include="Renderable\RenderableModel.cpp">
       <Filter>Renderable</Filter>
     </ClCompile>
+    <ClCompile Include="Material\MaterialFactory.cpp">
+      <Filter>Material</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Renderer.h">
@@ -94,6 +97,9 @@
     </ClInclude>
     <ClInclude Include="Renderable\RenderableModel.h">
       <Filter>Renderable</Filter>
+    </ClInclude>
+    <ClInclude Include="Material\MaterialFactory.h">
+      <Filter>Material</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,5 +1,5 @@
-#ifndef MBASE_RENDERABLEMODEL
-#define MBASE_RENDERABLEMODEL
+#ifndef MGL_RENDERABLEMODEL
+#define MGL_RENDERABLEMODEL
 
 #include "RenderableObject.h"
 
