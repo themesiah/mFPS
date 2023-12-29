@@ -1,6 +1,7 @@
 #include "World.h"
 
 #include "mBase/XML/tinyxml2.h"
+#include "mBase/XML/XML.h"
 #include "mBase/Logger.h"
 #include "mGL/MeshFactory.h"
 #include "mGL/RenderableObject.h"
@@ -45,11 +46,9 @@ namespace mFPS
 				object->QueryStringAttribute("model", &modelName);
 				mGL::RenderableObject* renderableObject = mGL::MeshFactory::LoadObj(modelName);
 				tinyxml2::XMLElement* position = object->FirstChildElement("position");
-				float x, y, z;
-				position->QueryFloatAttribute("x", &x);
-				position->QueryFloatAttribute("y", &y);
-				position->QueryFloatAttribute("z", &z);
-				*renderableObject->GetMatrix() = glm::translate(*renderableObject->GetMatrix(), glm::vec3(x, y, z));
+				glm::vec3 pos;
+				tinyxml2::QueryVec3Attribute(position, "xyz", &pos);
+				*renderableObject->GetMatrix() = glm::translate(*renderableObject->GetMatrix(), pos);
 
 				AddRenderableObject(renderableObject);
 				object = object->NextSiblingElement();

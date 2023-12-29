@@ -1,17 +1,17 @@
 <world>
 	<object model="gas-station.obj">
-		<position x="0" y="0" z="0"></position>
+		<position xyz="0 0 0"></position>
 	</object>
 	<object model="house-country.obj">
-		<position x="10" y="0" z="0"></position>
+		<position xyz="10 0 0"></position>
 	</object>
 	<object model="house-hill-normal.obj">
-		<position x="0" y="0" z="10"></position>
+		<position xyz="0 0 10"></position>
 	</object>
 	<object model="house-hill-small.obj">
-		<position x="10" y="0" z="10"></position>
+		<position xyz="10 0 10"></position>
 	</object>
 	<object model="house-luxurious.obj">
-		<position x="0" y="0" z="30"></position>
+		<position xyz="0 0 30"></position>
 	</object>
 </world>
