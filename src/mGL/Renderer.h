@@ -5,7 +5,7 @@
 #include <GLFW/glfw3.h> // GLFW helper library
 #include <vector>
 
-#include "RenderableObject.h"
+#include "Renderable/RenderableObject.h"
 
 namespace mGL {
 	class Renderer

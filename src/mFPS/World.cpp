@@ -4,7 +4,6 @@
 #include "mBase/XML/XML.h"
 #include "mBase/Logger.h"
 #include "mGL/MeshFactory.h"
-#include "mGL/RenderableObject.h"
 #include "glm/glm.hpp"
 
 namespace mFPS

@@ -13,11 +13,11 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Source Files\MaterialParameters">
-      <UniqueIdentifier>{b71c9211-41e0-4cc8-9d36-318a2c8706d0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\MaterialParameters">
+    <Filter Include="Material">
       <UniqueIdentifier>{ed733026-b943-4660-92a2-cdb585603544}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Renderable">
+      <UniqueIdentifier>{012eff51-cddd-4dad-82d9-047bc3b84cba}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -30,26 +30,29 @@
     <ClCompile Include="Shader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="RenderableObject.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Material.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Texture.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MaterialColorParameter.cpp">
-      <Filter>Source Files\MaterialParameters</Filter>
-    </ClCompile>
-    <ClCompile Include="MaterialTextureParameter.cpp">
-      <Filter>Source Files\MaterialParameters</Filter>
     </ClCompile>
     <ClCompile Include="MeshFactory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="IMaterialParameter.cpp">
-      <Filter>Source Files\MaterialParameters</Filter>
+    <ClCompile Include="Material\IMaterialParameter.cpp">
+      <Filter>Material</Filter>
+    </ClCompile>
+    <ClCompile Include="Material\Material.cpp">
+      <Filter>Material</Filter>
+    </ClCompile>
+    <ClCompile Include="Material\MaterialColorParameter.cpp">
+      <Filter>Material</Filter>
+    </ClCompile>
+    <ClCompile Include="Material\MaterialTextureParameter.cpp">
+      <Filter>Material</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderable\RenderableObject.cpp">
+      <Filter>Renderable</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderable\RenderableModel.cpp">
+      <Filter>Renderable</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -62,23 +65,11 @@
     <ClInclude Include="Shader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="RenderableObject.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Material.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="stb_image.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Texture.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MaterialColorParameter.h">
-      <Filter>Header Files\MaterialParameters</Filter>
-    </ClInclude>
-    <ClInclude Include="MaterialTextureParameter.h">
-      <Filter>Header Files\MaterialParameters</Filter>
     </ClInclude>
     <ClInclude Include="Vertex.h">
       <Filter>Header Files</Filter>
@@ -86,8 +77,23 @@
     <ClInclude Include="MeshFactory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="IMaterialParameter.h">
-      <Filter>Header Files\MaterialParameters</Filter>
+    <ClInclude Include="Material\IMaterialParameter.h">
+      <Filter>Material</Filter>
+    </ClInclude>
+    <ClInclude Include="Material\Material.h">
+      <Filter>Material</Filter>
+    </ClInclude>
+    <ClInclude Include="Material\MaterialColorParameter.h">
+      <Filter>Material</Filter>
+    </ClInclude>
+    <ClInclude Include="Material\MaterialTextureParameter.h">
+      <Filter>Material</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderable\RenderableObject.h">
+      <Filter>Renderable</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderable\RenderableModel.h">
+      <Filter>Renderable</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -19,25 +19,27 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="IMaterialParameter.cpp" />
-    <ClCompile Include="Material.cpp" />
-    <ClCompile Include="MaterialColorParameter.cpp" />
-    <ClCompile Include="MaterialTextureParameter.cpp" />
+    <ClCompile Include="Material\IMaterialParameter.cpp" />
+    <ClCompile Include="Material\Material.cpp" />
+    <ClCompile Include="Material\MaterialColorParameter.cpp" />
+    <ClCompile Include="Material\MaterialTextureParameter.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="MeshFactory.cpp" />
-    <ClCompile Include="RenderableObject.cpp" />
+    <ClCompile Include="Renderable\RenderableModel.cpp" />
+    <ClCompile Include="Renderable\RenderableObject.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="IMaterialParameter.h" />
-    <ClInclude Include="Material.h" />
-    <ClInclude Include="MaterialColorParameter.h" />
-    <ClInclude Include="MaterialTextureParameter.h" />
+    <ClInclude Include="Material\IMaterialParameter.h" />
+    <ClInclude Include="Material\Material.h" />
+    <ClInclude Include="Material\MaterialColorParameter.h" />
+    <ClInclude Include="Material\MaterialTextureParameter.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="MeshFactory.h" />
-    <ClInclude Include="RenderableObject.h" />
+    <ClInclude Include="Renderable\RenderableModel.h" />
+    <ClInclude Include="Renderable\RenderableObject.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="stb_image.h" />

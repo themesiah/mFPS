@@ -1,6 +1,6 @@
 #include "Mesh.h"
 #include "Vertex.h"
-#include "Material.h"
+#include "Material/Material.h"
 
 #include <iostream>
 

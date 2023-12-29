@@ -4,14 +4,15 @@
 #include <unordered_map>
 
 #include "glm/glm.hpp"
-#include "RenderableObject.h"
+#include "Renderable/RenderableObject.h"
+#include "Renderable/RenderableModel.h"
 #include "Mesh.h"
 #include "MeshFactory.h"
 #include "mBase/StringUtils.h"
 #include "Vertex.h"
-#include "Material.h"
-#include "MaterialColorParameter.h"
-#include "MaterialTextureParameter.h"
+#include "Material/Material.h"
+#include "Material/MaterialColorParameter.h"
+#include "Material/MaterialTextureParameter.h"
 #include "Texture.h"
 #include "mBase/Logger.h"
 
@@ -132,7 +133,7 @@ namespace mGL
 			meshes.push_back(mesh);
 		}
 		file.close();
-		RenderableObject* ro = new RenderableObject(meshes);
+		RenderableObject* ro = new RenderableModel(meshes);
 		return ro;
 	}
 

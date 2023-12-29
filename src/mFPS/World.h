@@ -3,7 +3,7 @@
 
 #include <vector>
 #include <string>
-#include "mGL/RenderableObject.h"
+#include "mGL/Renderable/RenderableObject.h"
 
 namespace mFPS
 {

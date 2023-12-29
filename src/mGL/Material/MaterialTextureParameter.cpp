@@ -1,6 +1,6 @@
 #include "MaterialTextureParameter.h"
-#include "Texture.h"
-#include "Shader.h"
+#include "../Texture.h"
+#include "../Shader.h"
 
 #include <iostream>
 
