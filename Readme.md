@@ -6,5 +6,5 @@
 * :white_check_mark: Create a MaterialFactory to be used inside MeshFactory (or wherever).
 * :white_check_mark: Create a TextureManager to reuse already loaded textures.
 * :white_check_mark: Create an ActionManager to not depend on raw inputs.
-* :black_square_button: Integrate ImGUI just for debug builds.
+* :white_check_mark: Integrate ImGUI just for debug builds.
 * :black_square_button: Do a first take on forward illumination.

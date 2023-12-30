@@ -39,3 +39,4 @@
 # Exceptions
 # We want the obj that are meshes on the project
 ![Dd]ata/[Mm]eshes/*.obj
+imgui.ini

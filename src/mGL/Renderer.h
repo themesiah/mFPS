@@ -15,6 +15,7 @@ namespace mGL {
 		~Renderer();
 		GLFWwindow* InitializeRenderer(const int& width, const int& height);
 		void Render(std::vector<RenderableObject*> renderableObjects, const glm::mat4& projection, const glm::mat4& view);
+		void EndFrame();
 		void Terminate();
 	private:
 		GLFWwindow* mWindow;

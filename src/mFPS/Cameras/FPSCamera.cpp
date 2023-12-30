@@ -1,19 +1,24 @@
 #include "FPSCamera.h"
 #include "glm/gtc/matrix_transform.hpp"
 #include "../Input/ActionManager.h"
+#include "mBase/ImGui/imgui.h"
 
 namespace mFPS
 {
-	FPSCamera::FPSCamera() : mYaw(90.0f), mPitch(0.0f), CameraBase() {}
+	FPSCamera::FPSCamera() : mEuler({ 0.0f, 90.0f, 0.0f }), CameraBase() {}
 
 	void FPSCamera::Rotate(const float& yaw, const float& pitch)
 	{
-		mYaw += yaw;
-		mPitch += pitch;
-		if (mPitch > 80.0f)
-			mPitch = 80.0f;
-		if (mPitch < -80.0f)
-			mPitch = -80.0f;
+		mEuler.y += yaw;
+		mEuler.x += pitch;
+		if (mEuler.x > 80.0f)
+			mEuler.x = 80.0f;
+		if (mEuler.x < -80.0f)
+			mEuler.x = -80.0f;
+		if (mEuler.y > 180.0f)
+			mEuler.y -= 360.0f;
+		if (mEuler.y < -180.0f)
+			mEuler.y += 360.0f;
 	}
 
 	void FPSCamera::Update(const float& deltaTime, ActionManager* actionManager)
@@ -32,14 +37,24 @@ namespace mFPS
 		glm::vec3 forward = GetForward();
 
 		mView = glm::lookAt(mPosition, mPosition + forward, mUp);
+
+#ifdef _DEBUG
+		if (ImGui::TreeNode("Camera"))
+		{
+			ImGui::SliderFloat3("Position", &mPosition[0], -1000.0f, 1000.0f);
+			ImGui::SliderFloat3("Rotation", &mEuler[0], -180.0f, 180.0f);
+			ImGui::TreePop();
+			ImGui::Spacing();
+		}
+#endif
 	}
 
 	glm::vec3 FPSCamera::GetForward()
 	{
 		glm::vec3 direction;
-		direction.x = cos(glm::radians(mYaw)) * cos(glm::radians(mPitch));
-		direction.y = sin(glm::radians(mPitch));
-		direction.z = sin(glm::radians(mYaw)) * cos(glm::radians(mPitch));
+		direction.x = cos(glm::radians(mEuler.y)) * cos(glm::radians(mEuler.x));
+		direction.y = sin(glm::radians(mEuler.x));
+		direction.z = sin(glm::radians(mEuler.y)) * cos(glm::radians(mEuler.x));
 		glm::vec3 forward = glm::normalize(direction);
 		return forward;
 	}

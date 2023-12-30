@@ -7,6 +7,12 @@
 #include "glm/gtc/matrix_transform.hpp"
 #include "mGL/MeshFactory.h"
 
+#ifdef _DEBUG
+#include "mBase/ImGui/imgui.h"
+#include "mBase/ImGui/imgui_impl_glfw.h"
+#include "mBase/ImGui/imgui_impl_opengl3.h"
+#endif
+
 namespace mFPS
 {
 	Game::Game() : mDeltaTime(0.0f), mLastFrame(0.0f)
@@ -20,25 +26,35 @@ namespace mFPS
 
 	Game::~Game()
 	{
-		mRenderer.get()->Terminate();
+		mRenderer->Terminate();
 		mRenderer.reset();
 		mCamera.reset();
 	}
 
 	int Game::Initialize(const int& width, const int& height)
 	{
-		mWindow = mRenderer.get()->InitializeRenderer(width, height);
+		mWindow = mRenderer->InitializeRenderer(width, height);
 		if (mWindow == nullptr) {
 			return 1;
 		}
 
-		mCamera.get()->SetProjection(glm::perspective(glm::radians(75.0f), (float)width / (float)height, 0.1f, 100.0f));
+		mCamera->SetProjection(glm::perspective(glm::radians(75.0f), (float)width / (float)height, 0.1f, 100.0f));
 		mCamera->SetPosition(glm::vec3(0.0f, 0.0f, -10.0f));
 
 		mInputManager->SetCursorMode(mWindow);
 		mActionManager->LoadActions("Data/InputActions.xml");
 
 		mWorld->FromXML("TestWorld.xml");
+
+#ifdef _DEBUG
+		IMGUI_CHECKVERSION();
+		ImGui::CreateContext();
+		ImGuiIO& io = ImGui::GetIO();
+		io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
+		io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;
+		ImGui_ImplGlfw_InitForOpenGL(mWindow, true);
+		ImGui_ImplOpenGL3_Init();
+#endif
 		return 0;
 	}
 
@@ -47,13 +63,37 @@ namespace mFPS
 		float currentFrame = glfwGetTime();
 		mDeltaTime = currentFrame - mLastFrame;
 		mLastFrame = currentFrame;
-
+		glfwPollEvents();
 		mInputManager->ProcessInput(mWindow);
+		if (mInputManager->IsKeyDown(GLFW_KEY_ESCAPE))
+		{
+			mInputManager->UnsetCursorMode(mWindow);
+		}
+		if (mInputManager->IsKeyDown(GLFW_KEY_TAB))
+		{
+			mInputManager->SetCursorMode(mWindow);
+		}
 
-		mCamera.get()->Update(mDeltaTime, mActionManager.get());
+#ifdef _DEBUG
+		ImGui_ImplOpenGL3_NewFrame();
+		ImGui_ImplGlfw_NewFrame();
+		ImGui::NewFrame();
+		//ImGui::ShowDemoWindow();
+		ImGui::Begin("Main Window");
+#endif
 
-		mRenderer.get()->Render(mWorld->GetRenderableObjects(), mCamera->GetProjection(), mCamera->GetView());
+		mCamera->Update(mDeltaTime, mActionManager.get());
 
-		return !glfwWindowShouldClose(mWindow) && !mInputManager->IsKeyDown(GLFW_KEY_ESCAPE);
+		mRenderer->Render(mWorld->GetRenderableObjects(), mCamera->GetProjection(), mCamera->GetView());
+
+#ifdef _DEBUG
+		ImGui::End();
+		ImGui::Render();
+		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+#endif
+
+		mRenderer->EndFrame();
+
+		return !glfwWindowShouldClose(mWindow);
 	}
 }

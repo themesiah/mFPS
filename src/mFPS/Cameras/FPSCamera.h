@@ -13,8 +13,7 @@ namespace mFPS
 		void Update(const float& deltaTime, ActionManager* actionManager) override;
 		glm::vec3 GetForward() override;
 	private:
-		float mYaw;
-		float mPitch;
+		glm::vec3 mEuler; // x is pitch, y is yaw, z is roll
 	};
 }
 

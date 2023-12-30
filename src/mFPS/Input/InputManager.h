@@ -18,8 +18,8 @@ namespace mFPS
 		const bool IsMouseButtonDown(const int& key) const;
 		const bool IsMouseButtonPressed(const int& key) const;
 		const bool IsMouseButtonReleased(const int& key) const;
-		const void SetCursorMode(GLFWwindow* window) const;
-		const void UnsetCursorMode(GLFWwindow* window) const;
+		const void SetCursorMode(GLFWwindow* window);
+		const void UnsetCursorMode(GLFWwindow* window);
 		const glm::vec2 GetMouseDelta() const;
 		const glm::vec2 GetMousePosition() const;
 	private:

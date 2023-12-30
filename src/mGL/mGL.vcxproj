@@ -152,7 +152,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>C:\Proyectos\mFPS\src;C:\Proyectos\mFPS\Dependencies\glfw-3.3.8.bin.WIN64\include;C:\Proyectos\mFPS\Dependencies\glew-2.2.0\include;C:\Proyectos\mFPS\Dependencies\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)src;$(SolutionDir)Dependencies\glfw-3.3.8.bin.WIN64\include;$(SolutionDir)Dependencies\glew-2.2.0\include;$(SolutionDir)Dependencies\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -176,7 +176,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>C:\Proyectos\mFPS\src;C:\Proyectos\mFPS\Dependencies\glfw-3.3.8.bin.WIN64\include;C:\Proyectos\mFPS\Dependencies\glew-2.2.0\include;C:\Proyectos\mFPS\Dependencies\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)src;$(SolutionDir)Dependencies\glfw-3.3.8.bin.WIN64\include;$(SolutionDir)Dependencies\glew-2.2.0\include;$(SolutionDir)Dependencies\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>

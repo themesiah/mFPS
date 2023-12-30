@@ -62,9 +62,10 @@ namespace mGL {
         {
             renderableObjects[i]->Render(projection, view);
         }
+    }
 
-        // update other events like input handling 
-        glfwPollEvents();
+    void Renderer::EndFrame()
+    {
         // put the stuff we've been drawing onto the display
         glfwSwapBuffers(mWindow);
     }

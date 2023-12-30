@@ -7,7 +7,7 @@ int WinMain()
 #endif
 {
     mFPS::Game* game = new mFPS::Game();
-    game->Initialize(640, 480);
+    game->Initialize(1280, 720);
 
     while (game->Update())
     {

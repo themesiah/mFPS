@@ -31,14 +31,16 @@ namespace mFPS
 		}
 	}
 
-	const void InputManager::SetCursorMode(GLFWwindow* window) const
+	const void InputManager::SetCursorMode(GLFWwindow* window)
 	{
 		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+		mLastInput.MousePosition = mCurrentInput.MousePosition;
 	}
 
-	const void InputManager::UnsetCursorMode(GLFWwindow* window) const
+	const void InputManager::UnsetCursorMode(GLFWwindow* window)
 	{
 		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+		mLastInput.MousePosition = mCurrentInput.MousePosition;
 	}
 
 	const bool InputManager::IsKeyDown(const int& key) const
