@@ -119,6 +119,13 @@ namespace mFPS
 			{
 				trigger.mouseLook.mouseAxis = MouseAxis::DY;
 			}
+			trigger.mouseLook.sensitivity = 1.0f;
+			float sensitivity;
+			result = element->QueryFloatAttribute("sensitivity", &sensitivity);
+			if (result == tinyxml2::XML_SUCCESS) // OPTIONAL
+			{
+				trigger.mouseLook.sensitivity = sensitivity;
+			}
 		}
 		else {
 			return tinyxml2::XML_ERROR_PARSING_ATTRIBUTE;
@@ -130,7 +137,59 @@ namespace mFPS
 
 	float InputAction::GetValue(InputManager* inputManager)
 	{
-		return 0.0f;
+		float value = 0.0f;
+		for(int i = 0; i < mTriggers.size(); ++i)
+		{
+			switch (mTriggers[i].triggerType)
+			{
+			case TriggerType::Keyboard:
+				switch (mTriggers[i].keyboard.triggerActionType)
+				{
+				case TriggerActionType::Down:
+					if (inputManager->IsKeyDown(mTriggers[i].keyboard.keyCode)) value += mTriggers[i].keyboard.value;
+					break;
+				case TriggerActionType::Pressed:
+					if (inputManager->IsKeyPressed(mTriggers[i].keyboard.keyCode)) value += mTriggers[i].keyboard.value;
+					break;
+				case TriggerActionType::Released:
+					if (inputManager->IsKeyReleased(mTriggers[i].keyboard.keyCode)) value += mTriggers[i].keyboard.value;
+					break;
+				}
+				break;
+			case TriggerType::Mouse:
+				switch (mTriggers[i].mouseButton.triggerActionType)
+				{
+				case TriggerActionType::Down:
+					if (inputManager->IsMouseButtonDown(mTriggers[i].mouseButton.mouseButton)) value += mTriggers[i].mouseButton.value;
+					break;
+				case TriggerActionType::Pressed:
+					if (inputManager->IsMouseButtonPressed(mTriggers[i].mouseButton.mouseButton)) value += mTriggers[i].mouseButton.value;
+					break;
+				case TriggerActionType::Released:
+					if (inputManager->IsMouseButtonReleased(mTriggers[i].mouseButton.mouseButton)) value += mTriggers[i].mouseButton.value;
+					break;
+				}
+				break;
+			case TriggerType::MouseLook:
+				switch (mTriggers[i].mouseLook.mouseAxis)
+				{
+				case MouseAxis::X:
+					value += inputManager->GetMousePosition().x * mTriggers[i].mouseLook.sensitivity;
+					break;
+				case MouseAxis::Y:
+					value += inputManager->GetMousePosition().y * mTriggers[i].mouseLook.sensitivity;
+					break;
+				case MouseAxis::DX:
+					value += inputManager->GetMouseDelta().x * mTriggers[i].mouseLook.sensitivity;
+					break;
+				case MouseAxis::DY:
+					value += inputManager->GetMouseDelta().y * mTriggers[i].mouseLook.sensitivity;
+					break;
+				}
+				break;
+			}
+		}
+		return value;
 	}
 
 	int InputAction::GetKeyCodeFromString(const char* str)

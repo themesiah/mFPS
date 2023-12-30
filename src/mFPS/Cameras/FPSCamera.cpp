@@ -1,6 +1,6 @@
 #include "FPSCamera.h"
 #include "glm/gtc/matrix_transform.hpp"
-#include "../Input/InputManager.h"
+#include "../Input/ActionManager.h"
 
 namespace mFPS
 {
@@ -16,27 +16,17 @@ namespace mFPS
 			mPitch = -80.0f;
 	}
 
-	void FPSCamera::Update(const float& deltaTime, InputManager* inputManager)
+	void FPSCamera::Update(const float& deltaTime, ActionManager* actionManager)
 	{
-		glm::vec2 lookDelta = inputManager->GetMouseDelta();
-		Rotate(lookDelta.x * 3.0f * deltaTime, lookDelta.y * 3.0f * deltaTime);
+		glm::vec2 lookDelta;
 		glm::vec3 movementDelta = glm::vec3(0.0f, 0.0f, 0.0f);
-		if (inputManager->IsKeyDown(GLFW_KEY_A))
-		{
-			movementDelta.x = -100.0f * deltaTime;
-		}
-		if (inputManager->IsKeyDown(GLFW_KEY_D))
-		{
-			movementDelta.x = 100.0f * deltaTime;
-		}
-		if (inputManager->IsKeyDown(GLFW_KEY_W))
-		{
-			movementDelta.z = 100.0f * deltaTime;
-		}
-		if (inputManager->IsKeyDown(GLFW_KEY_S))
-		{
-			movementDelta.z = -100.0f * deltaTime;
-		}
+		lookDelta.x = actionManager->GetValue("LookX");
+		lookDelta.y = actionManager->GetValue("LookY");
+		movementDelta.x = actionManager->GetValue("MoveX");
+		movementDelta.z = actionManager->GetValue("MoveY");
+		lookDelta *= deltaTime;
+		movementDelta = movementDelta * 100.0f * deltaTime;
+		Rotate(lookDelta.x, lookDelta.y);
 		Translate(movementDelta);
 
 		glm::vec3 forward = GetForward();

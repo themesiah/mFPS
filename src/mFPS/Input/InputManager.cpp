@@ -14,10 +14,11 @@ namespace mFPS
 		for (int i = 0; i < GLFW_KEY_LAST; ++i)
 		{
 			mCurrentInput.Keyboard[i] = glfwGetKey(window, i);
-			//if (mCurrentInput.Keyboard[i] == true)
-			//{
-			//	std::cout << "Key with index " << i << " is pressed" << std::endl;
-			//}
+		}
+
+		for (int i = 0; i < GLFW_MOUSE_BUTTON_LAST; ++i)
+		{
+			mCurrentInput.MouseButtons[i] = glfwGetMouseButton(window, i);
 		}
 
 		if (glfwGetInputMode(window, GLFW_CURSOR) == GLFW_CURSOR_DISABLED) // Cursor disabled means we activated the mouse motion
@@ -57,6 +58,25 @@ namespace mFPS
 		if (key < 0 || key > GLFW_KEY_LAST) return false;
 		return !mCurrentInput.Keyboard[key] && mLastInput.Keyboard[key];
 	}
+
+	const bool InputManager::IsMouseButtonDown(const int& key) const
+	{
+		if (key < 0 || key > GLFW_MOUSE_BUTTON_LAST) return false;
+		return mCurrentInput.MouseButtons[key];
+	}
+
+	const bool InputManager::IsMouseButtonPressed(const int& key) const
+	{
+		if (key < 0 || key > GLFW_MOUSE_BUTTON_LAST) return false;
+		return mCurrentInput.MouseButtons[key] && !mLastInput.MouseButtons[key];
+	}
+
+	const bool InputManager::IsMouseButtonReleased(const int& key) const
+	{
+		if (key < 0 || key > GLFW_MOUSE_BUTTON_LAST) return false;
+		return !mCurrentInput.MouseButtons[key] && mLastInput.MouseButtons[key];
+	}
+
 
 	const glm::vec2 InputManager::GetMouseDelta() const
 	{

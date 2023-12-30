@@ -9,7 +9,7 @@ namespace mFPS
 	{
 	public:
 		LookAtCamera();
-		void Update (const float& deltaTime, InputManager* inputManager) override;
+		void Update (const float& deltaTime, ActionManager* actionManager) override;
 		void SetTarget(const glm::vec3& target);
 		const glm::vec3 GetTarget() const;
 		glm::vec3 GetForward() override;

@@ -5,14 +5,11 @@
 #include "mBase/CheckedDelete.h"
 
 namespace mFPS {
-	ActionManager::ActionManager(std::shared_ptr<InputManager> inputManager) : mInputManager(inputManager){}
+	ActionManager::ActionManager(std::shared_ptr<InputManager> inputManager) : mInputManager(inputManager), mInputActions(){}
 
 	ActionManager::~ActionManager()
 	{
-		for (int i = 0; i < mInputActions.size(); ++i)
-		{
-			mBase::CheckedDelete(mInputActions[i]);
-		}
+		mInputActions.Destroy();
 	}
 
 	void ActionManager::LoadActions(const std::string& path)
@@ -34,12 +31,24 @@ namespace mFPS {
 					inputAction->AddTrigger(trigger);
 					trigger = trigger->NextSiblingElement();
 				}
-				mInputActions.push_back(inputAction);
+				mInputActions.Add(std::string(actionName), inputAction);
 				action = action->NextSiblingElement();
 			}
 		}
 		else {
 			Logger::Log("Action Manager", "Error when loading actions data");
 		}
+	}
+
+	const bool ActionManager::IsPerforming(const std::string& actionName)
+	{
+		assert(mInputActions.Exist(actionName));
+		return mInputActions(actionName)->GetValue(mInputManager.get()) != 0.0f;
+	}
+
+	const float ActionManager::GetValue(const std::string& actionName)
+	{
+		assert(mInputActions.Exist(actionName));
+		return mInputActions(actionName)->GetValue(mInputManager.get());
 	}
 }

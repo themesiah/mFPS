@@ -6,7 +6,7 @@ namespace mFPS
 {
 	LookAtCamera::LookAtCamera() : mTarget(), CameraBase() {}
 
-	void LookAtCamera::Update(const float& deltaTime, InputManager* inputManager)
+	void LookAtCamera::Update(const float& deltaTime, ActionManager* actionManager)
 	{
 		mView = glm::lookAt(mPosition, mTarget, mUp);
 	}

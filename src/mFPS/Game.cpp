@@ -50,7 +50,7 @@ namespace mFPS
 
 		mInputManager->ProcessInput(mWindow);
 
-		mCamera.get()->Update(mDeltaTime, mInputManager.get());
+		mCamera.get()->Update(mDeltaTime, mActionManager.get());
 
 		mRenderer.get()->Render(mWorld->GetRenderableObjects(), mCamera->GetProjection(), mCamera->GetView());
 

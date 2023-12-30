@@ -7,10 +7,10 @@
 		<trigger type="Keyboard" action_type="Down" key_code="W" value="1"/>
 		<trigger type="Keyboard" action_type="Down" key_code="S" value="-1"/>
 	</action>
-	<action name="Yaw">
-		<trigger type="MouseLook" mouse_axis="DX"/>
+	<action name="LookX">
+		<trigger type="MouseLook" mouse_axis="DX" sensitivity="3"/>
 	</action>
-	<action name="Pitch">
-		<trigger type="MouseLook" mouse_axis="DY"/>
+	<action name="LookY">
+		<trigger type="MouseLook" mouse_axis="DY" sensitivity="7"/>
 	</action>
 </actions>

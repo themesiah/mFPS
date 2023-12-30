@@ -9,6 +9,7 @@ namespace mFPS {
 	{
 		bool Keyboard[GLFW_KEY_LAST];
 		glm::vec2 MousePosition;
+		bool MouseButtons[GLFW_MOUSE_BUTTON_LAST];
 	};
 
 	enum TriggerType
