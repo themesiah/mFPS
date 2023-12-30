@@ -19,6 +19,9 @@ namespace mFPS
 		virtual glm::vec3 GetForward() = 0;
 		const glm::mat4 GetView() const;
 		const glm::mat4 GetProjection() const;
+#ifdef _DEBUG
+		virtual void ShowImGui() = 0;
+#endif
 	protected:
 		glm::vec3 mPosition;
 		glm::vec3 mUp;

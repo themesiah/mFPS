@@ -74,20 +74,22 @@ namespace mFPS
 			mInputManager->SetCursorMode(mWindow);
 		}
 
+		mCamera->Update(mDeltaTime, mActionManager.get());
+
 #ifdef _DEBUG
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();
 		//ImGui::ShowDemoWindow();
-		ImGui::Begin("Main Window");
+		if (ImGui::Begin("Main Window")) {
+			mCamera->ShowImGui();
+		}
+		ImGui::End();
 #endif
-
-		mCamera->Update(mDeltaTime, mActionManager.get());
 
 		mRenderer->Render(mWorld->GetRenderableObjects(), mCamera->GetProjection(), mCamera->GetView());
 
 #ifdef _DEBUG
-		ImGui::End();
 		ImGui::Render();
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 #endif

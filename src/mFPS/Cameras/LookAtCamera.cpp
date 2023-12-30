@@ -25,4 +25,9 @@ namespace mFPS
 	{
 		return glm::normalize(mTarget - mPosition);
 	}
+
+#ifdef _DEBUG
+	void LookAtCamera::ShowImGui()
+	{}
+#endif
 }

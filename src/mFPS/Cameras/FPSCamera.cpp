@@ -37,8 +37,11 @@ namespace mFPS
 		glm::vec3 forward = GetForward();
 
 		mView = glm::lookAt(mPosition, mPosition + forward, mUp);
+	}
 
 #ifdef _DEBUG
+	void FPSCamera::ShowImGui()
+	{
 		if (ImGui::TreeNode("Camera"))
 		{
 			ImGui::SliderFloat3("Position", &mPosition[0], -1000.0f, 1000.0f);
@@ -46,8 +49,8 @@ namespace mFPS
 			ImGui::TreePop();
 			ImGui::Spacing();
 		}
-#endif
 	}
+#endif
 
 	glm::vec3 FPSCamera::GetForward()
 	{

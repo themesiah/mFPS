@@ -13,6 +13,9 @@ namespace mFPS
 		void SetTarget(const glm::vec3& target);
 		const glm::vec3 GetTarget() const;
 		glm::vec3 GetForward() override;
+#ifdef _DEBUG
+		void ShowImGui() override;
+#endif
 	private:
 		glm::vec3 mTarget;
 	};
