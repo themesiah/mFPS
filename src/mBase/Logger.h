@@ -9,8 +9,9 @@ class Logger
 public:
 	static void Log(const std::string& key, const std::string& text)
 	{
+#ifdef _DEBUG
 		std::cout << "[" << key << "] " << text << std::endl;
+#endif
 	}
 };
-
 #endif

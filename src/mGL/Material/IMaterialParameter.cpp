@@ -1,10 +1,11 @@
 #include "IMaterialParameter.h"
-#include <iostream>
+
+#include "mBase/Logger.h"
 
 namespace mGL
 {
 	IMaterialParameter::~IMaterialParameter()
 	{
-		std::cout << "~IMaterialParameter called" << std::endl;
+		Logger::Log("IMaterialParameter", "Destructor called");
 	}
 }

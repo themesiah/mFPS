@@ -158,7 +158,7 @@ xcopy /y /d /e /i "$(SolutionDir)Data" "$(OutDir)Data"</Command>
       <AdditionalIncludeDirectories>C:\Proyectos\mFPS\src;C:\Proyectos\mFPS\Dependencies\glew-2.2.0\include;C:\Proyectos\mFPS\Dependencies\glfw-3.3.8.bin.WIN64\include;C:\Proyectos\mFPS\Dependencies\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>

@@ -1,5 +1,8 @@
 #include "Renderer.h"
 
+#include "mBase/Logger.h"
+#include <sstream>
+
 namespace mGL {
     Renderer::Renderer() : mWindow() {}
 
@@ -28,8 +31,13 @@ namespace mGL {
         // get version info
         const GLubyte* renderer = glGetString(GL_RENDERER); // get renderer string
         const GLubyte* version = glGetString(GL_VERSION); // version as a string
-        printf("Renderer: %s\n", renderer);
-        printf("OpenGL version supported %s\n", version);
+        
+        std::stringstream ss;
+        std::stringstream ss2;
+        ss << "Renderer:\n" << renderer;
+        ss2 << "OpenGL version supported:\n" << version;
+        Logger::Log("Renderer", ss.str());
+        Logger::Log("Renderer", ss2.str());
 
         // tell GL to only draw onto a pixel if the shape is closer to the viewer
         glEnable(GL_DEPTH_TEST); // enable depth-testing
