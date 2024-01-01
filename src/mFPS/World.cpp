@@ -46,10 +46,17 @@ namespace mFPS
 				const char* modelName;
 				object->QueryStringAttribute("model", &modelName);
 				mGL::RenderableObject* renderableObject = mGL::MeshFactory::LoadObj(modelName);
-				tinyxml2::XMLElement* position = object->FirstChildElement("position");
+				tinyxml2::XMLElement* transformElement = object->FirstChildElement("transform");
 				glm::vec3 pos;
-				tinyxml2::QueryVec3Attribute(position, "xyz", &pos);
-				*renderableObject->GetMatrix() = glm::translate(*renderableObject->GetMatrix(), pos);
+				if (tinyxml2::QueryVec3Attribute(transformElement, "position", &pos) == tinyxml2::XML_SUCCESS)
+				{
+					*renderableObject->GetMatrix() = glm::translate(*renderableObject->GetMatrix(), pos);
+				}
+				glm::vec3 scale;
+				if (tinyxml2::QueryVec3Attribute(transformElement, "scale", &scale) == tinyxml2::XML_SUCCESS)
+				{
+					*renderableObject->GetMatrix() = glm::scale(*renderableObject->GetMatrix(), scale);
+				}
 
 				AddRenderableObject(renderableObject);
 				object = object->NextSiblingElement();

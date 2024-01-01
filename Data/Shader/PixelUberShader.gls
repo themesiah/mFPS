@@ -4,7 +4,8 @@ out vec4 frag_color;
 uniform bool use_albedo_texture;
 uniform bool use_tint;
 
-in vec2 TexCoord;
+in vec2 oTexCoord;
+in vec3 oNormal;
 
 uniform vec4 tint;
 uniform sampler2D albedo;
@@ -17,6 +18,8 @@ void main() {
 	}
 	if (use_albedo_texture == true)
 	{
-		frag_color = frag_color * texture(albedo, TexCoord);
+		frag_color = frag_color * texture(albedo, oTexCoord);
 	}
+	
+	// frag_color = vec4(oNormal.x, oNormal.y, oNormal.z, 1.0); // Uncomment to test normals
 }

@@ -1,17 +1,5 @@
 <world>
-	<object model="gas-station.obj">
-		<position xyz="0 0 0"></position>
-	</object>
-	<object model="house-country.obj">
-		<position xyz="10 0 0"></position>
-	</object>
-	<object model="house-hill-normal.obj">
-		<position xyz="0 0 10"></position>
-	</object>
-	<object model="house-hill-small.obj">
-		<position xyz="10 0 10"></position>
-	</object>
-	<object model="house-luxurious.obj">
-		<position xyz="0 0 30"></position>
+	<object model="dragon.obj">
+		<transform position="0 0 0" scale="10 10 10"></transform>
 	</object>
 </world>

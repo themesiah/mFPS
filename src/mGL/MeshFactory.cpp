@@ -95,30 +95,43 @@ namespace mGL
 			{
 				std::vector<std::string> faces;
 				mBase::Strings::Split(mBase::Strings::Tail(line), faces, " ");
+				unsigned int firstIndex;
 				for (int i = 0; i < faces.size(); ++i)
 				{
 					std::vector<std::string> splitted;
 					mBase::Strings::Split(faces[i], splitted, "/");
 					unsigned short positionIndex = std::stoi(splitted[0]);
 					unsigned short uvIndex = std::stoi(splitted[1]);
-					
+
 					Vertex v = Vertex();
 					v.Position = positions[positionIndex - 1];
 					v.Uvs = uvs[uvIndex - 1];
 					if (splitted.size() > 2) {
 						unsigned short normalIndex = std::stoi(splitted[2]);
-						// TODO: Add normals
+						v.Normal = normals[normalIndex - 1];
 					}
 					if (indicesMap.find(v) != indicesMap.end())
 					{
 						// Exists!
 						indices.push_back(indicesMap[v]);
+						if (faces.size() == 4 && i == 0)
+							firstIndex = indicesMap[v];
+						if (faces.size() == 4 && i == 2)
+							indices.push_back(indicesMap[v]);
+						if (faces.size() == 4 && i == 3)
+							indices.push_back(firstIndex);
 					}
 					else {
 						// Not exists. Create new one
 						vertexs.push_back(v);
 						indicesMap[v] = indexCount;
 						indices.push_back(indexCount);
+						if (faces.size() == 4 && i == 0)
+							firstIndex = indicesMap[v];
+						if (faces.size() == 4 && i == 2)
+							indices.push_back(indicesMap[v]);
+						if (faces.size() == 4 && i == 3)
+							indices.push_back(firstIndex);
 						indexCount++;
 					}
 				}
