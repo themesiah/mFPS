@@ -7,6 +7,10 @@
 #include "glm/glm.hpp"
 #include "mBase/CheckedDelete.h"
 
+#ifdef _DEBUG
+#include "mBase/ImGui/imgui.h"
+#endif
+
 namespace mFPS
 {
 	World::World() : mRenderableObjects({}) {}
@@ -47,19 +51,36 @@ namespace mFPS
 				object->QueryStringAttribute("model", &modelName);
 				mGL::RenderableObject* renderableObject = mGL::MeshFactory::LoadObj(modelName);
 				tinyxml2::XMLElement* transformElement = object->FirstChildElement("transform");
-				glm::vec3 pos;
+				glm::vec3 pos = { 0.0f, 0.0f, 0.0f };
 				if (tinyxml2::QueryVec3Attribute(transformElement, "position", &pos) == tinyxml2::XML_SUCCESS)
 				{
 					*renderableObject->GetMatrix() = glm::translate(*renderableObject->GetMatrix(), pos);
 				}
-				glm::vec3 scale;
+				glm::vec3 scale = { 1.0f, 1.0f, 1.0f };
 				if (tinyxml2::QueryVec3Attribute(transformElement, "scale", &scale) == tinyxml2::XML_SUCCESS)
 				{
 					*renderableObject->GetMatrix() = glm::scale(*renderableObject->GetMatrix(), scale);
 				}
+				glm::vec3 euler = { 0.0f, 0.0f, 0.0f };
+				if (tinyxml2::QueryVec3Attribute(transformElement, "rotation", &euler) == tinyxml2::XML_SUCCESS)
+				{
+					*renderableObject->GetMatrix() = glm::rotate(*renderableObject->GetMatrix(), glm::radians(euler.x), { 1.0f, 0.0f, 0.0f });
+					*renderableObject->GetMatrix() = glm::rotate(*renderableObject->GetMatrix(), glm::radians(euler.y), { 0.0f, 1.0f, 0.0f });
+					*renderableObject->GetMatrix() = glm::rotate(*renderableObject->GetMatrix(), glm::radians(euler.z), { 0.0f, 0.0f, 1.0f });
+				}
 
 				AddRenderableObject(renderableObject);
 				object = object->NextSiblingElement();
+			}
+
+			tinyxml2::XMLElement* lightObject = world->FirstChildElement("light");
+
+			while (lightObject != NULL)
+			{
+				mGL::DirectionalLight* dirLight = new mGL::DirectionalLight(lightObject);
+				dirLight->Set();
+				mLights.push_back(dirLight);
+				lightObject = lightObject->NextSiblingElement();
 			}
 		}
 		else
@@ -68,4 +89,19 @@ namespace mFPS
 		}
 		doc.Clear();
 	}
+
+#ifdef _DEBUG
+	void World::ShowImGui()
+	{
+		if (ImGui::TreeNode("World"))
+		{
+			for (int i = 0; i < mLights.size(); ++i)
+			{
+				mLights[i]->ShowImGui();
+			}
+			ImGui::TreePop();
+			ImGui::Spacing();
+		}
+	}
+#endif
 }

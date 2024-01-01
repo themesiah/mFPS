@@ -83,6 +83,7 @@ namespace mFPS
 		//ImGui::ShowDemoWindow();
 		if (ImGui::Begin("Main Window")) {
 			mCamera->ShowImGui();
+			mWorld->ShowImGui();
 		}
 		ImGui::End();
 #endif

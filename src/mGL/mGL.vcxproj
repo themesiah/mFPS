@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Lights\DirectionalLight.cpp" />
     <ClCompile Include="Material\IMaterialParameter.cpp" />
     <ClCompile Include="Material\Material.cpp" />
     <ClCompile Include="Material\MaterialColorParameter.cpp" />
@@ -34,6 +35,7 @@
     <ClCompile Include="Texture\TextureManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Lights\DirectionalLight.h" />
     <ClInclude Include="Material\IMaterialParameter.h" />
     <ClInclude Include="Material\Material.h" />
     <ClInclude Include="Material\MaterialColorParameter.h" />

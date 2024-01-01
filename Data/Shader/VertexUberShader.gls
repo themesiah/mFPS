@@ -7,11 +7,13 @@ uniform mat4 transform;
 uniform mat4 projection;
 uniform mat4 view;
 
-out vec2 oTexCoord;
-out vec3 oNormal;
+out vec3 FragPos;
+out vec2 TexCoord;
+out vec3 Normal;
 
 void main() {
 	gl_Position = projection * view * transform * vec4(vp, 1.0f);
-	oTexCoord = texCoord;
-	oNormal = normal;
+	FragPos = vec3(view * transform * vec4(vp, 1.0));
+	TexCoord = texCoord;
+	Normal = mat3(transpose(inverse(transform))) * normal;
 }
