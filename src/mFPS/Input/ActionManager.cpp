@@ -36,7 +36,7 @@ namespace mFPS {
 			}
 		}
 		else {
-			Logger::Log("Action Manager", "Error when loading actions data");
+			Logger::Error("Action Manager", "Error when loading actions data");
 		}
 	}
 

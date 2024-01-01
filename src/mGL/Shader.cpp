@@ -8,6 +8,8 @@
 #include <streambuf>
 #include <glm/gtc/type_ptr.hpp>
 
+#include "mBase/Logger.h"
+
 namespace mGL
 {
 	const char* DEFAULT_VERTEX_SHADER =
@@ -51,7 +53,7 @@ namespace mGL
 		}
 		else
 		{
-			std::cout << "Vertex shader file with name " << mVertexShaderFilePath << " not found. Loading default";
+			Logger::Error("Shader", "Vertex shader file with name " + mVertexShaderFilePath + " not found. Loading default");
 			vertexShader = DEFAULT_VERTEX_SHADER;
 		}
 
@@ -60,7 +62,7 @@ namespace mGL
 			pixelShader = std::string((std::istreambuf_iterator<char>(pixelFile)), std::istreambuf_iterator<char>());
 		}
 		else {
-			std::cout << "Pixel shader file with name " << mPixelShaderFilePath << " not found. Loading default";
+			Logger::Error("Shader", "Pixel shader file with name " + mPixelShaderFilePath + " not found. Loading default");
 			pixelShader = DEFAULT_PIXEL_SHADER;
 		}
 
@@ -135,7 +137,7 @@ namespace mGL
 			if (!success)
 			{
 				glGetShaderInfoLog(shader, 1024, NULL, infoLog);
-				std::cout << "ERROR::SHADER_COMPILATION_ERROR of type: " << type << "\n" << infoLog << "\n -- --------------------------------------------------- -- " << std::endl;
+				Logger::Error("Shader", "ERROR::SHADER_COMPILATION_ERROR of type: " + type + "\n" + infoLog + "\n -- --------------------------------------------------- -- ");
 			}
 		}
 		else
@@ -144,7 +146,7 @@ namespace mGL
 			if (!success)
 			{
 				glGetProgramInfoLog(shader, 1024, NULL, infoLog);
-				std::cout << "ERROR::PROGRAM_LINKING_ERROR of type: " << type << "\n" << infoLog << "\n -- --------------------------------------------------- -- " << std::endl;
+				Logger::Error("Shader", "ERROR::PROGRAM_LINKING_ERROR of type: " + type + "\n" + infoLog + "\n -- --------------------------------------------------- -- ");
 			}
 		}
 	}

@@ -20,7 +20,7 @@ namespace mGL
 		std::ifstream file = std::ifstream(fullPath);
 		if (!file.is_open())
 		{
-			Logger::Log("Mesh Factory", "File not found");
+			Logger::Warning("Mesh Factory", "File not found");
 			return map;
 		}
 		Logger::Log("Mesh Factory", "File opened");
