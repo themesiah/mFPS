@@ -6,6 +6,8 @@
 #include "mGL/MeshFactory.h"
 #include "glm/glm.hpp"
 #include "mBase/CheckedDelete.h"
+#include "mGL/Lights/LightFactory.h"
+#include "mGL/Lights/Light.h"
 
 #ifdef _DEBUG
 #include "mBase/ImGui/imgui.h"
@@ -52,21 +54,23 @@ namespace mFPS
 				mGL::RenderableObject* renderableObject = mGL::MeshFactory::LoadObj(modelName);
 				tinyxml2::XMLElement* transformElement = object->FirstChildElement("transform");
 				glm::vec3 pos = { 0.0f, 0.0f, 0.0f };
-				if (tinyxml2::QueryVec3Attribute(transformElement, "position", &pos) == tinyxml2::XML_SUCCESS)
-				{
-					*renderableObject->GetMatrix() = glm::translate(*renderableObject->GetMatrix(), pos);
-				}
-				glm::vec3 scale = { 1.0f, 1.0f, 1.0f };
-				if (tinyxml2::QueryVec3Attribute(transformElement, "scale", &scale) == tinyxml2::XML_SUCCESS)
-				{
-					*renderableObject->GetMatrix() = glm::scale(*renderableObject->GetMatrix(), scale);
-				}
-				glm::vec3 euler = { 0.0f, 0.0f, 0.0f };
-				if (tinyxml2::QueryVec3Attribute(transformElement, "rotation", &euler) == tinyxml2::XML_SUCCESS)
-				{
-					*renderableObject->GetMatrix() = glm::rotate(*renderableObject->GetMatrix(), glm::radians(euler.x), { 1.0f, 0.0f, 0.0f });
-					*renderableObject->GetMatrix() = glm::rotate(*renderableObject->GetMatrix(), glm::radians(euler.y), { 0.0f, 1.0f, 0.0f });
-					*renderableObject->GetMatrix() = glm::rotate(*renderableObject->GetMatrix(), glm::radians(euler.z), { 0.0f, 0.0f, 1.0f });
+				if (transformElement != NULL) {
+					if (tinyxml2::QueryVec3Attribute(transformElement, "position", &pos) == tinyxml2::XML_SUCCESS)
+					{
+						*renderableObject->GetMatrix() = glm::translate(*renderableObject->GetMatrix(), pos);
+					}
+					glm::vec3 scale = { 1.0f, 1.0f, 1.0f };
+					if (tinyxml2::QueryVec3Attribute(transformElement, "scale", &scale) == tinyxml2::XML_SUCCESS)
+					{
+						*renderableObject->GetMatrix() = glm::scale(*renderableObject->GetMatrix(), scale);
+					}
+					glm::vec3 euler = { 0.0f, 0.0f, 0.0f };
+					if (tinyxml2::QueryVec3Attribute(transformElement, "rotation", &euler) == tinyxml2::XML_SUCCESS)
+					{
+						*renderableObject->GetMatrix() = glm::rotate(*renderableObject->GetMatrix(), glm::radians(euler.x), { 1.0f, 0.0f, 0.0f });
+						*renderableObject->GetMatrix() = glm::rotate(*renderableObject->GetMatrix(), glm::radians(euler.y), { 0.0f, 1.0f, 0.0f });
+						*renderableObject->GetMatrix() = glm::rotate(*renderableObject->GetMatrix(), glm::radians(euler.z), { 0.0f, 0.0f, 1.0f });
+					}
 				}
 
 				AddRenderableObject(renderableObject);
@@ -77,9 +81,9 @@ namespace mFPS
 
 			while (lightObject != NULL)
 			{
-				mGL::DirectionalLight* dirLight = new mGL::DirectionalLight(lightObject);
-				dirLight->Set();
-				mLights.push_back(dirLight);
+				mGL::Light* light = mGL::LightFactory::GetLight(lightObject);
+				light->Set();
+				mLights.push_back(light);
 				lightObject = lightObject->NextSiblingElement();
 			}
 		}
@@ -93,13 +97,12 @@ namespace mFPS
 #ifdef _DEBUG
 	void World::ShowImGui()
 	{
-		if (ImGui::TreeNode("World"))
+		if (ImGui::CollapsingHeader("World"))
 		{
 			for (int i = 0; i < mLights.size(); ++i)
 			{
-				mLights[i]->ShowImGui();
+				mLights[i]->StartImGui();
 			}
-			ImGui::TreePop();
 			ImGui::Spacing();
 		}
 	}

@@ -19,6 +19,11 @@ layout(std430, binding = 3) buffer lightLayout
     //float data_SSBO[];
 };
 
+layout(std430, binding = 4) buffer ambientLightLayout
+{
+	vec4 ambient_color_intensity;
+};
+
 void main() {
 	frag_color = vec4(1.0, 1.0, 1.0, 1.0);
 	if (use_tint == true)
@@ -34,7 +39,7 @@ void main() {
 	// Diffuse light
 	vec3 lightDir = normalize(vec3(direction.x, direction.y, direction.z));
 	float diff = max(dot(norm, lightDir), 0.0) * color_intensity.w;
-	vec4 colorDiff = vec4(color_intensity.xyz * diff, 1.0);
+	vec4 colorDiff = vec4(color_intensity.xyz * diff, 1.0) + vec4(ambient_color_intensity.xyz * ambient_color_intensity.w, 1.0);
 	
 	// Specular light
 	frag_color = frag_color * colorDiff;

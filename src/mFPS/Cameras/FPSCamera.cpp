@@ -42,12 +42,12 @@ namespace mFPS
 #ifdef _DEBUG
 	void FPSCamera::ShowImGui()
 	{
-		if (ImGui::TreeNode("Camera"))
+		if (ImGui::CollapsingHeader("Camera"))
 		{
+			ImGui::Indent(1.0f);
 			ImGui::SliderFloat3("Position", &mPosition[0], -1000.0f, 1000.0f);
 			ImGui::SliderFloat3("Rotation", &mEuler[0], -180.0f, 180.0f);
-			ImGui::TreePop();
-			ImGui::Spacing();
+			ImGui::Unindent(1.0f);
 		}
 	}
 #endif

@@ -4,7 +4,11 @@
 #include <vector>
 #include <string>
 #include "mGL/Renderable/RenderableObject.h"
-#include "mGL/Lights/DirectionalLight.h"
+
+namespace mGL
+{
+	class Light;
+}
 
 namespace mFPS
 {
@@ -21,7 +25,7 @@ namespace mFPS
 #endif
 	private:
 		std::vector<mGL::RenderableObject*> mRenderableObjects;
-		std::vector<mGL::DirectionalLight*> mLights;
+		std::vector<mGL::Light*> mLights;
 	};
 }
 

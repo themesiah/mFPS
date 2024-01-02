@@ -69,6 +69,15 @@
     <ClCompile Include="Lights\DirectionalLight.cpp">
       <Filter>Lights</Filter>
     </ClCompile>
+    <ClCompile Include="Lights\Light.cpp">
+      <Filter>Lights</Filter>
+    </ClCompile>
+    <ClCompile Include="Lights\LightFactory.cpp">
+      <Filter>Lights</Filter>
+    </ClCompile>
+    <ClCompile Include="Lights\AmbientLight.cpp">
+      <Filter>Lights</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Renderer.h">
@@ -117,6 +126,15 @@
       <Filter>Texture</Filter>
     </ClInclude>
     <ClInclude Include="Lights\DirectionalLight.h">
+      <Filter>Lights</Filter>
+    </ClInclude>
+    <ClInclude Include="Lights\Light.h">
+      <Filter>Lights</Filter>
+    </ClInclude>
+    <ClInclude Include="Lights\LightFactory.h">
+      <Filter>Lights</Filter>
+    </ClInclude>
+    <ClInclude Include="Lights\AmbientLight.h">
       <Filter>Lights</Filter>
     </ClInclude>
   </ItemGroup>

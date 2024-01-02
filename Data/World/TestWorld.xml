@@ -5,8 +5,11 @@
 	<object model="dragon.obj">
 		<transform position="30 0 0" scale="10 10 10" rotation="0 -90 0"/>
 	</object>
-	<light type="Directional">
+	<light type="Directional" name="DirectionalLight1">
 		<transform rotation="0 0 30"/>
+		<data color="1 1 1" intensity="1"/>
+	</light>
+	<light type="Ambient" name="AmbientLight1">
 		<data color="1 1 1" intensity="1"/>
 	</light>
 </world>
