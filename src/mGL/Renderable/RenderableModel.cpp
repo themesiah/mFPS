@@ -2,7 +2,15 @@
 
 namespace mGL
 {
-	RenderableModel::RenderableModel() : mMeshes(std::vector<Mesh*>()), RenderableObject()
+	RenderableModel::RenderableModel() : RenderableObject(), mMeshes(std::vector<Mesh*>())
+	{
+	}
+
+	RenderableModel::RenderableModel(tinyxml2::XMLElement* element) : mMeshes(std::vector<Mesh*>()), RenderableObject(element)
+	{
+	}
+
+	RenderableModel::RenderableModel(tinyxml2::XMLElement* element, std::vector<Mesh*> meshes) : mMeshes(meshes), RenderableObject(element)
 	{
 	}
 
@@ -14,12 +22,14 @@ namespace mGL
 	{
 		mMeshes = ro.mMeshes;
 		mMatrix = ro.mMatrix;
+		mName = ro.mName;
 	}
 
 	RenderableModel& RenderableModel::operator=(RenderableModel& ro)
 	{
 		mMeshes = ro.mMeshes;
 		mMatrix = ro.mMatrix;
+		mName = ro.mName;
 
 		return *this;
 	}
@@ -38,5 +48,10 @@ namespace mGL
 		{
 			mMeshes[i]->Render(mMatrix.get(), projection, view);
 		}
+	}
+
+	std::vector<Mesh*> RenderableModel::GetMeshes() const
+	{
+		return mMeshes;
 	}
 }

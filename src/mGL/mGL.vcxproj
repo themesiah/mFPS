@@ -42,6 +42,7 @@
     <ClInclude Include="Lights\DirectionalLight.h" />
     <ClInclude Include="Lights\Light.h" />
     <ClInclude Include="Lights\LightFactory.h" />
+    <ClInclude Include="Lights\LightsManager.h" />
     <ClInclude Include="Material\IMaterialParameter.h" />
     <ClInclude Include="Material\Material.h" />
     <ClInclude Include="Material\MaterialColorParameter.h" />

@@ -32,7 +32,16 @@ namespace mFPS
 	
 	const std::vector<mGL::RenderableObject*> World::GetRenderableObjects() const
 	{
+#ifdef _DEBUG
+		std::vector<mGL::RenderableObject*> renderables = mRenderableObjects;
+		for (unsigned int i = 0; i < mLights.size(); ++i)
+		{
+			renderables.push_back(mLights[i]->GetIcon());
+		}
+		return renderables;
+#else
 		return mRenderableObjects;
+#endif
 	}
 
 	void World::FromXML(const std::string& path)
@@ -45,46 +54,31 @@ namespace mFPS
 		if (doc.ErrorID() == tinyxml2::XML_SUCCESS)
 		{
 			tinyxml2::XMLElement* world = doc.FirstChildElement("world");
-			tinyxml2::XMLElement* object = world->FirstChildElement("object");
-		
-			while (object != NULL)
-			{
-				const char* modelName;
-				object->QueryStringAttribute("model", &modelName);
-				mGL::RenderableObject* renderableObject = mGL::MeshFactory::LoadObj(modelName);
-				tinyxml2::XMLElement* transformElement = object->FirstChildElement("transform");
-				glm::vec3 pos = { 0.0f, 0.0f, 0.0f };
-				if (transformElement != NULL) {
-					if (tinyxml2::QueryVec3Attribute(transformElement, "position", &pos) == tinyxml2::XML_SUCCESS)
+			if (world != NULL) {
+				tinyxml2::XMLElement* objects = world->FirstChildElement("objects");
+				if (objects != NULL) {
+					tinyxml2::XMLElement* object = objects->FirstChildElement("object");
+
+					while (object != NULL)
 					{
-						*renderableObject->GetMatrix() = glm::translate(*renderableObject->GetMatrix(), pos);
-					}
-					glm::vec3 scale = { 1.0f, 1.0f, 1.0f };
-					if (tinyxml2::QueryVec3Attribute(transformElement, "scale", &scale) == tinyxml2::XML_SUCCESS)
-					{
-						*renderableObject->GetMatrix() = glm::scale(*renderableObject->GetMatrix(), scale);
-					}
-					glm::vec3 euler = { 0.0f, 0.0f, 0.0f };
-					if (tinyxml2::QueryVec3Attribute(transformElement, "rotation", &euler) == tinyxml2::XML_SUCCESS)
-					{
-						*renderableObject->GetMatrix() = glm::rotate(*renderableObject->GetMatrix(), glm::radians(euler.x), { 1.0f, 0.0f, 0.0f });
-						*renderableObject->GetMatrix() = glm::rotate(*renderableObject->GetMatrix(), glm::radians(euler.y), { 0.0f, 1.0f, 0.0f });
-						*renderableObject->GetMatrix() = glm::rotate(*renderableObject->GetMatrix(), glm::radians(euler.z), { 0.0f, 0.0f, 1.0f });
+						mGL::RenderableObject* renderableObject = mGL::MeshFactory::LoadObj(object);
+						AddRenderableObject(renderableObject);
+						object = object->NextSiblingElement();
 					}
 				}
 
-				AddRenderableObject(renderableObject);
-				object = object->NextSiblingElement();
-			}
+				tinyxml2::XMLElement* lights = world->FirstChildElement("lights");
+				if (lights != NULL) {
+					tinyxml2::XMLElement* lightObject = lights->FirstChildElement("light");
 
-			tinyxml2::XMLElement* lightObject = world->FirstChildElement("light");
-
-			while (lightObject != NULL)
-			{
-				mGL::Light* light = mGL::LightFactory::GetLight(lightObject);
-				light->Set();
-				mLights.push_back(light);
-				lightObject = lightObject->NextSiblingElement();
+					while (lightObject != NULL)
+					{
+						mGL::Light* light = mGL::LightFactory::GetLight(lightObject);
+						light->Set();
+						mLights.push_back(light);
+						lightObject = lightObject->NextSiblingElement();
+					}
+				}
 			}
 		}
 		else
@@ -99,11 +93,23 @@ namespace mFPS
 	{
 		if (ImGui::CollapsingHeader("World"))
 		{
-			for (int i = 0; i < mLights.size(); ++i)
+			ImGui::Indent(1.0f);
+			if (ImGui::CollapsingHeader("Objects"))
 			{
-				mLights[i]->StartImGui();
+				for (int i = 0; i < mRenderableObjects.size(); ++i)
+				{
+					mRenderableObjects[i]->ShowImGui();
+				}
+				ImGui::Spacing();
 			}
-			ImGui::Spacing();
+			if (ImGui::CollapsingHeader("Lights")) {
+				for (int i = 0; i < mLights.size(); ++i)
+				{
+					mLights[i]->StartImGui();
+				}
+				ImGui::Spacing();
+			}
+			ImGui::Unindent(1.0f);
 		}
 	}
 #endif

@@ -137,5 +137,8 @@
     <ClInclude Include="Lights\AmbientLight.h">
       <Filter>Lights</Filter>
     </ClInclude>
+    <ClInclude Include="Lights\LightsManager.h">
+      <Filter>Lights</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

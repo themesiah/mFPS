@@ -13,12 +13,31 @@
 #include "Material/MaterialFactory.h"
 #include "mBase/Logger.h"
 
+#include "mBase/XML/tinyxml2.h"
+
 namespace mGL
 {
 	RenderableObject* MeshFactory::LoadObj(const std::string& path)
 	{
+		auto meshes = GetMeshes(path);
+		RenderableObject* ro = new RenderableModel(meshes);
+		return ro;
+	}
+
+	RenderableObject* MeshFactory::LoadObj(tinyxml2::XMLElement* element)
+	{
+		const char* cpath;
+		if (element->QueryStringAttribute("model", &cpath) != tinyxml2::XML_SUCCESS) return nullptr;
+		std::string path = std::string(cpath);
+		auto meshes = GetMeshes(path);
+		RenderableObject* ro = new RenderableModel(element, meshes);
+		return ro;
+	}
+
+	std::vector<Mesh*> MeshFactory::GetMeshes(const std::string& path)
+	{
 		if (path.substr(path.size() - 4, 4) != ".obj")
-			return nullptr;
+			return {};
 
 
 		std::string fullPath = "Data/Meshes/" + path;
@@ -27,7 +46,7 @@ namespace mGL
 		if (!file.is_open())
 		{
 			Logger::Warning("Mesh Factory", "File not found");
-			return nullptr;
+			return {};
 		}
 		Logger::Log("Mesh Factory", "File opened");
 
@@ -44,7 +63,7 @@ namespace mGL
 		unsigned short indexCount = 0;
 		while (std::getline(file, line))
 		{
-			if (line.substr(0,1) == "#") continue;
+			if (line.substr(0, 1) == "#") continue;
 			std::string firstToken = mBase::Strings::FirstToken(line);
 			if (firstToken == "mtllib")
 			{
@@ -143,7 +162,6 @@ namespace mGL
 			meshes.push_back(mesh);
 		}
 		file.close();
-		RenderableObject* ro = new RenderableModel(meshes);
-		return ro;
+		return meshes;
 	}
 }

@@ -82,4 +82,9 @@ namespace mGL
 			glBindVertexArray(0);
 		}
 	}
+
+	std::shared_ptr<Material> Mesh::GetMaterial() const
+	{
+		return mMaterial;
+	}
 }

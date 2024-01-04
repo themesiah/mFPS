@@ -12,6 +12,8 @@ namespace tinyxml2
 
 namespace mGL
 {
+	class RenderableObject;
+	class RenderableModel;
 	class Light
 	{
 	public:
@@ -23,6 +25,7 @@ namespace mGL
 		void SetIntensity(const float& intensity);
 #ifdef _DEBUG
 		void StartImGui();
+		RenderableObject* GetIcon() const;
 #endif
 	protected:
 #ifdef _DEBUG
@@ -33,6 +36,8 @@ namespace mGL
 		float mIntensity;
 		glm::vec3 mColor;
 		unsigned int mSSBO;
+	private:
+		RenderableModel* mIcon;
 	};
 }
 

@@ -1,6 +1,11 @@
 #include "Light.h"
 #include <glm/gtc/matrix_transform.hpp>
 #include <GL/glew.h>
+#include "../MeshFactory.h"
+#include "../Renderable/RenderableObject.h"
+#include "../Renderable/RenderableModel.h"
+#include "../Material/Material.h"
+#include "../Material/MaterialColorParameter.h"
 
 #include "mBase/XML/tinyxml2.h"
 #include "mBase/XML/XML.h"
@@ -52,11 +57,14 @@ namespace mGL
 		}
 
 		glGenBuffers(1, &mSSBO);
+
+		mIcon = static_cast<RenderableModel*>(MeshFactory::LoadObj("CommonResources/Light.obj"));
 	}
 
 	Light::~Light()
 	{
 		glDeleteBuffers(1, &mSSBO);
+		delete mIcon;
 	}
 
 	std::shared_ptr<glm::mat4> Light::GetMatrix() const
@@ -92,6 +100,11 @@ namespace mGL
 			ImGui::Unindent(1.0f);
 			ImGui::TreePop();
 		}
+	}
+
+	RenderableObject* Light::GetIcon() const
+	{
+		return mIcon;
 	}
 #endif
 }

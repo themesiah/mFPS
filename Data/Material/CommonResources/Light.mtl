@@ -1,0 +1,4 @@
+newmtl LightMaterial
+Kd 1 0 1
+d 0.800000
+illum -1

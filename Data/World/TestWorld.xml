@@ -1,15 +1,19 @@
 <world>
-	<object model="dragon.obj">
-		<transform position="0 0 0" scale="10 10 10" rotation="0 90 0"/>
-	</object>
-	<object model="dragon.obj">
-		<transform position="30 0 0" scale="10 10 10" rotation="0 -90 0"/>
-	</object>
-	<light type="Directional" name="DirectionalLight1">
-		<transform rotation="0 0 30"/>
-		<data color="1 1 1" intensity="1"/>
-	</light>
-	<light type="Ambient" name="AmbientLight1">
-		<data color="1 1 1" intensity="1"/>
-	</light>
+	<objects>
+		<object model="dragon.obj" name="Dragon 1">
+			<transform position="0 0 0" scale="10 10 10" rotation="0 90 0"/>
+		</object>
+		<object model="dragon.obj" name="Dragon 2">
+			<transform position="30 0 0" scale="10 10 10" rotation="0 -90 0"/>
+		</object>
+	</objects>
+	<lights>
+		<light type="Directional" name="DirectionalLight1">
+			<transform rotation="0 0 30"/>
+			<data color="1 1 1" intensity="1"/>
+		</light>
+		<light type="Ambient" name="AmbientLight1">
+			<data color="1 1 1" intensity="1"/>
+		</light>
+	</lights>
 </world>
