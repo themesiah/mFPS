@@ -8,11 +8,12 @@ namespace mGL
 	class AmbientLight : public Light
 	{
 	public:
-		AmbientLight(tinyxml2::XMLElement* element);
+		AmbientLight(tinyxml2::XMLElement *element);
 		virtual ~AmbientLight();
 		void Set() override;
+
 	protected:
-#ifdef _DEBUG
+#ifdef EDITOR_MODE
 		virtual void ShowImGui() override;
 #endif
 	};

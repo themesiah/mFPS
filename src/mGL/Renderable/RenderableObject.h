@@ -20,14 +20,14 @@ namespace mGL
 	{
 	public:
 		RenderableObject();
-		RenderableObject(tinyxml2::XMLElement* element);
-		RenderableObject(RenderableObject& ro);
-		RenderableObject& operator=(RenderableObject& ro);
+		RenderableObject(tinyxml2::XMLElement *element);
+		RenderableObject(RenderableObject &ro);
+		RenderableObject &operator=(RenderableObject &ro);
 		virtual ~RenderableObject();
-		void SetName(const std::string& name);
+		void SetName(const std::string &name);
 		std::shared_ptr<glm::mat4> GetMatrix() const;
-		virtual void Render(const glm::mat4& projection, const glm::mat4& view) = 0;
-#ifdef _DEBUG
+		virtual void Render(const glm::mat4 &projection, const glm::mat4 &view) = 0;
+#ifdef EDITOR_MODE
 		void ShowImGui();
 #endif
 	protected:

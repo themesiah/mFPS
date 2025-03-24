@@ -9,10 +9,10 @@ namespace mFPS
 	{
 	public:
 		FPSCamera();
-		void Rotate(const float& yaw, const float& pitch);
-		void Update(const float& deltaTime, ActionManager* actionManager) override;
+		void Rotate(const float &yaw, const float &pitch);
+		void Update(const float &deltaTime, ActionManager *actionManager) override;
 		glm::vec3 GetForward() override;
-#ifdef _DEBUG
+#ifdef EDITOR_MODE
 		void ShowImGui() override;
 #endif
 	private:

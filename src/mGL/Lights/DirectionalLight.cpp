@@ -5,7 +5,7 @@
 
 #include "XML/tinyxml2.h"
 #include "XML/XML.h"
-#ifdef _DEBUG
+#ifdef EDITOR_MODE
 #include "ImGui/imgui.h"
 #endif
 
@@ -50,7 +50,7 @@ namespace mGL
 		glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 3, mSSBO);
 	}
 
-#ifdef _DEBUG
+#ifdef EDITOR_MODE
 	void DirectionalLight::ShowImGui()
 	{
 		if (ImGui::SliderFloat3("Direction", &mDirection[0], -1.0f, 1.0f))

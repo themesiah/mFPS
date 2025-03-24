@@ -39,7 +39,7 @@ namespace mFPS
 		mView = glm::lookAt(mPosition, mPosition + forward, mUp);
 	}
 
-#ifdef _DEBUG
+#ifdef EDITOR_MODE
 	void FPSCamera::ShowImGui()
 	{
 		if (ImGui::CollapsingHeader("Camera"))

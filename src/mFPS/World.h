@@ -20,7 +20,7 @@ namespace mFPS
 		void AddRenderableObject(mGL::RenderableObject *renderableObject);
 		const std::vector<mGL::RenderableObject *> GetRenderableObjects() const;
 		void FromXML(const std::string &path);
-#ifdef _DEBUG
+#ifdef EDITOR_MODE
 		void ShowImGui();
 #endif
 	private:

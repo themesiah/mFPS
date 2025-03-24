@@ -9,8 +9,8 @@
 
 #include "XML/tinyxml2.h"
 #include "XML/XML.h"
-#ifdef _DEBUG
-#include "mBase/ImGui/imgui.h"
+#ifdef EDITOR_MODE
+#include "ImGui/imgui.h"
 #endif
 
 namespace mGL
@@ -83,7 +83,7 @@ namespace mGL
 		mIntensity = intensity;
 	}
 
-#ifdef _DEBUG
+#ifdef EDITOR_MODE
 	void Light::StartImGui()
 	{
 		if (ImGui::TreeNode(mName.c_str()))

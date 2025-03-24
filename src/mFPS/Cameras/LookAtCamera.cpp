@@ -6,12 +6,12 @@ namespace mFPS
 {
 	LookAtCamera::LookAtCamera() : mTarget(), CameraBase() {}
 
-	void LookAtCamera::Update(const float& deltaTime, ActionManager* actionManager)
+	void LookAtCamera::Update(const float &deltaTime, ActionManager *actionManager)
 	{
 		mView = glm::lookAt(mPosition, mTarget, mUp);
 	}
 
-	void LookAtCamera::SetTarget(const glm::vec3& target)
+	void LookAtCamera::SetTarget(const glm::vec3 &target)
 	{
 		mTarget = target;
 	}
@@ -26,8 +26,9 @@ namespace mFPS
 		return glm::normalize(mTarget - mPosition);
 	}
 
-#ifdef _DEBUG
+#ifdef EDITOR_MODE
 	void LookAtCamera::ShowImGui()
-	{}
+	{
+	}
 #endif
 }

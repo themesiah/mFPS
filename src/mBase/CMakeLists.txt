@@ -9,10 +9,3 @@ target_include_directories(mBase
 )
 
 target_link_libraries(mBase PUBLIC engine_compiler_flags)
-
-target_include_directories(mBase PUBLIC
-                           "${PROJECT_BINARY_DIR}"
-                           "${PROJECT_SOURCE_DIR}/Dependencies/glew-2.2.0/include"
-                           "${PROJECT_SOURCE_DIR}/Dependencies/glfw-3.3.8.bin.WIN64/include"
-                           "${PROJECT_SOURCE_DIR}/Dependencies/glm"
-                           )

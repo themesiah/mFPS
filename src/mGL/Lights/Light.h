@@ -17,18 +17,18 @@ namespace mGL
 	class Light
 	{
 	public:
-		Light(tinyxml2::XMLElement* element);
+		Light(tinyxml2::XMLElement *element);
 		virtual ~Light();
 		virtual void Set() = 0;
 		std::shared_ptr<glm::mat4> GetMatrix() const;
 		void SetColor(const glm::vec3 &color);
-		void SetIntensity(const float& intensity);
-#ifdef _DEBUG
+		void SetIntensity(const float &intensity);
+#ifdef EDITOR_MODE
 		void StartImGui();
-		RenderableObject* GetIcon() const;
+		RenderableObject *GetIcon() const;
 #endif
 	protected:
-#ifdef _DEBUG
+#ifdef EDITOR_MODE
 		virtual void ShowImGui() = 0;
 #endif
 		std::string mName;
@@ -36,8 +36,9 @@ namespace mGL
 		float mIntensity;
 		glm::vec3 mColor;
 		unsigned int mSSBO;
+
 	private:
-		RenderableModel* mIcon;
+		RenderableModel *mIcon;
 	};
 }
 

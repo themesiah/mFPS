@@ -9,7 +9,7 @@
 #include "Lights/LightFactory.h"
 #include "Lights/Light.h"
 
-#ifdef _DEBUG
+#ifdef EDITOR_MODE
 #include "ImGui/imgui.h"
 #endif
 
@@ -32,7 +32,7 @@ namespace mFPS
 
 	const std::vector<mGL::RenderableObject *> World::GetRenderableObjects() const
 	{
-#ifdef _DEBUG
+#ifdef EDITOR_MODE
 		std::vector<mGL::RenderableObject *> renderables = mRenderableObjects;
 		for (unsigned int i = 0; i < mLights.size(); ++i)
 		{
@@ -91,7 +91,7 @@ namespace mFPS
 		doc.Clear();
 	}
 
-#ifdef _DEBUG
+#ifdef EDITOR_MODE
 	void World::ShowImGui()
 	{
 		if (ImGui::CollapsingHeader("World"))

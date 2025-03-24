@@ -7,10 +7,10 @@
 #include "glm/gtc/matrix_transform.hpp"
 #include "MeshFactory.h"
 
-#ifdef _DEBUG
-#include "mBase/ImGui/imgui.h"
-#include "mBase/ImGui/imgui_impl_glfw.h"
-#include "mBase/ImGui/imgui_impl_opengl3.h"
+#ifdef EDITOR_MODE
+#include "ImGui/imgui.h"
+#include "ImGui/imgui_impl_glfw.h"
+#include "ImGui/imgui_impl_opengl3.h"
 #endif
 
 namespace mFPS
@@ -47,7 +47,7 @@ namespace mFPS
 
 		mWorld->FromXML("TestWorld.xml");
 
-#ifdef _DEBUG
+#ifdef EDITOR_MODE
 		IMGUI_CHECKVERSION();
 		ImGui::CreateContext();
 		ImGuiIO &io = ImGui::GetIO();
@@ -77,7 +77,7 @@ namespace mFPS
 
 		mCamera->Update(mDeltaTime, mActionManager.get());
 
-#ifdef _DEBUG
+#ifdef EDITOR_MODE
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();
@@ -92,7 +92,7 @@ namespace mFPS
 
 		mRenderer->Render(mWorld->GetRenderableObjects(), mCamera->GetProjection(), mCamera->GetView());
 
-#ifdef _DEBUG
+#ifdef EDITOR_MODE
 		ImGui::Render();
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 #endif

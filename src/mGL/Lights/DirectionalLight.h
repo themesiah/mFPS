@@ -8,11 +8,12 @@ namespace mGL
 	class DirectionalLight : public Light
 	{
 	public:
-		DirectionalLight(tinyxml2::XMLElement* element);
+		DirectionalLight(tinyxml2::XMLElement *element);
 		virtual ~DirectionalLight();
 		void Set() override;
+
 	protected:
-#ifdef _DEBUG
+#ifdef EDITOR_MODE
 		virtual void ShowImGui() override;
 #endif
 	private:

@@ -72,7 +72,7 @@ namespace mGL
 		return mMatrix;
 	}
 
-#ifdef _DEBUG
+#ifdef EDITOR_MODE
 	void RenderableObject::ShowImGui()
 	{
 		if (ImGui::TreeNode(mName.c_str()))

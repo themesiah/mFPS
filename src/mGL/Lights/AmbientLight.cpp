@@ -27,7 +27,7 @@ namespace mGL
 		glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 4, mSSBO);
 	}
 
-#ifdef _DEBUG
+#ifdef EDITOR_MODE
 	void AmbientLight::ShowImGui()
 	{
 	}
