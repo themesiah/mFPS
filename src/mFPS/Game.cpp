@@ -5,7 +5,7 @@
 #include "Input/ActionManager.h"
 #include "World.h"
 #include "glm/gtc/matrix_transform.hpp"
-#include "mGL/MeshFactory.h"
+#include "MeshFactory.h"
 
 #ifdef _DEBUG
 #include "mBase/ImGui/imgui.h"
@@ -31,10 +31,11 @@ namespace mFPS
 		mCamera.reset();
 	}
 
-	int Game::Initialize(const int& width, const int& height)
+	int Game::Initialize(const int &width, const int &height)
 	{
 		mWindow = mRenderer->InitializeRenderer(width, height);
-		if (mWindow == nullptr) {
+		if (mWindow == nullptr)
+		{
 			return 1;
 		}
 
@@ -49,7 +50,7 @@ namespace mFPS
 #ifdef _DEBUG
 		IMGUI_CHECKVERSION();
 		ImGui::CreateContext();
-		ImGuiIO& io = ImGui::GetIO();
+		ImGuiIO &io = ImGui::GetIO();
 		io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
 		io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;
 		ImGui_ImplGlfw_InitForOpenGL(mWindow, true);
@@ -80,8 +81,9 @@ namespace mFPS
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();
-		//ImGui::ShowDemoWindow();
-		if (ImGui::Begin("Main Window")) {
+		// ImGui::ShowDemoWindow();
+		if (ImGui::Begin("Main Window"))
+		{
 			mCamera->ShowImGui();
 			mWorld->ShowImGui();
 		}

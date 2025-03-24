@@ -7,12 +7,12 @@
 #include "MaterialTextureParameter.h"
 #include "../Texture/Texture.h"
 #include "../Texture/TextureManager.h"
-#include "mBase/Logger.h"
-#include "mBase/StringUtils.h"
+#include "Logger.h"
+#include "StringUtils.h"
 
 namespace mGL
 {
-	std::unordered_map<std::string, std::shared_ptr<Material>> MaterialFactory::LoadMaterials(const std::string& path)
+	std::unordered_map<std::string, std::shared_ptr<Material>> MaterialFactory::LoadMaterials(const std::string &path)
 	{
 		std::unordered_map<std::string, std::shared_ptr<Material>> map = std::unordered_map<std::string, std::shared_ptr<Material>>();
 		std::string fullPath = "Data/Material/" + path;
@@ -28,11 +28,12 @@ namespace mGL
 		std::shared_ptr<Material> currentMaterial = nullptr;
 		while (std::getline(file, line))
 		{
-			if (line.substr(0, 1) == "#") continue;
+			if (line.substr(0, 1) == "#")
+				continue;
 			std::string firstToken = mBase::Strings::FirstToken(line);
 			if (firstToken == "newmtl") // Create new material
 			{
-				Shader* shader = new Shader();
+				Shader *shader = new Shader();
 				shader->Init("VertexUberShader.gls", "PixelUberShader.gls");
 				currentMaterial = std::shared_ptr<Material>(new Material(shader));
 				std::string matName = mBase::Strings::Tail(line);
@@ -40,7 +41,8 @@ namespace mGL
 			}
 			else if (firstToken == "Kd") // Diffuse color
 			{
-				if (currentMaterial == nullptr) continue;
+				if (currentMaterial == nullptr)
+					continue;
 				std::vector<std::string> splitted;
 				mBase::Strings::Split(mBase::Strings::Tail(line), splitted, " ");
 				float r = std::stof(splitted[0]);
@@ -50,13 +52,16 @@ namespace mGL
 			}
 			else if (firstToken == "map_Kd") // Diffuse texture
 			{
-				if (currentMaterial == nullptr) continue;
-				Texture* tex;
+				if (currentMaterial == nullptr)
+					continue;
+				Texture *tex;
 				std::string texPath = mBase::Strings::Tail(line);
-				if (TextureManager::GetInstance().Exist(texPath)) {
+				if (TextureManager::GetInstance().Exist(texPath))
+				{
 					tex = TextureManager::GetInstance()(texPath);
 				}
-				else {
+				else
+				{
 					tex = new Texture(texPath);
 					TextureManager::GetInstance().Add(texPath, tex);
 				}

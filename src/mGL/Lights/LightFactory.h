@@ -9,10 +9,10 @@ namespace tinyxml2
 namespace mGL
 {
 	class Light;
-	static class LightFactory
+	class LightFactory
 	{
 	public:
-		static Light* GetLight(tinyxml2::XMLElement* element);
+		static Light *GetLight(tinyxml2::XMLElement *element);
 	};
 }
 

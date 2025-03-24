@@ -3,18 +3,19 @@
 
 #include <string>
 
-#include "mBase/TemplatedMapVector.h"
+#include "TemplatedMapVector.h"
 #include "Texture.h"
 
-namespace mGL {
+namespace mGL
+{
 	class TextureManager : public mBase::TemplatedMapVector<Texture>
 	{
 	public:
 		TextureManager();
-		TextureManager(const TextureManager&);
-		void operator=(const TextureManager&);
+		TextureManager(const TextureManager &);
+		void operator=(const TextureManager &);
 		~TextureManager();
-		static TextureManager& GetInstance();
+		static TextureManager &GetInstance();
 	};
 }
 

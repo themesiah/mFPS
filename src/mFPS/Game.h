@@ -4,7 +4,7 @@
 #include <memory>
 #include <GL/glew.h>
 
-#include "mGL/Renderer.h"
+#include "Renderer.h"
 
 namespace mFPS
 {
@@ -19,13 +19,14 @@ namespace mFPS
 		~Game();
 		int Initialize(const int &width, const int &height);
 		bool Update();
+
 	private:
 		std::shared_ptr<World> mWorld;
 		std::shared_ptr<CameraBase> mCamera;
 		std::shared_ptr<mGL::Renderer> mRenderer;
 		std::shared_ptr<InputManager> mInputManager;
 		std::shared_ptr<ActionManager> mActionManager;
-		GLFWwindow* mWindow;
+		GLFWwindow *mWindow;
 
 		float mDeltaTime;
 		float mLastFrame;

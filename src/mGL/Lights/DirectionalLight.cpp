@@ -3,19 +3,20 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <GL/glew.h>
 
-#include "mBase/XML/tinyxml2.h"
-#include "mBase/XML/XML.h"
+#include "XML/tinyxml2.h"
+#include "XML/XML.h"
 #ifdef _DEBUG
-#include "mBase/ImGui/imgui.h"
+#include "ImGui/imgui.h"
 #endif
 
 namespace mGL
 {
-	DirectionalLight::DirectionalLight(tinyxml2::XMLElement* element) : Light(element)
+	DirectionalLight::DirectionalLight(tinyxml2::XMLElement *element) : Light(element)
 	{
-		tinyxml2::XMLElement* transformElement = element->FirstChildElement("transform");
-		if (transformElement != NULL) {
-			glm::vec3 euler = { 0.0f, 0.0f, 0.0f };
+		tinyxml2::XMLElement *transformElement = element->FirstChildElement("transform");
+		if (transformElement != NULL)
+		{
+			glm::vec3 euler = {0.0f, 0.0f, 0.0f};
 			if (tinyxml2::QueryVec3Attribute(transformElement, "rotation", &euler) == tinyxml2::XML_SUCCESS)
 			{
 				mDirection.x = cos(glm::radians(euler.y)) * cos(glm::radians(euler.x));
@@ -27,12 +28,12 @@ namespace mGL
 
 	DirectionalLight::~DirectionalLight()
 	{
-
 	}
 
 	void DirectionalLight::Set()
 	{
-		struct {
+		struct
+		{
 			glm::vec4 direction;
 			glm::vec4 colorIntensity;
 		} data;

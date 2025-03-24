@@ -2,17 +2,18 @@
 
 #include <GL/glew.h>
 
-#include "mBase/ImGui/imgui.h"
+#include "ImGui/imgui.h"
 
 namespace mGL
 {
-	AmbientLight::AmbientLight(tinyxml2::XMLElement* element) : Light(element) {}
-	
+	AmbientLight::AmbientLight(tinyxml2::XMLElement *element) : Light(element) {}
+
 	AmbientLight::~AmbientLight() {}
 
 	void AmbientLight::Set()
 	{
-		struct {
+		struct
+		{
 			glm::vec4 colorIntensity;
 		} data;
 

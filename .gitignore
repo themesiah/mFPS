@@ -34,6 +34,7 @@
 [Ii]nt/
 [Bb]in/
 [Ll]ib/
+[Bb]uild/
 .vs/
 
 # Exceptions

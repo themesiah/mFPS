@@ -1,21 +1,21 @@
 #include "Material.h"
 #include "IMaterialParameter.h"
 
-#include "mBase/Logger.h"
+#include "Logger.h"
 
 namespace mGL
 {
-	Material::Material() : mShader(nullptr), mParameters(){}
+	Material::Material() : mShader(nullptr), mParameters() {}
 
-	Material::Material(Shader* shader) : mShader(shader), mParameters(){}
+	Material::Material(Shader *shader) : mShader(shader), mParameters() {}
 
-	Material::Material(const Material& m)
+	Material::Material(const Material &m)
 	{
 		mParameters = m.mParameters;
 		mShader = m.mShader;
 	}
 
-	Material& Material::operator=(const Material& m)
+	Material &Material::operator=(const Material &m)
 	{
 		mParameters = m.mParameters;
 		mShader = m.mShader;
@@ -41,12 +41,12 @@ namespace mGL
 		mShader.get()->UseShader();
 	}
 
-	void Material::AddParameter(IMaterialParameter* parameter)
+	void Material::AddParameter(IMaterialParameter *parameter)
 	{
 		mParameters.push_back(parameter);
 	}
 
-	Shader* Material::GetShader() const
+	Shader *Material::GetShader() const
 	{
 		return mShader.get();
 	}

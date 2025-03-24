@@ -1,13 +1,13 @@
 #include "FPSCamera.h"
 #include "glm/gtc/matrix_transform.hpp"
 #include "../Input/ActionManager.h"
-#include "mBase/ImGui/imgui.h"
+#include "ImGui/imgui.h"
 
 namespace mFPS
 {
-	FPSCamera::FPSCamera() : mEuler({ 0.0f, 90.0f, 0.0f }), CameraBase() {}
+	FPSCamera::FPSCamera() : mEuler({0.0f, 90.0f, 0.0f}), CameraBase() {}
 
-	void FPSCamera::Rotate(const float& yaw, const float& pitch)
+	void FPSCamera::Rotate(const float &yaw, const float &pitch)
 	{
 		mEuler.y += yaw;
 		mEuler.x += pitch;
@@ -21,7 +21,7 @@ namespace mFPS
 			mEuler.y += 360.0f;
 	}
 
-	void FPSCamera::Update(const float& deltaTime, ActionManager* actionManager)
+	void FPSCamera::Update(const float &deltaTime, ActionManager *actionManager)
 	{
 		glm::vec2 lookDelta;
 		glm::vec3 movementDelta = glm::vec3(0.0f, 0.0f, 0.0f);

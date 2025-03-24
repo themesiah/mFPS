@@ -1,6 +1,6 @@
 #include "Shader.h"
 
-#include <GL/glew.h> // include GLEW and new version of GL on Windows
+#include <GL/glew.h>	// include GLEW and new version of GL on Windows
 #include <GLFW/glfw3.h> // GLFW helper library
 
 #include <fstream>
@@ -8,18 +8,18 @@
 #include <streambuf>
 #include <glm/gtc/type_ptr.hpp>
 
-#include "mBase/Logger.h"
+#include "Logger.h"
 
 namespace mGL
 {
-	const char* DEFAULT_VERTEX_SHADER =
+	const char *DEFAULT_VERTEX_SHADER =
 		"#version 400\n"
 		"layout (location = 0) in vec3 vp;" // Location 0 references the first parameter of glVertexAttribPointer
 		"void main() {"
 		"  gl_Position = vec4(vp, 1.0);"
 		"}";
 
-	const char* DEFAULT_PIXEL_SHADER =
+	const char *DEFAULT_PIXEL_SHADER =
 		"#version 400\n"
 		"out vec4 frag_colour;"
 		"void main() {"
@@ -28,7 +28,6 @@ namespace mGL
 
 	Shader::Shader() : mVertexShaderFilePath(""), mPixelShaderFilePath(""), mShaderProgram(0)
 	{
-
 	}
 
 	Shader::Shader(std::string vertexShaderFilePath, std::string pixelShaderFilePath)
@@ -41,8 +40,8 @@ namespace mGL
 		mVertexShaderFilePath = vertexShaderFilePath;
 		mPixelShaderFilePath = pixelShaderFilePath;
 
-		std::ifstream vertexFile("Data/Shader/"+ mVertexShaderFilePath);
-		std::ifstream pixelFile("Data/Shader/"+ mPixelShaderFilePath);
+		std::ifstream vertexFile("Data/Shader/" + mVertexShaderFilePath);
+		std::ifstream pixelFile("Data/Shader/" + mPixelShaderFilePath);
 
 		std::string vertexShader;
 		std::string pixelShader;
@@ -61,13 +60,14 @@ namespace mGL
 		{
 			pixelShader = std::string((std::istreambuf_iterator<char>(pixelFile)), std::istreambuf_iterator<char>());
 		}
-		else {
+		else
+		{
 			Logger::Error("Shader", "Pixel shader file with name " + mPixelShaderFilePath + " not found. Loading default");
 			pixelShader = DEFAULT_PIXEL_SHADER;
 		}
 
-		const char* c_vertexShader = vertexShader.c_str();
-		const char* c_pixelShader = pixelShader.c_str();
+		const char *c_vertexShader = vertexShader.c_str();
+		const char *c_pixelShader = pixelShader.c_str();
 
 		unsigned int vs = glCreateShader(GL_VERTEX_SHADER);
 		glShaderSource(vs, 1, &c_vertexShader, NULL);
@@ -120,7 +120,7 @@ namespace mGL
 		glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(value));
 	}
 
-	void Shader::SetUniform1i(const std::string& locationString, int value) const
+	void Shader::SetUniform1i(const std::string &locationString, int value) const
 	{
 		UseShader();
 		int location = glGetUniformLocation(mShaderProgram, locationString.c_str());

@@ -3,16 +3,17 @@
 #include "Light.h"
 #include "DirectionalLight.h"
 #include "AmbientLight.h"
-#include "mBase/XML/tinyxml2.h"
-#include "mBase/XML/XML.h"
+#include "XML/tinyxml2.h"
+#include "XML/XML.h"
 
 namespace mGL
 {
-	Light* LightFactory::GetLight(tinyxml2::XMLElement* element)
+	Light *LightFactory::GetLight(tinyxml2::XMLElement *element)
 	{
-		Light* light = nullptr;
-		const char* type;
-		if (element->QueryStringAttribute("type", &type) != tinyxml2::XML_SUCCESS) return light;
+		Light *light = nullptr;
+		const char *type;
+		if (element->QueryStringAttribute("type", &type) != tinyxml2::XML_SUCCESS)
+			return light;
 
 		if (strcmp(type, "Directional") == 0)
 		{

@@ -1,6 +1,6 @@
 #include "IMaterialParameter.h"
 
-#include "mBase/Logger.h"
+#include "Logger.h"
 
 namespace mGL
 {

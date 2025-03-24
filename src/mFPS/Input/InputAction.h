@@ -5,7 +5,7 @@
 #include <string>
 
 #include "InputDefinitions.h"
-#include "mBase/XML/tinyxml2.h"
+#include "XML/tinyxml2.h"
 
 namespace mFPS
 {
@@ -13,18 +13,22 @@ namespace mFPS
 	struct Trigger
 	{
 		TriggerType triggerType;
-		union {
-			struct {
+		union
+		{
+			struct
+			{
 				TriggerActionType triggerActionType;
 				int keyCode;
 				float value;
 			} keyboard;
-			struct {
+			struct
+			{
 				TriggerActionType triggerActionType;
 				MouseButton mouseButton;
 				float value;
 			} mouseButton;
-			struct {
+			struct
+			{
 				MouseAxis mouseAxis;
 				float sensitivity;
 			} mouseLook;
@@ -34,11 +38,12 @@ namespace mFPS
 	class InputAction
 	{
 	public:
-		InputAction(const std::string& name);
+		InputAction(const std::string &name);
 		~InputAction();
-		tinyxml2::XMLError AddTrigger(tinyxml2::XMLElement* element);
-		float GetValue(InputManager* inputManager);
-		int GetKeyCodeFromString(const char* str);
+		tinyxml2::XMLError AddTrigger(tinyxml2::XMLElement *element);
+		float GetValue(InputManager *inputManager);
+		int GetKeyCodeFromString(const char *str);
+
 	private:
 		std::string mName;
 		std::vector<Trigger> mTriggers;

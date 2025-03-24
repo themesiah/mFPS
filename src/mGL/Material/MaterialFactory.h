@@ -8,10 +8,10 @@
 namespace mGL
 {
 	class Material;
-	static class MaterialFactory
+	class MaterialFactory
 	{
 	public:
-		static std::unordered_map<std::string, std::shared_ptr<Material>> LoadMaterials(const std::string& path);
+		static std::unordered_map<std::string, std::shared_ptr<Material>> LoadMaterials(const std::string &path);
 	};
 }
 

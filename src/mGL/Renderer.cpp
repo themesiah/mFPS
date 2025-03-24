@@ -1,23 +1,26 @@
 #include "Renderer.h"
 
-#include "mBase/Logger.h"
+#include "Logger.h"
 #include <sstream>
 
-namespace mGL {
+namespace mGL
+{
     Renderer::Renderer() : mWindow() {}
 
-    Renderer::~Renderer(){}
+    Renderer::~Renderer() {}
 
-    GLFWwindow* Renderer::InitializeRenderer(const int& width, const int& height)
+    GLFWwindow *Renderer::InitializeRenderer(const int &width, const int &height)
     {
         // start GL context and O/S window using the GLFW helper library
-        if (!glfwInit()) {
+        if (!glfwInit())
+        {
             fprintf(stderr, "ERROR: could not start GLFW3\n");
             return nullptr;
         }
 
         mWindow = glfwCreateWindow(width, height, "mFPS", NULL, NULL);
-        if (!mWindow) {
+        if (!mWindow)
+        {
             fprintf(stderr, "ERROR: could not open window with GLFW3\n");
             glfwTerminate();
             return nullptr;
@@ -29,19 +32,21 @@ namespace mGL {
         glewInit();
 
         // get version info
-        const GLubyte* renderer = glGetString(GL_RENDERER); // get renderer string
-        const GLubyte* version = glGetString(GL_VERSION); // version as a string
-        
+        const GLubyte *renderer = glGetString(GL_RENDERER); // get renderer string
+        const GLubyte *version = glGetString(GL_VERSION);   // version as a string
+
         std::stringstream ss;
         std::stringstream ss2;
-        ss << "Renderer:\n" << renderer;
-        ss2 << "OpenGL version supported:\n" << version;
+        ss << "Renderer:\n"
+           << renderer;
+        ss2 << "OpenGL version supported:\n"
+            << version;
         Logger::Log("Renderer", ss.str());
         Logger::Log("Renderer", ss2.str());
 
         // tell GL to only draw onto a pixel if the shape is closer to the viewer
         glEnable(GL_DEPTH_TEST); // enable depth-testing
-        glDepthFunc(GL_LESS); // depth-testing interprets a smaller value as "closer"
+        glDepthFunc(GL_LESS);    // depth-testing interprets a smaller value as "closer"
 
         // Configure textures
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
@@ -52,7 +57,7 @@ namespace mGL {
         return mWindow;
     }
 
-    void Renderer::Render(std::vector<RenderableObject*> renderableObjects, const glm::mat4 &projection, const glm::mat4 &view)
+    void Renderer::Render(std::vector<RenderableObject *> renderableObjects, const glm::mat4 &projection, const glm::mat4 &view)
     {
         // wipe the drawing surface clear
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

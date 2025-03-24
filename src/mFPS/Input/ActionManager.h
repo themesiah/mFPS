@@ -5,10 +5,10 @@
 #include <vector>
 #include <memory>
 
-#include "mBase/TemplatedMapVector.h"
+#include "TemplatedMapVector.h"
 
-
-namespace mFPS {
+namespace mFPS
+{
 	class InputManager;
 	class InputAction;
 	class ActionManager
@@ -16,9 +16,10 @@ namespace mFPS {
 	public:
 		ActionManager(std::shared_ptr<InputManager> inputManager);
 		~ActionManager();
-		void LoadActions(const std::string& path);
-		const bool IsPerforming(const std::string& actionName);
-		const float GetValue(const std::string& actionName);
+		void LoadActions(const std::string &path);
+		const bool IsPerforming(const std::string &actionName);
+		const float GetValue(const std::string &actionName);
+
 	private:
 		std::shared_ptr<InputManager> mInputManager;
 		mBase::TemplatedMapVector<InputAction> mInputActions;

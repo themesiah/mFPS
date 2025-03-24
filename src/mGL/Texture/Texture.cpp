@@ -1,7 +1,7 @@
 #include "Texture.h"
 #include "stb_image.h"
 
-#include "mBase/Logger.h"
+#include "Logger.h"
 
 namespace mGL
 {
@@ -10,7 +10,7 @@ namespace mGL
 		stbi_set_flip_vertically_on_load(true);
 	}
 
-	Texture::Texture(const std::string& path) : Texture()
+	Texture::Texture(const std::string &path) : Texture()
 	{
 		Load(path);
 	}
@@ -20,16 +20,18 @@ namespace mGL
 		glDeleteTextures(1, &mTextureId);
 	}
 
-	void Texture::Load(const std::string& path)
+	void Texture::Load(const std::string &path)
 	{
-		const std::string& fullPath = "Data/Texture/" + path;
+		const std::string &fullPath = "Data/Texture/" + path;
 		Logger::Log("Texture", "Loading texture on path " + fullPath);
 		mData = stbi_load(fullPath.c_str(), &mWidth, &mHeight, &mChannels, 0);
-		if (mData) {
+		if (mData)
+		{
 			glGenTextures(1, &mTextureId);
 			glBindTexture(GL_TEXTURE_2D, mTextureId);
 			GLint format = GL_R;
-			if (mChannels == 3) {
+			if (mChannels == 3)
+			{
 				format = GL_RGB;
 			}
 			else if (mChannels == 4)

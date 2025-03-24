@@ -12,7 +12,7 @@ namespace mGL
 		glm::vec2 Uvs;
 		glm::vec3 Normal;
 
-		bool operator==(const Vertex& other) const
+		bool operator==(const Vertex &other) const
 		{
 			return Position == other.Position && Uvs == other.Uvs && Normal == other.Normal;
 		}
@@ -24,7 +24,7 @@ namespace std
 	template <>
 	struct hash<mGL::Vertex>
 	{
-		std::size_t operator()(const mGL::Vertex& v) const
+		std::size_t operator()(const mGL::Vertex &v) const
 		{
 			static std::hash<float> Hash;
 			std::size_t res = 17;

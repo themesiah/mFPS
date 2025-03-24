@@ -1,6 +1,6 @@
 #include "TextureManager.h"
 
-#include "mBase/Logger.h"
+#include "Logger.h"
 
 namespace mGL
 {
@@ -13,7 +13,7 @@ namespace mGL
 		Logger::Log("Texture Manager", "Done");
 	}
 
-	TextureManager& TextureManager::GetInstance()
+	TextureManager &TextureManager::GetInstance()
 	{
 		static TextureManager instance;
 		return instance;
