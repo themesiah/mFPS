@@ -8,8 +8,9 @@
 
 #include "CheckedDelete.h"
 
-namespace mBase {
-    template<class T>
+namespace mBase
+{
+    template <class T>
     class TemplatedMapVector
     {
     public:
@@ -18,15 +19,15 @@ namespace mBase {
         public:
             T *m_Value;
             size_t m_Id;
-            MapResourceValue(){ assert(!"Method must not be called"); }
-            MapResourceValue(T *aValue, size_t aId) : m_Value(aValue), m_Id(aId){}
+            MapResourceValue() { assert(!"Method must not be called"); }
+            MapResourceValue(T *aValue, size_t aId) : m_Value(aValue), m_Id(aId) {}
         };
 
         typedef std::vector<T *> TVectorResources;
         typedef std::map<std::string, MapResourceValue> TMapResources;
 
     public:
-        TemplatedMapVector(){}
+        TemplatedMapVector() {}
         virtual ~TemplatedMapVector()
         {
             Destroy();
@@ -59,12 +60,12 @@ namespace mBase {
             }
         }
 
-        virtual T * operator[](size_t aId)
+        virtual T *operator[](size_t aId)
         {
             return m_ResourcesVector[aId];
         }
 
-        virtual T * operator()(const std::string &aName)
+        virtual T *operator()(const std::string &aName)
         {
             auto lItfind = m_ResourcesMap.find(aName);
             return (lItfind != m_ResourcesMap.end()) ? lItfind->second.m_Value : nullptr;
@@ -90,7 +91,7 @@ namespace mBase {
 
         virtual void Destroy()
         {
-            for (int i = 0; i < m_ResourcesVector.size(); ++i)
+            for (size_t i = 0; i < m_ResourcesVector.size(); ++i)
             {
                 CheckedDelete(m_ResourcesVector[i]);
             }
@@ -99,7 +100,7 @@ namespace mBase {
 
     protected:
         TVectorResources m_ResourcesVector;
-        TMapResources	 m_ResourcesMap;
+        TMapResources m_ResourcesMap;
     };
 }
 

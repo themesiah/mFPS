@@ -9,7 +9,7 @@
 
 namespace mGL
 {
-	RenderableObject::RenderableObject() : mMatrix(new glm::mat4(1.0f)), mName("NONAME")
+	RenderableObject::RenderableObject() : mName("NONAME"), mMatrix(new glm::mat4(1.0f))
 	{
 	}
 

@@ -26,7 +26,7 @@ namespace mGL
 	Material::~Material()
 	{
 		Logger::Log("Material", "Destructor called");
-		for (int i = 0; i < mParameters.size(); ++i)
+		for (size_t i = 0; i < mParameters.size(); ++i)
 		{
 			delete mParameters[i];
 		}
@@ -34,7 +34,7 @@ namespace mGL
 
 	void Material::Use() const
 	{
-		for (int i = 0; i < mParameters.size(); ++i)
+		for (size_t i = 0; i < mParameters.size(); ++i)
 		{
 			mParameters[i]->Bind(mShader.get());
 		}

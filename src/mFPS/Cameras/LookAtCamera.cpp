@@ -4,7 +4,7 @@
 
 namespace mFPS
 {
-	LookAtCamera::LookAtCamera() : mTarget(), CameraBase() {}
+	LookAtCamera::LookAtCamera() : CameraBase(), mTarget() {}
 
 	void LookAtCamera::Update(const float &deltaTime, ActionManager *actionManager)
 	{

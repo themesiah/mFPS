@@ -19,7 +19,7 @@ namespace mFPS
 
 	World::~World()
 	{
-		for (int i = 0; i < mRenderableObjects.size(); ++i)
+		for (size_t i = 0; i < mRenderableObjects.size(); ++i)
 		{
 			mBase::CheckedDelete(mRenderableObjects[i]);
 		}
@@ -99,7 +99,7 @@ namespace mFPS
 			ImGui::Indent(1.0f);
 			if (ImGui::CollapsingHeader("Objects"))
 			{
-				for (int i = 0; i < mRenderableObjects.size(); ++i)
+				for (size_t i = 0; i < mRenderableObjects.size(); ++i)
 				{
 					mRenderableObjects[i]->ShowImGui();
 				}
@@ -107,7 +107,7 @@ namespace mFPS
 			}
 			if (ImGui::CollapsingHeader("Lights"))
 			{
-				for (int i = 0; i < mLights.size(); ++i)
+				for (size_t i = 0; i < mLights.size(); ++i)
 				{
 					mLights[i]->StartImGui();
 				}

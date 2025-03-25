@@ -11,17 +11,18 @@ namespace mFPS
 	{
 	public:
 		InputManager();
-		void ProcessInput(GLFWwindow* window);
-		const bool IsKeyDown(const int& key) const;
-		const bool IsKeyPressed(const int& key) const;
-		const bool IsKeyReleased(const int& key) const;
-		const bool IsMouseButtonDown(const int& key) const;
-		const bool IsMouseButtonPressed(const int& key) const;
-		const bool IsMouseButtonReleased(const int& key) const;
-		const void SetCursorMode(GLFWwindow* window);
-		const void UnsetCursorMode(GLFWwindow* window);
+		void ProcessInput(GLFWwindow *window);
+		bool IsKeyDown(const int &key) const;
+		bool IsKeyPressed(const int &key) const;
+		bool IsKeyReleased(const int &key) const;
+		bool IsMouseButtonDown(const int &key) const;
+		bool IsMouseButtonPressed(const int &key) const;
+		bool IsMouseButtonReleased(const int &key) const;
+		void SetCursorMode(GLFWwindow *window);
+		void UnsetCursorMode(GLFWwindow *window);
 		const glm::vec2 GetMouseDelta() const;
 		const glm::vec2 GetMousePosition() const;
+
 	private:
 		Input mLastInput;
 		Input mCurrentInput;

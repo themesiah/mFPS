@@ -3,27 +3,28 @@
 
 namespace mFPS
 {
-	InputAction::InputAction(const std::string& name) : mName(name){}
+	InputAction::InputAction(const std::string &name) : mName(name) {}
 
 	InputAction::~InputAction()
 	{
-
 	}
 
-	tinyxml2::XMLError InputAction::AddTrigger(tinyxml2::XMLElement* element)
+	tinyxml2::XMLError InputAction::AddTrigger(tinyxml2::XMLElement *element)
 	{
-		const char* type;
+		const char *type;
 		tinyxml2::XMLError result = element->QueryStringAttribute("type", &type);
-		if (result != tinyxml2::XML_SUCCESS) return result;
+		if (result != tinyxml2::XML_SUCCESS)
+			return result;
 
 		Trigger trigger;
 
-		if (strcmp(type ,"Keyboard") == 0)
+		if (strcmp(type, "Keyboard") == 0)
 		{
 			trigger.triggerType = TriggerType::Keyboard;
-			const char* actionType;
+			const char *actionType;
 			result = element->QueryStringAttribute("action_type", &actionType);
-			if (result != tinyxml2::XML_SUCCESS) return result;
+			if (result != tinyxml2::XML_SUCCESS)
+				return result;
 			if (strcmp(actionType, "Down") == 0)
 			{
 				trigger.keyboard.triggerActionType = TriggerActionType::Down;
@@ -42,20 +43,23 @@ namespace mFPS
 			}
 			float value;
 			result = element->QueryFloatAttribute("value", &value);
-			if (result != tinyxml2::XML_SUCCESS) return result;
+			if (result != tinyxml2::XML_SUCCESS)
+				return result;
 			trigger.keyboard.value = value;
 
-			const char* keyCode;
+			const char *keyCode;
 			result = element->QueryStringAttribute("key_code", &keyCode);
-			if (result != tinyxml2::XML_SUCCESS) return result;
+			if (result != tinyxml2::XML_SUCCESS)
+				return result;
 			trigger.keyboard.keyCode = GetKeyCodeFromString(keyCode);
 		}
 		else if (strcmp(type, "MouseButton") == 0)
 		{
 			trigger.triggerType = TriggerType::Mouse;
-			const char* actionType;
+			const char *actionType;
 			result = element->QueryStringAttribute("action_type", &actionType);
-			if (result != tinyxml2::XML_SUCCESS) return result;
+			if (result != tinyxml2::XML_SUCCESS)
+				return result;
 			if (strcmp(actionType, "Down") == 0)
 			{
 				trigger.mouseButton.triggerActionType = TriggerActionType::Down;
@@ -73,9 +77,10 @@ namespace mFPS
 				return tinyxml2::XML_ERROR_PARSING_ATTRIBUTE;
 			}
 
-			const char* mouseButton;
+			const char *mouseButton;
 			result = element->QueryStringAttribute("mouse_button", &mouseButton);
-			if (result != tinyxml2::XML_SUCCESS) return result;
+			if (result != tinyxml2::XML_SUCCESS)
+				return result;
 			if (strcmp(mouseButton, "Left") == 0)
 			{
 				trigger.mouseButton.mouseButton = MouseButton::Left;
@@ -88,21 +93,24 @@ namespace mFPS
 			{
 				trigger.mouseButton.mouseButton = MouseButton::Middle;
 			}
-			else {
+			else
+			{
 				return tinyxml2::XML_ERROR_PARSING_ATTRIBUTE;
 			}
 
 			float value;
 			result = element->QueryFloatAttribute("value", &value);
-			if (result != tinyxml2::XML_SUCCESS) return result;
+			if (result != tinyxml2::XML_SUCCESS)
+				return result;
 			trigger.mouseButton.value = value;
 		}
 		else if (strcmp(type, "MouseLook") == 0)
 		{
 			trigger.triggerType = TriggerType::MouseLook;
-			const char* axis;
+			const char *axis;
 			result = element->QueryStringAttribute("mouse_axis", &axis);
-			if (result != tinyxml2::XML_SUCCESS) return result;
+			if (result != tinyxml2::XML_SUCCESS)
+				return result;
 			if (strcmp(axis, "X") == 0)
 			{
 				trigger.mouseLook.mouseAxis = MouseAxis::X;
@@ -127,7 +135,8 @@ namespace mFPS
 				trigger.mouseLook.sensitivity = sensitivity;
 			}
 		}
-		else {
+		else
+		{
 			return tinyxml2::XML_ERROR_PARSING_ATTRIBUTE;
 		}
 
@@ -135,10 +144,10 @@ namespace mFPS
 		return tinyxml2::XML_SUCCESS;
 	}
 
-	float InputAction::GetValue(InputManager* inputManager)
+	float InputAction::GetValue(InputManager *inputManager)
 	{
 		float value = 0.0f;
-		for(int i = 0; i < mTriggers.size(); ++i)
+		for (size_t i = 0; i < mTriggers.size(); ++i)
 		{
 			switch (mTriggers[i].triggerType)
 			{
@@ -146,13 +155,16 @@ namespace mFPS
 				switch (mTriggers[i].keyboard.triggerActionType)
 				{
 				case TriggerActionType::Down:
-					if (inputManager->IsKeyDown(mTriggers[i].keyboard.keyCode)) value += mTriggers[i].keyboard.value;
+					if (inputManager->IsKeyDown(mTriggers[i].keyboard.keyCode))
+						value += mTriggers[i].keyboard.value;
 					break;
 				case TriggerActionType::Pressed:
-					if (inputManager->IsKeyPressed(mTriggers[i].keyboard.keyCode)) value += mTriggers[i].keyboard.value;
+					if (inputManager->IsKeyPressed(mTriggers[i].keyboard.keyCode))
+						value += mTriggers[i].keyboard.value;
 					break;
 				case TriggerActionType::Released:
-					if (inputManager->IsKeyReleased(mTriggers[i].keyboard.keyCode)) value += mTriggers[i].keyboard.value;
+					if (inputManager->IsKeyReleased(mTriggers[i].keyboard.keyCode))
+						value += mTriggers[i].keyboard.value;
 					break;
 				}
 				break;
@@ -160,13 +172,16 @@ namespace mFPS
 				switch (mTriggers[i].mouseButton.triggerActionType)
 				{
 				case TriggerActionType::Down:
-					if (inputManager->IsMouseButtonDown(mTriggers[i].mouseButton.mouseButton)) value += mTriggers[i].mouseButton.value;
+					if (inputManager->IsMouseButtonDown(mTriggers[i].mouseButton.mouseButton))
+						value += mTriggers[i].mouseButton.value;
 					break;
 				case TriggerActionType::Pressed:
-					if (inputManager->IsMouseButtonPressed(mTriggers[i].mouseButton.mouseButton)) value += mTriggers[i].mouseButton.value;
+					if (inputManager->IsMouseButtonPressed(mTriggers[i].mouseButton.mouseButton))
+						value += mTriggers[i].mouseButton.value;
 					break;
 				case TriggerActionType::Released:
-					if (inputManager->IsMouseButtonReleased(mTriggers[i].mouseButton.mouseButton)) value += mTriggers[i].mouseButton.value;
+					if (inputManager->IsMouseButtonReleased(mTriggers[i].mouseButton.mouseButton))
+						value += mTriggers[i].mouseButton.value;
 					break;
 				}
 				break;
@@ -192,10 +207,11 @@ namespace mFPS
 		return value;
 	}
 
-	int InputAction::GetKeyCodeFromString(const char* str)
+	int InputAction::GetKeyCodeFromString(const char *str)
 	{
-		if (str == NULL) return -1;
-		if (strlen(str) == 1 && (str[0] >= 'A' && str[0] <= 'Z') || (str[0] >= '0' && str[0] <= '9'))
+		if (str == NULL)
+			return -1;
+		if (strlen(str) == 1 && ((str[0] >= 'A' && str[0] <= 'Z') || (str[0] >= '0' && str[0] <= '9')))
 		{
 			return str[0];
 		}
@@ -230,6 +246,10 @@ namespace mFPS
 		else if (strcmp(str, "ENTER"))
 		{
 			return GLFW_KEY_ENTER;
+		}
+		else
+		{
+			return -1;
 		}
 	}
 }

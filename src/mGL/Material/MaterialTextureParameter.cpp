@@ -7,9 +7,9 @@
 
 namespace mGL
 {
-	MaterialTextureParameter::MaterialTextureParameter() : mTextureType(TextureType::Albedo), mTexture(nullptr) {}
-	MaterialTextureParameter::MaterialTextureParameter(TextureType texType) : mTextureType(texType), mTexture(nullptr) {}
-	MaterialTextureParameter::MaterialTextureParameter(TextureType texType, Texture *tex) : mTextureType(texType), mTexture(tex) {}
+	MaterialTextureParameter::MaterialTextureParameter() : mTexture(nullptr), mTextureType(TextureType::Albedo) {}
+	MaterialTextureParameter::MaterialTextureParameter(TextureType texType) : mTexture(nullptr), mTextureType(texType) {}
+	MaterialTextureParameter::MaterialTextureParameter(TextureType texType, Texture *tex) : mTexture(tex), mTextureType(texType) {}
 
 	MaterialTextureParameter::MaterialTextureParameter(const MaterialTextureParameter &mtp)
 	{

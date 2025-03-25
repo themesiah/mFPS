@@ -17,8 +17,8 @@ namespace mFPS
 		ActionManager(std::shared_ptr<InputManager> inputManager);
 		~ActionManager();
 		void LoadActions(const std::string &path);
-		const bool IsPerforming(const std::string &actionName);
-		const float GetValue(const std::string &actionName);
+		bool IsPerforming(const std::string &actionName);
+		float GetValue(const std::string &actionName);
 
 	private:
 		std::shared_ptr<InputManager> mInputManager;

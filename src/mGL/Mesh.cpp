@@ -6,7 +6,7 @@
 
 namespace mGL
 {
-	Mesh::Mesh() : mIndicesSize(0), mVAO(0), mEBO(0), mVBO(0), mMaterial(nullptr) {}
+	Mesh::Mesh() : mVAO(0), mVBO(0), mEBO(0), mIndicesSize(0), mMaterial(nullptr) {}
 
 	Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned short> indices) : mMaterial(nullptr)
 	{

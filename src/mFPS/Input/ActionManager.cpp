@@ -42,13 +42,13 @@ namespace mFPS
 		}
 	}
 
-	const bool ActionManager::IsPerforming(const std::string &actionName)
+	bool ActionManager::IsPerforming(const std::string &actionName)
 	{
 		assert(mInputActions.Exist(actionName));
 		return mInputActions(actionName)->GetValue(mInputManager.get()) != 0.0f;
 	}
 
-	const float ActionManager::GetValue(const std::string &actionName)
+	float ActionManager::GetValue(const std::string &actionName)
 	{
 		assert(mInputActions.Exist(actionName));
 		return mInputActions(actionName)->GetValue(mInputManager.get());

@@ -63,7 +63,7 @@ namespace mGL
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         // Render all objects that need to be rendered
-        for (int i = 0; i < renderableObjects.size(); ++i)
+        for (size_t i = 0; i < renderableObjects.size(); ++i)
         {
             renderableObjects[i]->Render(projection, view);
         }

@@ -4,9 +4,9 @@
 
 namespace mFPS
 {
-	InputManager::InputManager() : mCurrentInput({}), mLastInput({}) {}
+	InputManager::InputManager() : mLastInput({}), mCurrentInput({}) {}
 
-	void InputManager::ProcessInput(GLFWwindow* window)
+	void InputManager::ProcessInput(GLFWwindow *window)
 	{
 		// Keyboard input
 		mLastInput = mCurrentInput;
@@ -31,58 +31,63 @@ namespace mFPS
 		}
 	}
 
-	const void InputManager::SetCursorMode(GLFWwindow* window)
+	void InputManager::SetCursorMode(GLFWwindow *window)
 	{
 		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 		mLastInput.MousePosition = mCurrentInput.MousePosition;
 	}
 
-	const void InputManager::UnsetCursorMode(GLFWwindow* window)
+	void InputManager::UnsetCursorMode(GLFWwindow *window)
 	{
 		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 		mLastInput.MousePosition = mCurrentInput.MousePosition;
 	}
 
-	const bool InputManager::IsKeyDown(const int& key) const
+	bool InputManager::IsKeyDown(const int &key) const
 	{
-		if (key < 0 || key > GLFW_KEY_LAST) return false;
+		if (key < 0 || key > GLFW_KEY_LAST)
+			return false;
 		return mCurrentInput.Keyboard[key];
 	}
 
-	const bool InputManager::IsKeyPressed(const int& key) const
+	bool InputManager::IsKeyPressed(const int &key) const
 	{
-		if (key < 0 || key > GLFW_KEY_LAST) return false;
+		if (key < 0 || key > GLFW_KEY_LAST)
+			return false;
 		return mCurrentInput.Keyboard[key] && !mLastInput.Keyboard[key];
 	}
 
-	const bool InputManager::IsKeyReleased(const int& key) const
+	bool InputManager::IsKeyReleased(const int &key) const
 	{
-		if (key < 0 || key > GLFW_KEY_LAST) return false;
+		if (key < 0 || key > GLFW_KEY_LAST)
+			return false;
 		return !mCurrentInput.Keyboard[key] && mLastInput.Keyboard[key];
 	}
 
-	const bool InputManager::IsMouseButtonDown(const int& key) const
+	bool InputManager::IsMouseButtonDown(const int &key) const
 	{
-		if (key < 0 || key > GLFW_MOUSE_BUTTON_LAST) return false;
+		if (key < 0 || key > GLFW_MOUSE_BUTTON_LAST)
+			return false;
 		return mCurrentInput.MouseButtons[key];
 	}
 
-	const bool InputManager::IsMouseButtonPressed(const int& key) const
+	bool InputManager::IsMouseButtonPressed(const int &key) const
 	{
-		if (key < 0 || key > GLFW_MOUSE_BUTTON_LAST) return false;
+		if (key < 0 || key > GLFW_MOUSE_BUTTON_LAST)
+			return false;
 		return mCurrentInput.MouseButtons[key] && !mLastInput.MouseButtons[key];
 	}
 
-	const bool InputManager::IsMouseButtonReleased(const int& key) const
+	bool InputManager::IsMouseButtonReleased(const int &key) const
 	{
-		if (key < 0 || key > GLFW_MOUSE_BUTTON_LAST) return false;
+		if (key < 0 || key > GLFW_MOUSE_BUTTON_LAST)
+			return false;
 		return !mCurrentInput.MouseButtons[key] && mLastInput.MouseButtons[key];
 	}
 
-
 	const glm::vec2 InputManager::GetMouseDelta() const
 	{
-		return { mCurrentInput.MousePosition.x - mLastInput.MousePosition.x, mLastInput.MousePosition.y - mCurrentInput.MousePosition.y };
+		return {mCurrentInput.MousePosition.x - mLastInput.MousePosition.x, mLastInput.MousePosition.y - mCurrentInput.MousePosition.y};
 	}
 
 	const glm::vec2 InputManager::GetMousePosition() const

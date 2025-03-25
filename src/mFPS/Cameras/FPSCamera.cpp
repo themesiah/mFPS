@@ -5,7 +5,7 @@
 
 namespace mFPS
 {
-	FPSCamera::FPSCamera() : mEuler({0.0f, 90.0f, 0.0f}), CameraBase() {}
+	FPSCamera::FPSCamera() : CameraBase(), mEuler({0.0f, 90.0f, 0.0f}) {}
 
 	void FPSCamera::Rotate(const float &yaw, const float &pitch)
 	{
