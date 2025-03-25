@@ -25,7 +25,7 @@ namespace mGL
 		void SetIntensity(const float &intensity);
 #ifdef EDITOR_MODE
 		void StartImGui();
-		RenderableObject *GetIcon() const;
+		std::shared_ptr<RenderableObject> GetIcon() const;
 #endif
 	protected:
 #ifdef EDITOR_MODE
@@ -38,7 +38,7 @@ namespace mGL
 		unsigned int mSSBO;
 
 	private:
-		RenderableModel *mIcon;
+		std::shared_ptr<RenderableModel> mIcon;
 	};
 }
 

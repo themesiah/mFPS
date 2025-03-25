@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <string>
+#include <memory>
 #include "Renderable/RenderableObject.h"
 
 namespace mGL
@@ -17,14 +18,14 @@ namespace mFPS
 	public:
 		World();
 		~World();
-		void AddRenderableObject(mGL::RenderableObject *renderableObject);
-		const std::vector<mGL::RenderableObject *> GetRenderableObjects() const;
+		void AddRenderableObject(std::shared_ptr<mGL::RenderableObject> renderableObject);
+		const std::vector<std::shared_ptr<mGL::RenderableObject>> GetRenderableObjects() const;
 		void FromXML(const std::string &path);
 #ifdef EDITOR_MODE
 		void ShowImGui();
 #endif
 	private:
-		std::vector<mGL::RenderableObject *> mRenderableObjects;
+		std::vector<std::shared_ptr<mGL::RenderableObject>> mRenderableObjects;
 		std::vector<mGL::Light *> mLights;
 	};
 }

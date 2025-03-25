@@ -1,15 +1,15 @@
+#include <memory>
+
 #include "Game.h"
 
 int main()
 {
-    mFPS::Game *game = new mFPS::Game();
+    std::unique_ptr<mFPS::Game> game = std::make_unique<mFPS::Game>();
     game->Initialize(1280, 720);
 
     while (game->Update())
     {
     }
-
-    delete game;
 
     return 0;
 }

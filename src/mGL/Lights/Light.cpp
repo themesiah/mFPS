@@ -59,13 +59,12 @@ namespace mGL
 
 		glGenBuffers(1, &mSSBO);
 
-		mIcon = static_cast<RenderableModel *>(MeshFactory::LoadObj("CommonResources/Light.obj"));
+		mIcon = std::static_pointer_cast<RenderableModel>(MeshFactory::LoadObj("CommonResources/Light.obj"));
 	}
 
 	Light::~Light()
 	{
 		glDeleteBuffers(1, &mSSBO);
-		delete mIcon;
 	}
 
 	std::shared_ptr<glm::mat4> Light::GetMatrix() const
@@ -104,7 +103,7 @@ namespace mGL
 		}
 	}
 
-	RenderableObject *Light::GetIcon() const
+	std::shared_ptr<RenderableObject> Light::GetIcon() const
 	{
 		return mIcon;
 	}

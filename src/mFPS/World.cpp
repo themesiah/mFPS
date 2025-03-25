@@ -19,21 +19,17 @@ namespace mFPS
 
 	World::~World()
 	{
-		for (size_t i = 0; i < mRenderableObjects.size(); ++i)
-		{
-			mBase::CheckedDelete(mRenderableObjects[i]);
-		}
 	}
 
-	void World::AddRenderableObject(mGL::RenderableObject *renderableObject)
+	void World::AddRenderableObject(std::shared_ptr<mGL::RenderableObject> renderableObject)
 	{
 		mRenderableObjects.push_back(renderableObject);
 	}
 
-	const std::vector<mGL::RenderableObject *> World::GetRenderableObjects() const
+	const std::vector<std::shared_ptr<mGL::RenderableObject>> World::GetRenderableObjects() const
 	{
 #ifdef EDITOR_MODE
-		std::vector<mGL::RenderableObject *> renderables = mRenderableObjects;
+		std::vector<std::shared_ptr<mGL::RenderableObject>> renderables = mRenderableObjects;
 		for (unsigned int i = 0; i < mLights.size(); ++i)
 		{
 			renderables.push_back(mLights[i]->GetIcon());
@@ -63,7 +59,7 @@ namespace mFPS
 
 					while (object != NULL)
 					{
-						mGL::RenderableObject *renderableObject = mGL::MeshFactory::LoadObj(object);
+						std::shared_ptr<mGL::RenderableObject> renderableObject = mGL::MeshFactory::LoadObj(object);
 						AddRenderableObject(renderableObject);
 						object = object->NextSiblingElement();
 					}

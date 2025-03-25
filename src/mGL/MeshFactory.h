@@ -4,6 +4,7 @@
 #include <string>
 #include <unordered_map>
 #include <vector>
+#include <memory>
 
 namespace tinyxml2
 {
@@ -18,8 +19,8 @@ namespace mGL
 	class MeshFactory
 	{
 	public:
-		static RenderableObject *LoadObj(tinyxml2::XMLElement *element);
-		static RenderableObject *LoadObj(const std::string &path);
+		static std::shared_ptr<RenderableObject> LoadObj(tinyxml2::XMLElement *element);
+		static std::shared_ptr<RenderableObject> LoadObj(const std::string &path);
 
 	private:
 		static std::vector<Mesh *> GetMeshes(const std::string &path);

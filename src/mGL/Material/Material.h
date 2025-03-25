@@ -13,16 +13,17 @@ namespace mGL
 	{
 	public:
 		Material();
-		Material(Shader* shader);
-		Material(const Material& m);
-		Material& operator=(const Material& m);
+		Material(Shader *shader);
+		Material(const Material &m);
+		Material &operator=(const Material &m);
 		~Material();
 		void Use() const;
-		void AddParameter(IMaterialParameter* parameter);
-		Shader* GetShader() const;
+		void AddParameter(std::shared_ptr<IMaterialParameter> parameter);
+		Shader *GetShader() const;
+
 	private:
 		std::shared_ptr<Shader> mShader;
-		std::vector<IMaterialParameter*> mParameters;
+		std::vector<std::shared_ptr<IMaterialParameter>> mParameters;
 	};
 }
 

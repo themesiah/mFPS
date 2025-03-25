@@ -1,7 +1,8 @@
 #include "Renderer.h"
 
-#include "Logger.h"
 #include <sstream>
+
+#include "Logger.h"
 
 namespace mGL
 {
@@ -57,7 +58,7 @@ namespace mGL
         return mWindow;
     }
 
-    void Renderer::Render(std::vector<RenderableObject *> renderableObjects, const glm::mat4 &projection, const glm::mat4 &view)
+    void Renderer::Render(std::vector<std::shared_ptr<RenderableObject>> renderableObjects, const glm::mat4 &projection, const glm::mat4 &view)
     {
         // wipe the drawing surface clear
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

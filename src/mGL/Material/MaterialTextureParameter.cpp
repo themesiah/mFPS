@@ -9,19 +9,18 @@ namespace mGL
 {
 	MaterialTextureParameter::MaterialTextureParameter() : mTexture(nullptr), mTextureType(TextureType::Albedo) {}
 	MaterialTextureParameter::MaterialTextureParameter(TextureType texType) : mTexture(nullptr), mTextureType(texType) {}
-	MaterialTextureParameter::MaterialTextureParameter(TextureType texType, Texture *tex) : mTexture(tex), mTextureType(texType) {}
+	MaterialTextureParameter::MaterialTextureParameter(TextureType texType, std::shared_ptr<Texture> tex) : mTexture(tex), mTextureType(texType) {}
 
 	MaterialTextureParameter::MaterialTextureParameter(const MaterialTextureParameter &mtp)
 	{
 		mTextureType = mtp.mTextureType;
-		mTexture = new Texture(*mtp.mTexture);
+		mTexture = mtp.mTexture;
 	}
 
 	MaterialTextureParameter &MaterialTextureParameter::operator=(const MaterialTextureParameter &mtp)
 	{
 		mTextureType = mtp.mTextureType;
-		delete mTexture;
-		mTexture = new Texture(*mtp.mTexture);
+		mTexture = mtp.mTexture;
 		return *this;
 	}
 

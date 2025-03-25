@@ -1,6 +1,7 @@
 #include "MaterialFactory.h"
 
 #include <fstream>
+#include <memory>
 
 #include "Material.h"
 #include "MaterialColorParameter.h"
@@ -48,13 +49,13 @@ namespace mGL
 				float r = std::stof(splitted[0]);
 				float g = std::stof(splitted[1]);
 				float b = std::stof(splitted[2]);
-				currentMaterial->AddParameter(new MaterialColorParameter(r, g, b, 1.0f));
+				currentMaterial->AddParameter(std::make_shared<MaterialColorParameter>(r, g, b, 1.0f));
 			}
 			else if (firstToken == "map_Kd") // Diffuse texture
 			{
 				if (currentMaterial == nullptr)
 					continue;
-				Texture *tex;
+				std::shared_ptr<Texture> tex;
 				std::string texPath = mBase::Strings::Tail(line);
 				if (TextureManager::GetInstance().Exist(texPath))
 				{
@@ -62,10 +63,10 @@ namespace mGL
 				}
 				else
 				{
-					tex = new Texture(texPath);
+					tex = std::make_shared<Texture>(texPath);
 					TextureManager::GetInstance().Add(texPath, tex);
 				}
-				currentMaterial->AddParameter(new MaterialTextureParameter(TextureType::Albedo, tex));
+				currentMaterial->AddParameter(std::make_shared<MaterialTextureParameter>(TextureType::Albedo, tex));
 			}
 		}
 		file.close();

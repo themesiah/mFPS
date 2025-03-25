@@ -1,3 +1,5 @@
+#include "MeshFactory.h"
+
 #include <vector>
 #include <iostream>
 #include <fstream>
@@ -7,7 +9,6 @@
 #include "Renderable/RenderableObject.h"
 #include "Renderable/RenderableModel.h"
 #include "Mesh.h"
-#include "MeshFactory.h"
 #include "StringUtils.h"
 #include "Vertex.h"
 #include "Material/MaterialFactory.h"
@@ -17,21 +18,21 @@
 
 namespace mGL
 {
-	RenderableObject *MeshFactory::LoadObj(const std::string &path)
+	std::shared_ptr<RenderableObject> MeshFactory::LoadObj(const std::string &path)
 	{
 		auto meshes = GetMeshes(path);
-		RenderableObject *ro = new RenderableModel(meshes);
+		std::shared_ptr<RenderableObject> ro = std::make_shared<RenderableModel>(meshes);
 		return ro;
 	}
 
-	RenderableObject *MeshFactory::LoadObj(tinyxml2::XMLElement *element)
+	std::shared_ptr<RenderableObject> MeshFactory::LoadObj(tinyxml2::XMLElement *element)
 	{
 		const char *cpath;
 		if (element->QueryStringAttribute("model", &cpath) != tinyxml2::XML_SUCCESS)
 			return nullptr;
 		std::string path = std::string(cpath);
 		auto meshes = GetMeshes(path);
-		RenderableObject *ro = new RenderableModel(element, meshes);
+		std::shared_ptr<RenderableObject> ro = std::make_shared<RenderableModel>(element, meshes);
 		return ro;
 	}
 

@@ -26,10 +26,6 @@ namespace mGL
 	Material::~Material()
 	{
 		Logger::Log("Material", "Destructor called");
-		for (size_t i = 0; i < mParameters.size(); ++i)
-		{
-			delete mParameters[i];
-		}
 	}
 
 	void Material::Use() const
@@ -41,7 +37,7 @@ namespace mGL
 		mShader.get()->UseShader();
 	}
 
-	void Material::AddParameter(IMaterialParameter *parameter)
+	void Material::AddParameter(std::shared_ptr<IMaterialParameter> parameter)
 	{
 		mParameters.push_back(parameter);
 	}

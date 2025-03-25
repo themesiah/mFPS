@@ -29,6 +29,7 @@ namespace mFPS
 		mRenderer->Terminate();
 		mRenderer.reset();
 		mCamera.reset();
+		delete mWindow;
 	}
 
 	int Game::Initialize(const int &width, const int &height)

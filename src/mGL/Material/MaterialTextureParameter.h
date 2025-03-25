@@ -1,9 +1,12 @@
 #ifndef MGL_MATERIAL_TEXTURE_PARAMETER
 #define MGL_MATERIAL_TEXTURE_PARAMETER
 
+#include <memory>
+
 #include "IMaterialParameter.h"
 
-namespace mGL {
+namespace mGL
+{
 	class Texture;
 
 	enum TextureType
@@ -17,13 +20,14 @@ namespace mGL {
 	public:
 		MaterialTextureParameter();
 		MaterialTextureParameter(TextureType texType);
-		MaterialTextureParameter(TextureType texType, Texture* tex);
-		MaterialTextureParameter(const MaterialTextureParameter& mtp);
-		MaterialTextureParameter& operator=(const MaterialTextureParameter& mtp);
+		MaterialTextureParameter(TextureType texType, std::shared_ptr<Texture> tex);
+		MaterialTextureParameter(const MaterialTextureParameter &mtp);
+		MaterialTextureParameter &operator=(const MaterialTextureParameter &mtp);
 		virtual ~MaterialTextureParameter();
-		void Bind(Shader* shader) const;
+		void Bind(Shader *shader) const;
+
 	private:
-		Texture* mTexture;
+		std::shared_ptr<Texture> mTexture;
 		TextureType mTextureType;
 	};
 }

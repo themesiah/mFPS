@@ -26,7 +26,7 @@ namespace mFPS
 				const char *actionName;
 				action->QueryStringAttribute("name", &actionName);
 				tinyxml2::XMLElement *trigger = action->FirstChildElement("trigger");
-				InputAction *inputAction = new InputAction(std::string(actionName));
+				std::shared_ptr<InputAction> inputAction = std::make_shared<InputAction>(std::string(actionName));
 				while (trigger != NULL)
 				{
 					inputAction->AddTrigger(trigger);
