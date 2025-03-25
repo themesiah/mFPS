@@ -1,5 +1,5 @@
 # Get all .h and .cpp files
-file(GLOB mBase_src CONFIGURE_DEPENDS "*.h" "*.cpp" "XML/*.cpp" "XML/*.h" "ImGui/*.h" "ImGui/*.cpp")
+file(GLOB mBase_src CONFIGURE_DEPENDS "*.cpp" "XML/*.cpp" "ImGui/*.cpp")
 
 # Create the library
 add_library(mBase ${mBase_src})

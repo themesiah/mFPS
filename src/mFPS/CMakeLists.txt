@@ -1,5 +1,5 @@
 # Get all .h and .cpp files
-file(GLOB mFPS_src CONFIGURE_DEPENDS "*.cpp" "Cameras/*.cpp" "Input/*.cpp" "Game.h")
+file(GLOB mFPS_src CONFIGURE_DEPENDS "*.cpp" "Cameras/*.cpp" "Input/*.cpp")
 
 # Create the library
 add_executable(mFPS ${mFPS_src})

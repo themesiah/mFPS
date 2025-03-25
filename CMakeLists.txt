@@ -22,7 +22,6 @@ target_link_libraries(engine_compiler_flags
                       INTERFACE
                       glfw
                       glm
-                      ${GLEW_LIBRARIES}
                       "${PROJECT_SOURCE_DIR}/Dependencies/glew-2.2.0/lib/Release/x64/glew32.lib"
                       opengl32
 )
