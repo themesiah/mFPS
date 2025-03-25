@@ -51,12 +51,14 @@ namespace mGL
 	}
 
 #ifdef EDITOR_MODE
-	void DirectionalLight::ShowImGui()
+	bool DirectionalLight::ShowImGui()
 	{
+		bool dirty = false;
 		if (ImGui::SliderFloat3("Direction", &mDirection[0], -1.0f, 1.0f))
 		{
-			Set();
+			dirty = true;
 		}
+		return dirty;
 	}
 #endif
 }

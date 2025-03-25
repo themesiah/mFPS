@@ -8,6 +8,7 @@
 #include "CheckedDelete.h"
 #include "Lights/LightFactory.h"
 #include "Lights/Light.h"
+#include "Lights/LightsManager.h"
 
 #ifdef EDITOR_MODE
 #include "ImGui/imgui.h"
@@ -15,7 +16,7 @@
 
 namespace mFPS
 {
-	World::World() : mRenderableObjects({}) {}
+	World::World() : mRenderableObjects({}), mLightsManager(std::make_unique<mGL::LightsManager>()) {}
 
 	World::~World()
 	{
@@ -30,9 +31,9 @@ namespace mFPS
 	{
 #ifdef EDITOR_MODE
 		std::vector<std::shared_ptr<mGL::RenderableObject>> renderables = mRenderableObjects;
-		for (unsigned int i = 0; i < mLights.size(); ++i)
+		for (unsigned int i = 0; i < mLightsManager->GetCount(); ++i)
 		{
-			renderables.push_back(mLights[i]->GetIcon());
+			renderables.push_back(mLightsManager->operator[](i)->GetIcon());
 		}
 		return renderables;
 #else
@@ -72,9 +73,8 @@ namespace mFPS
 
 					while (lightObject != NULL)
 					{
-						mGL::Light *light = mGL::LightFactory::GetLight(lightObject);
-						light->Set();
-						mLights.push_back(light);
+						std::shared_ptr<mGL::Light> light = mGL::LightFactory::GetLight(lightObject);
+						mLightsManager->Add(light->GetName(), light);
 						lightObject = lightObject->NextSiblingElement();
 					}
 				}
@@ -85,6 +85,11 @@ namespace mFPS
 			Logger::Log("World", "Failed loading XML");
 		}
 		doc.Clear();
+	}
+
+	void World::Update(const float &deltaTime)
+	{
+		mLightsManager->Update();
 	}
 
 #ifdef EDITOR_MODE
@@ -103,10 +108,7 @@ namespace mFPS
 			}
 			if (ImGui::CollapsingHeader("Lights"))
 			{
-				for (size_t i = 0; i < mLights.size(); ++i)
-				{
-					mLights[i]->StartImGui();
-				}
+				mLightsManager->ShowImGui();
 				ImGui::Spacing();
 			}
 			ImGui::Unindent(1.0f);

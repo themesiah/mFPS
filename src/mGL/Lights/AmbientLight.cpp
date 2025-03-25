@@ -28,8 +28,9 @@ namespace mGL
 	}
 
 #ifdef EDITOR_MODE
-	void AmbientLight::ShowImGui()
+	bool AmbientLight::ShowImGui()
 	{
+		return false;
 	}
 #endif
 }

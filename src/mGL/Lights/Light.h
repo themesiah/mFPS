@@ -21,15 +21,16 @@ namespace mGL
 		virtual ~Light();
 		virtual void Set() = 0;
 		std::shared_ptr<glm::mat4> GetMatrix() const;
+		std::string GetName() const;
 		void SetColor(const glm::vec3 &color);
 		void SetIntensity(const float &intensity);
 #ifdef EDITOR_MODE
-		void StartImGui();
+		bool StartImGui();
 		std::shared_ptr<RenderableObject> GetIcon() const;
 #endif
 	protected:
 #ifdef EDITOR_MODE
-		virtual void ShowImGui() = 0;
+		virtual bool ShowImGui() = 0;
 #endif
 		std::string mName;
 		std::shared_ptr<glm::mat4> mMatrix;

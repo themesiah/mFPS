@@ -24,6 +24,14 @@ layout(std430, binding = 4) buffer ambientLightLayout
 	vec4 ambient_color_intensity;
 };
 
+/*layout(std430, binding = 5) buffer pointLightLayout
+{
+	float range;
+	float minIntensity;
+	vec4 color_intensity;
+	vec3 position;
+};*/
+
 void main() {
 	frag_color = vec4(1.0, 1.0, 1.0, 1.0);
 	if (use_tint == true)

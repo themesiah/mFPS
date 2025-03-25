@@ -36,6 +36,7 @@
 [Ll]ib/
 [Bb]uild/
 .vs/
+.vscode/
 
 # Exceptions
 # We want the obj that are meshes on the project

@@ -46,16 +46,10 @@ namespace mGL
 		}
 
 		tinyxml2::XMLElement *dataElement = element->FirstChildElement("data");
-		glm::vec3 color;
-		if (tinyxml2::QueryVec3Attribute(dataElement, "color", &color) == tinyxml2::XML_SUCCESS)
-		{
-			mColor = color;
-		}
-		float intensity;
-		if (dataElement->QueryFloatAttribute("intensity", &intensity) == tinyxml2::XML_SUCCESS)
-		{
-			mIntensity = intensity;
-		}
+		mColor = glm::vec3(1, 1, 1);
+		tinyxml2::QueryVec3Attribute(dataElement, "color", &mColor);
+		mIntensity = 0;
+		dataElement->QueryFloatAttribute("intensity", &mIntensity);
 
 		glGenBuffers(1, &mSSBO);
 
@@ -72,6 +66,11 @@ namespace mGL
 		return mMatrix;
 	}
 
+	std::string Light::GetName() const
+	{
+		return mName;
+	}
+
 	void Light::SetColor(const glm::vec3 &color)
 	{
 		mColor = color;
@@ -83,24 +82,27 @@ namespace mGL
 	}
 
 #ifdef EDITOR_MODE
-	void Light::StartImGui()
+	bool Light::StartImGui()
 	{
+		bool dirty = false;
 		if (ImGui::TreeNode(mName.c_str()))
 		{
 			ImGui::Indent(1.0f);
 			if (ImGui::SliderFloat("Intensity", &mIntensity, 0.0f, 1.0f))
 			{
-				Set();
+				dirty = true;
 			}
 
 			if (ImGui::SliderFloat3("Color", &mColor[0], 0.0f, 1.0f))
 			{
-				Set();
+				dirty = true;
 			}
-			ShowImGui();
+			if (ShowImGui())
+				dirty = true;
 			ImGui::Unindent(1.0f);
 			ImGui::TreePop();
 		}
+		return dirty;
 	}
 
 	std::shared_ptr<RenderableObject> Light::GetIcon() const

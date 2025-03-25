@@ -1,6 +1,8 @@
 #ifndef MGL_LIGHTFACTORY
 #define MGL_LIGHTFACTORY
 
+#include <memory>
+
 namespace tinyxml2
 {
 	class XMLElement;
@@ -12,7 +14,7 @@ namespace mGL
 	class LightFactory
 	{
 	public:
-		static Light *GetLight(tinyxml2::XMLElement *element);
+		static std::shared_ptr<Light> GetLight(tinyxml2::XMLElement *element);
 	};
 }
 

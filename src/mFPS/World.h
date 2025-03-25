@@ -9,6 +9,7 @@
 namespace mGL
 {
 	class Light;
+	class LightsManager;
 }
 
 namespace mFPS
@@ -21,12 +22,13 @@ namespace mFPS
 		void AddRenderableObject(std::shared_ptr<mGL::RenderableObject> renderableObject);
 		const std::vector<std::shared_ptr<mGL::RenderableObject>> GetRenderableObjects() const;
 		void FromXML(const std::string &path);
+		void Update(const float &deltaTime);
 #ifdef EDITOR_MODE
 		void ShowImGui();
 #endif
 	private:
 		std::vector<std::shared_ptr<mGL::RenderableObject>> mRenderableObjects;
-		std::vector<mGL::Light *> mLights;
+		std::unique_ptr<mGL::LightsManager> mLightsManager;
 	};
 }
 

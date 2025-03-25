@@ -15,5 +15,9 @@
 		<light type="Ambient" name="AmbientLight1">
 			<data color="1 1 1" intensity="1"/>
 		</light>
+		<light type="Point" name="PointLight1">
+			<data color="1 1 1" intensity="1" minIntensity="0" range="10"/>
+			<transform position="0 5 0"/>
+		</light>
 	</lights>
 </world>

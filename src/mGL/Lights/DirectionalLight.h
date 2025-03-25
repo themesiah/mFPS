@@ -14,7 +14,7 @@ namespace mGL
 
 	protected:
 #ifdef EDITOR_MODE
-		virtual void ShowImGui() override;
+		virtual bool ShowImGui() override;
 #endif
 	private:
 		glm::vec4 mDirection;

@@ -44,20 +44,20 @@ namespace mBase
             return m_ResourcesMap.find(aName) != m_ResourcesMap.end();
         }
 
-        void Remove(const std::string &aName)
+        virtual void Remove(const std::string &aName)
         {
             MapResourceValue l_ResourceValue = m_ResourcesMap[aName];
             size_t index = l_ResourceValue.m_Id;
-            CheckedDelete(m_ResourcesVector[index]);
-            CheckedDelete(m_ResourcesMap[aName]);
+            // CheckedDelete(m_ResourcesVector[index]);
+            // CheckedDelete(m_ResourcesMap[aName]);
             m_ResourcesMap.erase(aName);
             m_ResourcesVector.erase(m_ResourcesVector.begin() + index);
             for (auto lItb = m_ResourcesMap.begin(); lItb != m_ResourcesMap.end(); ++lItb)
             {
-                if (lItb->second->m_Id > index)
-                {
-                    lItb->second->m_Id--;
-                }
+                // if (lItb->second->m_Id > index)
+                //{
+                //     lItb->second->m_Id--;
+                // }
             }
         }
 

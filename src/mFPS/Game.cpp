@@ -17,11 +17,11 @@ namespace mFPS
 {
 	Game::Game() : mDeltaTime(0.0f), mLastFrame(0.0f)
 	{
-		mWorld = std::shared_ptr<World>(new World());
-		mRenderer = std::shared_ptr<mGL::Renderer>(new mGL::Renderer());
-		mCamera = std::shared_ptr<CameraBase>(new FPSCamera());
-		mInputManager = std::shared_ptr<InputManager>(new InputManager());
-		mActionManager = std::shared_ptr<ActionManager>(new ActionManager(mInputManager));
+		mWorld = std::make_shared<World>();
+		mRenderer = std::make_shared<mGL::Renderer>();
+		mCamera = std::make_shared<FPSCamera>();
+		mInputManager = std::make_shared<InputManager>();
+		mActionManager = std::make_shared<ActionManager>(mInputManager);
 	}
 
 	Game::~Game()
@@ -29,7 +29,6 @@ namespace mFPS
 		mRenderer->Terminate();
 		mRenderer.reset();
 		mCamera.reset();
-		delete mWindow;
 	}
 
 	int Game::Initialize(const int &width, const int &height)
@@ -77,6 +76,7 @@ namespace mFPS
 		}
 
 		mCamera->Update(mDeltaTime, mActionManager.get());
+		mWorld->Update(mDeltaTime);
 
 #ifdef EDITOR_MODE
 		ImGui_ImplOpenGL3_NewFrame();
