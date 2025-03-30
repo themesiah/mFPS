@@ -66,6 +66,7 @@ namespace mFPS
 					}
 				}
 
+				mLightsManager->InitBuffers();
 				tinyxml2::XMLElement *lights = world->FirstChildElement("lights");
 				if (lights != NULL)
 				{
@@ -97,7 +98,7 @@ namespace mFPS
 	{
 		if (ImGui::CollapsingHeader("World"))
 		{
-			ImGui::Indent(1.0f);
+			ImGui::Indent(10.0f);
 			if (ImGui::CollapsingHeader("Objects"))
 			{
 				for (size_t i = 0; i < mRenderableObjects.size(); ++i)
@@ -111,7 +112,7 @@ namespace mFPS
 				mLightsManager->ShowImGui();
 				ImGui::Spacing();
 			}
-			ImGui::Unindent(1.0f);
+			ImGui::Unindent(10.0f);
 		}
 	}
 #endif

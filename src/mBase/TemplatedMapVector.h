@@ -34,12 +34,12 @@ namespace mBase
             Destroy();
         }
 
-        size_t GetCount()
+        size_t GetCount() const
         {
             return m_ResourcesVector.size();
         }
 
-        bool Exist(const std::string &aName)
+        bool Exist(const std::string &aName) const
         {
             return m_ResourcesMap.find(aName) != m_ResourcesMap.end();
         }
@@ -61,12 +61,12 @@ namespace mBase
             }
         }
 
-        virtual std::shared_ptr<T> operator[](size_t aId)
+        virtual std::shared_ptr<T> operator[](size_t aId) const
         {
             return m_ResourcesVector[aId];
         }
 
-        virtual std::shared_ptr<T> operator()(const std::string &aName)
+        virtual std::shared_ptr<T> operator()(const std::string &aName) const
         {
             auto lItfind = m_ResourcesMap.find(aName);
             return (lItfind != m_ResourcesMap.end()) ? lItfind->second.m_Value : nullptr;

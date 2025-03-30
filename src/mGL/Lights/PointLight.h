@@ -5,12 +5,22 @@
 
 namespace mGL
 {
+
+    struct PointLightBuffer
+    {
+        glm::vec4 colorIntensity;
+        glm::vec4 positionRange;
+        glm::mat4 matrix;
+    };
+
     class PointLight : public Light
     {
     public:
         PointLight(tinyxml2::XMLElement *element);
         virtual ~PointLight();
-        void Set() override;
+        void Set(const size_t &offset) override;
+        virtual BindBufferTarget GetBindBufferTarget() const override { return BindBufferTarget::Point; };
+        virtual size_t GetBufferSize() const override { return sizeof(PointLightBuffer); };
 
     protected:
 #ifdef EDITOR_MODE
@@ -18,7 +28,6 @@ namespace mGL
 #endif
     private:
         float mRange;
-        float mMinIntensity;
     };
 }
 

@@ -87,7 +87,12 @@ namespace mGL
 		bool dirty = false;
 		if (ImGui::TreeNode(mName.c_str()))
 		{
-			ImGui::Indent(1.0f);
+			ImGui::Indent(10.0f);
+			if (ImGui::SliderFloat3("Position", &(*mMatrix)[3][0], -100.0f, 100.0f))
+			{
+				dirty = true;
+			}
+
 			if (ImGui::SliderFloat("Intensity", &mIntensity, 0.0f, 1.0f))
 			{
 				dirty = true;
@@ -99,7 +104,7 @@ namespace mGL
 			}
 			if (ShowImGui())
 				dirty = true;
-			ImGui::Unindent(1.0f);
+			ImGui::Unindent(10.0f);
 			ImGui::TreePop();
 		}
 		return dirty;

@@ -3,9 +3,12 @@
 #include "../Material/Material.h"
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtx/matrix_decompose.hpp>
+#include <glm/gtx/quaternion.hpp>
 #include "ImGui/imgui.h"
 #include "XML/tinyxml2.h"
 #include "XML/XML.h"
+
+#include "Logger.h"
 
 namespace mGL
 {
@@ -77,9 +80,25 @@ namespace mGL
 	{
 		if (ImGui::TreeNode(mName.c_str()))
 		{
-			ImGui::Indent(1.0f);
-			ImGui::Text("Nothing to see here yet");
-			ImGui::Unindent(1.0f);
+			ImGui::Indent(10.0f);
+			glm::vec3 translation, scale, skew;
+			glm::vec4 perspective;
+			glm::quat oldRotation;
+
+			// Decompose the matrix
+			glm::decompose(*mMatrix, scale, oldRotation, translation, skew, perspective);
+
+			if (ImGui::SliderFloat3("Position", &(*mMatrix)[3][0], -100.0f, 100.0f))
+			{
+			}
+			if (ImGui::SliderFloat4("Rotation", &oldRotation.x, -1, 1))
+			{
+				oldRotation = glm::normalize(oldRotation);
+				glm::mat4 newRotationMatrix = glm::toMat4(oldRotation);
+
+				*mMatrix = glm::translate(glm::mat4(1.0f), translation) * newRotationMatrix * glm::scale(glm::mat4(1.0f), scale);
+			}
+			ImGui::Unindent(10.0f);
 			ImGui::TreePop();
 		}
 	}

@@ -5,12 +5,20 @@
 
 namespace mGL
 {
+	struct DirectionalLightBuffer
+	{
+		glm::vec4 direction;
+		glm::vec4 colorIntensity;
+	};
+
 	class DirectionalLight : public Light
 	{
 	public:
 		DirectionalLight(tinyxml2::XMLElement *element);
 		virtual ~DirectionalLight();
-		void Set() override;
+		void Set(const size_t &offset) override;
+		virtual BindBufferTarget GetBindBufferTarget() const override { return BindBufferTarget::Directional; };
+		virtual size_t GetBufferSize() const override { return sizeof(DirectionalLightBuffer); };
 
 	protected:
 #ifdef EDITOR_MODE

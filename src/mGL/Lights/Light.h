@@ -12,6 +12,12 @@ namespace tinyxml2
 
 namespace mGL
 {
+	enum BindBufferTarget
+	{
+		Directional = 3,
+		Ambient = 4,
+		Point = 5
+	};
 	class RenderableObject;
 	class RenderableModel;
 	class Light
@@ -19,11 +25,14 @@ namespace mGL
 	public:
 		Light(tinyxml2::XMLElement *element);
 		virtual ~Light();
-		virtual void Set() = 0;
+		virtual void Set(const size_t &offset) = 0;
 		std::shared_ptr<glm::mat4> GetMatrix() const;
 		std::string GetName() const;
 		void SetColor(const glm::vec3 &color);
 		void SetIntensity(const float &intensity);
+		virtual BindBufferTarget GetBindBufferTarget() const = 0;
+		virtual size_t GetBufferSize() const = 0;
+
 #ifdef EDITOR_MODE
 		bool StartImGui();
 		std::shared_ptr<RenderableObject> GetIcon() const;

@@ -16,42 +16,38 @@ namespace mGL
     PointLight::PointLight(tinyxml2::XMLElement *element) : Light(element)
     {
         tinyxml2::XMLElement *dataElement = element->FirstChildElement("data");
-        mMinIntensity = 0;
         mRange = 0;
-        dataElement->QueryFloatAttribute("minIntensity", &mMinIntensity);
         dataElement->QueryFloatAttribute("range", &mRange);
     }
 
     PointLight::~PointLight() {}
 
-    void PointLight::Set()
+    void PointLight::Set(const size_t &offset)
     {
-        struct
-        {
-            float range;
-            float minIntensity;
-            glm::vec4 colorIntensity;
-            glm::vec3 position;
-        } data;
+        PointLightBuffer data;
 
-        data.range = mRange;
-        data.minIntensity = mMinIntensity;
         data.colorIntensity.x = mColor.x;
         data.colorIntensity.y = mColor.y;
         data.colorIntensity.z = mColor.z;
         data.colorIntensity.w = mIntensity;
+        data.matrix = *mMatrix;
 
-        data.position = glm::vec3((*mMatrix.get())[3]);
+        glm::vec3 pos = glm::vec3((*mMatrix.get())[3]);
+        data.positionRange = glm::vec4(pos.x, pos.y, pos.z, mRange);
 
-        glBindBuffer(GL_SHADER_STORAGE_BUFFER, mSSBO);
-        glBufferData(GL_SHADER_STORAGE_BUFFER, sizeof(data), &data, GL_STATIC_DRAW);
-        glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 5, mSSBO);
+        glBufferSubData(GL_SHADER_STORAGE_BUFFER, offset, sizeof(data), &data);
     }
 
 #ifdef EDITOR_MODE
     bool PointLight::ShowImGui()
     {
-        return false;
+        bool dirty = false;
+        if (ImGui::SliderFloat("Range", &mRange, 0.0f, 50.0f))
+        {
+            dirty = true;
+        }
+
+        return dirty;
     }
 #endif
 }

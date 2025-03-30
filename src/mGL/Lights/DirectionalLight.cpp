@@ -30,13 +30,9 @@ namespace mGL
 	{
 	}
 
-	void DirectionalLight::Set()
+	void DirectionalLight::Set(const size_t &offset)
 	{
-		struct
-		{
-			glm::vec4 direction;
-			glm::vec4 colorIntensity;
-		} data;
+		DirectionalLightBuffer data;
 
 		data.direction = mDirection;
 		data.direction.y *= -1.0f;
@@ -45,9 +41,7 @@ namespace mGL
 		data.colorIntensity.z = mColor.z;
 		data.colorIntensity.w = mIntensity;
 
-		glBindBuffer(GL_SHADER_STORAGE_BUFFER, mSSBO);
-		glBufferData(GL_SHADER_STORAGE_BUFFER, sizeof(data), &data, GL_STATIC_DRAW);
-		glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 3, mSSBO);
+		glBufferSubData(GL_SHADER_STORAGE_BUFFER, offset, sizeof(data), &data);
 	}
 
 #ifdef EDITOR_MODE

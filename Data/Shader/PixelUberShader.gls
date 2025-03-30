@@ -8,29 +8,73 @@ uniform bool use_tint;
 in vec2 TexCoord;
 in vec3 FragPos;
 in vec3 Normal;
+in vec3 WorldSpacePos;
 
 uniform vec4 tint;
 uniform sampler2D albedo;
 
+struct directional_light
+{
+	vec4 dir;
+	vec4 color_intensity;
+};
+
+struct ambient_light
+{
+	vec4 color_intensity;
+};
+
+struct point_light
+{
+	vec4 color_intensity;
+	vec4 position_range;
+};
+
 layout(std430, binding = 3) buffer lightLayout
 {
-	vec4 direction;
-	vec4 color_intensity;
-    //float data_SSBO[];
+	directional_light[] dir_light;
 };
 
 layout(std430, binding = 4) buffer ambientLightLayout
 {
-	vec4 ambient_color_intensity;
+	ambient_light[] amb_light;
 };
 
-/*layout(std430, binding = 5) buffer pointLightLayout
+layout(std430, binding = 5) buffer pointLightLayout
 {
-	float range;
-	float minIntensity;
-	vec4 color_intensity;
-	vec3 position;
-};*/
+	point_light[] p_light;
+};
+
+vec3 get_light_influence(vec3 norm)
+{
+	vec3 color = vec3(0,0,0);
+	for(int i = 0; i < amb_light.length(); ++i)
+	{
+		color += amb_light[i].color_intensity.xyz * amb_light[i].color_intensity.w;
+	}
+
+	for(int i = 0; i < dir_light.length(); ++i)
+	{
+		vec3 lightDir = normalize(dir_light[i].dir.xyz);
+		float diff = max(dot(norm, lightDir), 0.0) * dir_light[i].color_intensity.w;
+		color += dir_light[i].color_intensity.xyz * diff;
+	}
+
+	for(int i = 0; i < p_light.length(); ++i)
+	{
+		vec3 lightPos = p_light[i].position_range.xyz;
+		float distance = distance(WorldSpacePos, lightPos);
+		if (p_light[i].position_range.w > distance)
+		{
+			vec3 lightDir = normalize(lightPos - WorldSpacePos);
+			float t = 1 - (distance / p_light[i].position_range.w);
+			t = t * max(dot(norm, lightDir), 0.0);
+			color += mix(vec3(0,0,0), p_light[i].color_intensity.xyz, t) * p_light[i].color_intensity.w;
+		}
+	}
+
+	return color;
+}
 
 void main() {
 	frag_color = vec4(1.0, 1.0, 1.0, 1.0);
@@ -44,13 +88,9 @@ void main() {
 	}
 	
 	vec3 norm = normalize(Normal);
-	// Diffuse light
-	vec3 lightDir = normalize(vec3(direction.x, direction.y, direction.z));
-	float diff = max(dot(norm, lightDir), 0.0) * color_intensity.w;
-	vec4 colorDiff = vec4(color_intensity.xyz * diff, 1.0) + vec4(ambient_color_intensity.xyz * ambient_color_intensity.w, 1.0);
 	
 	// Specular light
-	frag_color = frag_color * colorDiff;
+	frag_color = frag_color * vec4(get_light_influence(norm), 1.0);
 	
 	// frag_color = vec4(oNormal.x, oNormal.y, oNormal.z, 1.0); // Uncomment to test normals
 }

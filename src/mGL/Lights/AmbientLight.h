@@ -5,12 +5,19 @@
 
 namespace mGL
 {
+	struct AmbientLightBuffer
+	{
+		glm::vec4 colorIntensity;
+	};
+
 	class AmbientLight : public Light
 	{
 	public:
 		AmbientLight(tinyxml2::XMLElement *element);
 		virtual ~AmbientLight();
-		void Set() override;
+		void Set(const size_t &offset) override;
+		virtual BindBufferTarget GetBindBufferTarget() const override { return BindBufferTarget::Ambient; };
+		virtual size_t GetBufferSize() const override { return sizeof(AmbientLightBuffer); };
 
 	protected:
 #ifdef EDITOR_MODE
